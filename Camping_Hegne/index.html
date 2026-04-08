@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Camping Hegne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
+body{overflow-x:hidden;width:100%;font-family:'Inter',system-ui,sans-serif;background:#fff;color:#111;-webkit-font-smoothing:antialiased;line-height:1.6;}
+:root{--p:#478e27;--a:#e1e6db;--bg:#f7f6f4;--border:#e5e7eb;--muted:#6b7280;--r:14px;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:62px;transition:box-shadow .2s;}
+.nav.sh{box-shadow:0 2px 20px rgba(0,0,0,.07);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-phone{font-size:13px;color:var(--muted);text-decoration:none;}
+.nav-phone:hover{color:var(--p);}
+.nav-cta{background:var(--p);color:#fff;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .15s;}
+.nav-cta:hover{opacity:.85;}
+
+/* HERO */
+.hero{background:linear-gradient(150deg,#478e27 0%,#478e27ee 100%);min-height:92vh;display:flex;align-items:center;padding:80px 24px;position:relative;overflow:hidden;width:100%;}
+.hero-inner{max-width:660px;width:100%;}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.92);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:22px;}
+.hero h1{font-size:clamp(2.4rem,7vw,4.8rem);font-weight:900;line-height:1.07;color:#fff;letter-spacing:-.03em;margin-bottom:18px;}
+.hero-sub{font-size:clamp(.95rem,2.5vw,1.18rem);color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:34px;max-width:100%;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-p{background:var(--a);color:var(--p);padding:14px 28px;border-radius:100px;font-size:14.5px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.22);transition:transform .2s,box-shadow .2s;display:inline-block;}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.28);}
+.btn-g{border:1.5px solid rgba(255,255,255,.38);color:rgba(255,255,255,.88);padding:13px 26px;border-radius:100px;font-size:14.5px;font-weight:500;text-decoration:none;transition:border-color .2s,background .2s;display:inline-block;}
+.btn-g:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);}
+
+/* SECTIONS */
+.sec{padding:72px 24px;}
+.sec-white{background:#fff;}
+.sec-grey{background:var(--bg);}
+.sec-dark{background:var(--p);}
+.wrap{max-width:960px;margin:0 auto;width:100%;}
+.wrap-sm{max-width:560px;margin:0 auto;width:100%;}
+.center{text-align:center;}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--a);margin-bottom:8px;}
+.sec-label.light{opacity:.85;}
+.sec-title{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;letter-spacing:-.025em;line-height:1.15;color:var(--p);margin-bottom:36px;}
+.sec-title.white{color:#fff;margin-bottom:14px;}
+.sub{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:0;line-height:1.7;}
+
+/* ÜBER UNS */
+.body-text{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:20px;}
+.photo-box{border-radius:18px;height:340px;background-size:cover;background-position:center;}
+.link-out{display:inline-block;font-size:13.5px;font-weight:600;color:var(--p);text-decoration:none;border-bottom:2px solid var(--a);padding-bottom:2px;}
+.link-out:hover{opacity:.75;}
+
+/* GRID */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+
+/* CARDS */
+.card{border-radius:var(--r);padding:30px 26px;}
+.card h3{font-size:1rem;font-weight:700;color:var(--p);margin-bottom:8px;}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.65;}
+.card-icon{font-size:2rem;margin-bottom:14px;}
+.c-border{background:#fff;border:1px solid var(--border);transition:transform .2s,box-shadow .2s,border-color .2s;}
+.c-border:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.08);border-color:var(--a);}
+.c-primary{background:var(--p);}
+.c-primary h3{color:#fff;}
+.c-primary p{color:rgba(255,255,255,.62);}
+.price{margin-top:14px;font-size:1.2rem;font-weight:800;color:var(--p);}
+.price.bright{color:var(--a);}
+
+/* REVIEWS */
+.review{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:26px;}
+.stars{color:var(--a);font-size:1rem;margin-bottom:10px;}
+.review p{font-size:13.5px;color:#374151;line-height:1.7;font-style:italic;margin-bottom:12px;}
+.review span{font-size:12.5px;font-weight:600;color:var(--p);}
+
+/* HOURS */
+.htable{width:100%;border-collapse:collapse;font-size:14.5px;margin-bottom:20px;}
+.htable tr{border-bottom:1px solid var(--border);}
+.htable tr:last-child{border-bottom:none;}
+.htable td{padding:10px 0;color:var(--muted);}
+.htable td:last-child{font-weight:600;color:var(--p);text-align:right;font-size:13px;word-break:break-word;max-width:200px;}
+.cinfo{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+.clink{font-size:13.5px;color:var(--muted);text-decoration:none;}
+.clink:hover{color:var(--p);}
+.hours-box{background:var(--p);border-radius:18px;padding:36px;text-align:center;}
+.hours-box p{color:rgba(255,255,255,.62);font-size:14.5px;line-height:1.75;}
+
+/* MENU */
+.menu-cols{gap:18px;}
+.menu-card{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:26px;}
+.mcat{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--a);margin-bottom:14px;}
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.mrow.last{border-bottom:none;}
+.mrow span:last-child{font-weight:700;color:var(--p);}
+
+/* BOOKING */
+.book-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);padding:26px;text-align:left;margin-top:28px;}
+.book-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.book-field label{display:block;font-size:11px;color:rgba(255,255,255,.45);font-weight:600;letter-spacing:.5px;margin-bottom:5px;}
+.fval{background:rgba(255,255,255,.1);border-radius:8px;padding:11px 14px;color:#fff;font-size:14.5px;}
+.fval.dim{color:rgba(255,255,255,.35);}
+.fval.tall{min-height:72px;}
+.fake-btn{background:var(--a);color:var(--p);text-align:center;padding:13px;border-radius:9px;font-weight:700;font-size:14.5px;cursor:default;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.gallery-tall .gitem{height:220px;}
+.gitem{border-radius:var(--r);height:160px;background-size:cover;background-position:center;}
+
+/* MAP */
+.map-wrap{margin-bottom:16px;}
+.contact-row{display:flex;gap:24px;flex-wrap:wrap;align-items:center;margin-top:4px;}
+
+/* FOOTER */
+.footer{background:#111;padding:28px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid #222;}
+.footer-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.5);}
+.footer-credit{font-size:11.5px;color:rgba(255,255,255,.25);}
+.footer-credit a{color:rgba(255,255,255,.38);text-decoration:none;}
+.footer-credit a:hover{color:rgba(255,255,255,.6);}
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media(max-width:700px){
+  .nav{padding:0 16px;height:58px;}
+  .nav-phone{display:none;}
+  .hero{padding:56px 20px 64px;min-height:88vh;}
+  .hero h1{font-size:2.4rem;}
+  .hero-sub{font-size:1rem;}
+  .hero-btns{flex-direction:column;}
+  .btn-p,.btn-g{text-align:center;}
+  .sec{padding:52px 20px;}
+  .grid3{grid-template-columns:1fr;}
+  .cols2{grid-template-columns:1fr;gap:28px;}
+  .menu-cols{grid-template-columns:1fr;}
+  .book-row{grid-template-columns:1fr;}
+  .htable td:last-child{font-size:12px;max-width:160px;}
+  .gallery{grid-template-columns:repeat(2,1fr);}
+  .gallery .gitem:last-child{display:none;}
+  .photo-box{height:220px;}
+  .footer{flex-direction:column;align-items:flex-start;}
+  .hours-box{padding:28px 20px;}
+  .contact-row{flex-direction:column;gap:8px;align-items:flex-start;}
+}
+@media(max-width:380px){
+  .hero h1{font-size:2rem;}
+  .sec-title{font-size:1.6rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <img src="https://camping-hegne.de/wp-content/uploads/2025/02/Logo_Camping_Hegne_300w.gif.pagespeed.ce.khzKFdNTAo.gif" alt="Camping Hegne" style="height:38px;width:auto;display:block;object-fit:contain;">
+  <div class="nav-right">
+    <a href="tel:+49 7533 9493913" class="nav-phone">📞 +49 7533 9493913</a>
+    <a href="#reservierung" class="nav-cta">Tisch reservieren</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Restaurant · Allensbach</span>
+    <h1>Camping Hegne</h1>
+    <p class="hero-sub">Campinghegne</p>
+    <div class="hero-btns">
+      <a href="#reservierung" class="btn-p">Tisch reservieren →</a>
+      <a href="tel:+49 7533 9493913" class="btn-g">📞 +49 7533 9493913</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec sec-white" id="ueber">
+  <div class="wrap cols2">
+    <div>
+      <p class="sec-label">Über uns</p>
+      <h2 class="sec-title">Camping Hegne</h2>
+      <p class="body-text">Camping Bodensee: Dein Campingparadies in Hegne am See. Genieße die Ruhe und Natur auf unserem familienfreundlichen Campingplatz.</p>
+      <a href="https://camping-hegne.de" class="link-out" target="_blank" rel="noopener">Aktuelle Website →</a>
+    </div>
+    <div class="photo-box" style="background:linear-gradient(135deg,#478e2755,#e1e6db55);"></div>
+  </div>
+</section>
+
+<section class="sec sec-grey" id="oeffnungszeiten">
+  <div class="wrap cols2" style="align-items:center;">
+    <div>
+      <p class="sec-label">Öffnungszeiten</p>
+      <h2 class="sec-title">Wir freuen uns<br>auf Ihren Besuch.</h2>
+      <table class="htable">
+        <tr><td>Mar</td><td>15–Oct 15 08:00–21:00</td></tr>
+      </table>
+      <div class="cinfo">
+        <a href="tel:+49 7533 9493913" class="clink">📞 +49 7533 9493913</a>
+        <span class="clink">📍 Nachtwaid 1, Allensbach</span>
+      </div>
+    </div>
+    <div class="hours-box">
+      <div style="font-size:3rem;margin-bottom:12px;">🍽</div>
+      <p>Küchenschluss 30 Min.<br>vor Schliesszeit.<br><br>Reservierung empfohlen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-white" id="menu">
+  <div class="wrap">
+    <p class="sec-label">Unsere Karte</p>
+    <h2 class="sec-title">Menü-Highlights</h2>
+    <div class="cols2 menu-cols">
+      <div class="menu-card">
+        <div class="mcat">Vorspeisen</div>
+        <div class="mrow"><span>Hausgemachte Suppe</span><span>CHF 8.50</span></div>
+        <div class="mrow"><span>Gemischter Salat</span><span>CHF 12.00</span></div>
+        <div class="mrow last"><span>Bruschetta regional</span><span>CHF 9.50</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="mcat">Hauptgänge</div>
+        <div class="mrow"><span>Zürcher Geschnetzeltes</span><span>CHF 34.00</span></div>
+        <div class="mrow"><span>Tagesmenü</span><span>CHF 22.00</span></div>
+        <div class="mrow last"><span>Vegane Tagesempfehlung</span><span>CHF 24.00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-grey" id="galerie">
+  <div class="wrap">
+    <p class="sec-label">Galerie</p>
+    <h2 class="sec-title">Einblicke.</h2>
+    <div class="gallery gallery-tall">
+      <div class="gitem" style="background:linear-gradient(135deg,#478e2755,#e1e6db55);"></div>
+      <div class="gitem" style="background:#478e27;"></div>
+      <div class="gitem" style="background:#e1e6db;"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="reservierung">
+  <div class="wrap wrap-sm center">
+    <p class="sec-label light">Tisch reservieren</p>
+    <h2 class="sec-title white">Reservieren Sie<br>Ihren Tisch online.</h2>
+    <p class="sub light">Datum, Uhrzeit und Personenzahl — wir bestätigen per Mail.</p>
+    <div class="book-card">
+      <div class="book-row">
+        <div class="book-field"><label>Datum</label><div class="fval">TT.MM.JJJJ</div></div>
+        <div class="book-field"><label>Uhrzeit</label><div class="fval">18:00 Uhr</div></div>
+      </div>
+      <div class="book-field" style="margin-bottom:18px;"><label>Personen</label><div class="fval">2 Personen</div></div>
+      <div class="fake-btn">Jetzt reservieren →</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-white" id="bewertungen">
+  <div class="wrap">
+    <p class="sec-label">Gästestimmen</p>
+    <h2 class="sec-title">Was unsere Gäste sagen.</h2>
+    <div class="grid3">
+      <div class="review"><div class="stars">★★★★★</div><p>«Fantastisches Essen, herzliche Bedienung. Wir kommen immer wieder.»</p><span>— Familie Müller</span></div>
+      <div class="review"><div class="stars">★★★★★</div><p>«Die regionalen Spezialitäten sind unschlagbar. Sehr empfehlenswert!»</p><span>— Thomas K.</span></div>
+      <div class="review"><div class="stars">★★★★★</div><p>«Perfekte Location für Geschäftsessen. Top Service, tolle Atmosphäre.»</p><span>— Sandra B.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-grey" id="karte">
+  <div class="wrap">
+    <p class="sec-label">Anfahrt</p>
+    <h2 class="sec-title">So finden Sie uns.</h2>
+    <div class="map-wrap">
+      <iframe src="https://maps.google.com/maps?q=Camping%20Hegne%2C%20Nachtwaid%201%2C%20Allensbach&output=embed&hl=de" width="100%" height="380" style="border:0;border-radius:14px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-name">© 2025 Camping Hegne</span>
+  <span class="footer-credit">Entwurf erstellt von <a href="https://droplaunch.de" target="_blank" rel="noopener">droplaunch.de</a> — unverbindlich &amp; kostenlos</span>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sh',scrollY>10),{passive:true});
+</script>
+</body>
+</html>
