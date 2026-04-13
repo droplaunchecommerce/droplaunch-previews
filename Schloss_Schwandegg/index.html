@@ -159,22 +159,49 @@ section{padding:96px 32px}
 .reveal-delay-2{transition-delay:.2s}
 .reveal-delay-3{transition-delay:.3s}
 
+/* BURGER */
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-burger span{display:block;height:2px;border-radius:2px;background:#fff;transition:all .3s}
+.nav.scrolled .nav-burger span{background:var(--c-dark)}
+.nav-mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.96);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu a{color:#fff;text-decoration:none;font-size:22px;font-family:var(--font-display);font-weight:400;letter-spacing:.5px;transition:color .2s}
+.nav-mobile-menu a:hover{color:var(--c-accent)}
+.nav-mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+
 /* MOBILE */
 @media(max-width:768px){
-  .nav-links{display:none}
-  .hero h1{font-size:38px}
-  .ueber-grid{grid-template-columns:1fr;gap:36px}
-  .ueber-photo{height:280px}
-  .galerie-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .nav-links,.nav-cta-btn{display:none}
+  .nav-burger{display:flex}
+  .hero h1{font-size:clamp(30px,8vw,42px)}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;gap:10px}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .ueber-grid{grid-template-columns:1fr;gap:32px}
+  .ueber-photo{height:240px;order:2}
+  .ueber-text{order:1}
+  .galerie-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px}
   .galerie-grid .g-item:nth-child(1){grid-row:auto;grid-column:auto}
   .galerie-grid .g-item:nth-child(4){grid-column:auto}
-  .galerie-grid .g-item{height:200px}
-  .footer-top{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr;gap:32px}
   .map-info{flex-direction:column;align-items:flex-start}
+  .map-wrap{height:280px}
   .bew-grid{grid-template-columns:1fr}
-  section{padding:64px 20px}
+  .cta-banner{padding:56px 20px}
+  section{padding:56px 20px}
   .hero-content{padding:0 20px}
   .nav-inner{padding:0 20px}
+  .leistungen-grid{grid-template-columns:1fr;gap:16px}
+  .leistung-card{padding:24px 20px}
+  .bew-overall .score{font-size:32px}
+  .footer{padding:48px 20px 28px}
+}
+@media(max-width:400px){
+  .hero h1{font-size:28px}
+  .hero-tag{font-size:10px}
+  .section-title{font-size:26px}
+  .galerie-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .galerie-grid .g-item{height:180px}
 }
 </style>
 </head>
@@ -193,8 +220,20 @@ section{padding:96px 32px}
     <li><a href="#standort">Standort</a></li>
   </ul>
   <a href="#kontakt" class="nav-cta-btn">Tisch reservieren</a>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 </nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" id="mobileClose">&#x2715;</button>
+  <a href="#leistungen" class="mobile-link">Leistungen</a>
+  <a href="#galerie" class="mobile-link">Galerie</a>
+  <a href="#bewertungen" class="mobile-link">Bewertungen</a>
+  <a href="#standort" class="mobile-link">Standort</a>
+  <a href="#kontakt" class="mobile-link" style="color:var(--c-accent);font-weight:700;">Tisch reservieren</a>
+</div>
 
 <section class="hero">
   <div class="hero-bg"></div>
@@ -388,6 +427,16 @@ document.addEventListener('keydown',e=>{
 });
 document.addEventListener('dragstart',e=>e.preventDefault());
 console.log('%c⚠️ Dies ist ein geschützter Entwurf von DropLaunch.','color:red;font-size:18px;font-weight:bold');
+
+// Hamburger Menü
+const burger=document.getElementById('navBurger');
+const mMenu=document.getElementById('mobileMenu');
+const mClose=document.getElementById('mobileClose');
+if(burger&&mMenu){
+  burger.addEventListener('click',()=>mMenu.classList.add('open'));
+  mClose&&mClose.addEventListener('click',()=>mMenu.classList.remove('open'));
+  mMenu.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>mMenu.classList.remove('open')));
+}
 
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>80),{passive:true});
