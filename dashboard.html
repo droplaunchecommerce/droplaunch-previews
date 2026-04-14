@@ -6,15 +6,7 @@
 <title>DropLaunch — Outreach Dashboard</title>
 <script>
 (function(){
-  var h = "8a93e2ebde861a0e65a735b82f3fb3cf3736cd2eeaffc67abe8f9f9e8c0b3a4e";
-  function sha256(s){
-    // simple hash check via stored hash
-    var stored = sessionStorage.getItem("dl_auth");
-    if(stored === "1") return true;
-    return false;
-  }
   function hashStr(str){
-    // FNV-like hash for client-side check (not crypto, just access control)
     var hash = 0x811c9dc5;
     for(var i=0;i<str.length;i++){
       hash ^= str.charCodeAt(i);
@@ -41,8 +33,18 @@
   .header { background: #1a1a2e; border-bottom: 1px solid #2d2d44; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
   .header-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
   .header-logo span { color: #4F46E5; }
-  .header-meta { font-size: 12px; color: #6b7280; }
-  .last-updated { font-size: 12px; color: #4F46E5; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0; background: #1a1a2e; border-bottom: 1px solid #2d2d44; padding: 0 32px; }
+  .tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .tab:hover { color: #e2e8f0; }
+  .tab.active { color: #4F46E5; border-bottom-color: #4F46E5; }
+  .tab-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; }
+  .tab-dot.outreach { background: #4F46E5; }
+  .tab-dot.shopify { background: #22c55e; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
 
   .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
 
@@ -51,13 +53,17 @@
   .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #6b7280; margin-bottom: 8px; }
   .stat-value { font-size: 36px; font-weight: 800; color: #fff; line-height: 1; }
   .stat-sub { font-size: 12px; color: #6b7280; margin-top: 6px; }
-  .stat-card.highlight { border-color: #4F46E5; background: linear-gradient(135deg, #1a1a2e, #1e1b4b); }
-  .stat-card.highlight .stat-value { color: #818cf8; }
+  .stat-card.highlight-indigo { border-color: #4F46E5; background: linear-gradient(135deg, #1a1a2e, #1e1b4b); }
+  .stat-card.highlight-indigo .stat-value { color: #818cf8; }
+  .stat-card.highlight-green { border-color: #22c55e; background: linear-gradient(135deg, #1a1a2e, #0f2a1e); }
+  .stat-card.highlight-green .stat-value { color: #4ade80; }
 
   .section { background: #1a1a2e; border: 1px solid #2d2d44; border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
   .section-header { padding: 20px 24px; border-bottom: 1px solid #2d2d44; display: flex; align-items: center; justify-content: space-between; }
   .section-title { font-size: 14px; font-weight: 700; color: #fff; }
-  .section-badge { font-size: 11px; background: #4F46E5; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .section-badge { font-size: 11px; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .badge-indigo { background: #4F46E5; }
+  .badge-green  { background: #16a34a; }
 
   table { width: 100%; border-collapse: collapse; }
   th { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #6b7280; padding: 12px 24px; text-align: left; border-bottom: 1px solid #2d2d44; }
@@ -69,153 +75,237 @@
   .time { color: #6b7280; font-size: 12px; }
   .open-dot { display: inline-block; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 6px #22c55e; }
 
+  .score-pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .score-good   { background: #14532d33; color: #4ade80; }
+  .score-mid    { background: #78350f33; color: #fbbf24; }
+  .score-bad    { background: #7f1d1d33; color: #f87171; }
+
   .bar-wrap { padding: 24px; }
   .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
   .bar-label { width: 180px; font-size: 13px; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bar-track { flex: 1; background: #2d2d44; border-radius: 4px; height: 8px; overflow: hidden; }
-  .bar-fill { height: 100%; background: linear-gradient(90deg, #4F46E5, #818cf8); border-radius: 4px; transition: width 0.8s ease; }
+  .bar-fill-indigo { height: 100%; background: linear-gradient(90deg, #4F46E5, #818cf8); border-radius: 4px; }
+  .bar-fill-green  { height: 100%; background: linear-gradient(90deg, #16a34a, #22c55e); border-radius: 4px; }
   .bar-count { width: 30px; text-align: right; font-size: 13px; font-weight: 700; color: #818cf8; }
+  .bar-count-green { color: #4ade80; }
 
   .empty { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
   .empty strong { display: block; font-size: 18px; color: #374151; margin-bottom: 8px; }
 
   .refresh-btn { background: #4F46E5; color: #fff; border: none; padding: 8px 18px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
   .refresh-btn:hover { opacity: 0.85; }
-
-  .rate-badge { font-size: 13px; font-weight: 700; color: #22c55e; }
+  .last-updated { font-size: 12px; color: #4F46E5; }
 
   @media (max-width: 768px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .container { padding: 16px; }
     .header { padding: 16px; }
+    .tabs { padding: 0 16px; overflow-x: auto; }
   }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-logo">drop<span>launch</span>.de — Outreach</div>
+  <div class="header-logo">drop<span>launch</span>.de — Dashboard</div>
   <div style="display:flex;align-items:center;gap:16px;">
     <span class="last-updated" id="lastUpdated">Lädt...</span>
-    <button class="refresh-btn" onclick="load()">↻ Aktualisieren</button>
+    <button class="refresh-btn" onclick="loadAll()">↻ Aktualisieren</button>
   </div>
 </div>
 
-<div class="container">
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('outreach')" id="tab-outreach">
+    <span class="tab-dot outreach"></span>Lokale Outreach
+  </div>
+  <div class="tab" onclick="switchTab('shopify')" id="tab-shopify">
+    <span class="tab-dot shopify"></span>Shopify Audit
+  </div>
+</div>
 
-  <!-- Stats -->
-  <div class="stats-grid">
-    <div class="stat-card highlight">
-      <div class="stat-label">Gesamt-Öffnungen</div>
-      <div class="stat-value" id="totalOpens">—</div>
-      <div class="stat-sub">Mails geöffnet</div>
+<!-- PANEL: OUTREACH -->
+<div class="panel active" id="panel-outreach">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card highlight-indigo">
+        <div class="stat-label">Gesamt-Öffnungen</div>
+        <div class="stat-value" id="o-totalOpens">—</div>
+        <div class="stat-sub">Mails geöffnet</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unique Firmen</div>
+        <div class="stat-value" id="o-uniqueBiz">—</div>
+        <div class="stat-sub">verschiedene Unternehmen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Heute</div>
+        <div class="stat-value" id="o-todayOpens">—</div>
+        <div class="stat-sub">Öffnungen heute</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Letzte Öffnung</div>
+        <div class="stat-value" id="o-lastOpen" style="font-size:18px;padding-top:8px;">—</div>
+        <div class="stat-sub">zuletzt aktiv</div>
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">Unique Firmen</div>
-      <div class="stat-value" id="uniqueBiz">—</div>
-      <div class="stat-sub">verschiedene Unternehmen</div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Top Firmen nach Öffnungen</span>
+        <span class="section-badge badge-indigo" id="o-bizCount">0 Firmen</span>
+      </div>
+      <div class="bar-wrap" id="o-barChart">
+        <div class="empty"><strong>Noch keine Daten</strong>Warte auf erste Öffnungen...</div>
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">Heute</div>
-      <div class="stat-value" id="todayOpens">—</div>
-      <div class="stat-sub">Öffnungen heute</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Öffnungsrate</div>
-      <div class="stat-value" id="openRate">—</div>
-      <div class="stat-sub">basierend auf gesendeten Mails</div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Alle Öffnungen</span>
+        <span class="section-badge badge-indigo" id="o-openCount">0</span>
+      </div>
+      <div id="o-tableWrap">
+        <div class="empty"><strong>Noch keine Öffnungen</strong>Sobald jemand die Mail öffnet erscheint es hier.</div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Top Firmen -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-title">Top Firmen nach Öffnungen</span>
-      <span class="section-badge" id="bizCount">0 Firmen</span>
+<!-- PANEL: SHOPIFY -->
+<div class="panel" id="panel-shopify">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card highlight-green">
+        <div class="stat-label">Gesamt-Öffnungen</div>
+        <div class="stat-value" id="s-totalOpens">—</div>
+        <div class="stat-sub">Audit-Mails geöffnet</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unique Shops</div>
+        <div class="stat-value" id="s-uniqueBiz">—</div>
+        <div class="stat-sub">verschiedene Shops</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Heute</div>
+        <div class="stat-value" id="s-todayOpens">—</div>
+        <div class="stat-sub">Öffnungen heute</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Letzte Öffnung</div>
+        <div class="stat-value" id="s-lastOpen" style="font-size:18px;padding-top:8px;">—</div>
+        <div class="stat-sub">zuletzt aktiv</div>
+      </div>
     </div>
-    <div class="bar-wrap" id="barChart">
-      <div class="empty"><strong>Noch keine Daten</strong>Warte auf erste Öffnungen...</div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Top Shops nach Öffnungen</span>
+        <span class="section-badge badge-green" id="s-bizCount">0 Shops</span>
+      </div>
+      <div class="bar-wrap" id="s-barChart">
+        <div class="empty"><strong>Noch keine Daten</strong>Warte auf erste Shopify-Öffnungen...</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Alle Shopify-Öffnungen</span>
+        <span class="section-badge badge-green" id="s-openCount">0</span>
+      </div>
+      <div id="s-tableWrap">
+        <div class="empty"><strong>Noch keine Öffnungen</strong>Sobald ein Shop-Inhaber die Mail öffnet erscheint es hier.</div>
+      </div>
     </div>
   </div>
-
-  <!-- Alle Öffnungen -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-title">Alle Öffnungen</span>
-      <span class="section-badge" id="openCount">0</span>
-    </div>
-    <div id="tableWrap">
-      <div class="empty"><strong>Noch keine Öffnungen</strong>Sobald jemand die Mail öffnet erscheint es hier.</div>
-    </div>
-  </div>
-
 </div>
 
 <script>
 const SUPABASE_URL = "https://lmxwkahnlltawfrfpmli.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxteHdrYWhubGx0YXdmcmZwbWxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjQwMTksImV4cCI6MjA5MTcwMDAxOX0.XaFb_ZsmyZjATqjmOSPU5TMGArWjHuSh_M7affPIUEw";
 
-async function load() {
+function switchTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("tab-" + tab).classList.add("active");
+  document.getElementById("panel-" + tab).classList.add("active");
+}
+
+function renderPanel(prefix, data, barFillClass, countClass) {
+  const total  = data.length;
+  const unique = new Set(data.map(r => r.business_name)).size;
+  const today  = data.filter(r => new Date(r.opened_at).toDateString() === new Date().toDateString()).length;
+  const last   = data.length > 0
+    ? new Date(data[0].opened_at).toLocaleTimeString("de-CH", {hour:"2-digit", minute:"2-digit"})
+    : "—";
+
+  document.getElementById(prefix + "totalOpens").textContent = total;
+  document.getElementById(prefix + "uniqueBiz").textContent  = unique;
+  document.getElementById(prefix + "todayOpens").textContent = today;
+  document.getElementById(prefix + "lastOpen").textContent   = last;
+
+  // Bar chart
+  const counts = {};
+  data.forEach(r => counts[r.business_name] = (counts[r.business_name] || 0) + 1);
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 10);
+  const max = sorted[0]?.[1] || 1;
+  const label = prefix === "o-" ? "Firmen" : "Shops";
+  document.getElementById(prefix + "bizCount").textContent = unique + " " + label;
+
+  if (sorted.length > 0) {
+    document.getElementById(prefix + "barChart").innerHTML = sorted.map(([name, count]) => `
+      <div class="bar-row">
+        <div class="bar-label" title="${name}">${name}</div>
+        <div class="bar-track"><div class="${barFillClass}" style="width:${Math.round(count/max*100)}%"></div></div>
+        <div class="bar-count ${countClass}">${count}</div>
+      </div>`).join("");
+  }
+
+  // Table
+  document.getElementById(prefix + "openCount").textContent = total;
+  if (data.length > 0) {
+    document.getElementById(prefix + "tableWrap").innerHTML = `
+      <table>
+        <thead><tr>
+          <th>${prefix === "o-" ? "Firma" : "Shop"}</th>
+          <th>Empfänger</th>
+          <th>Zeitpunkt</th>
+        </tr></thead>
+        <tbody>${data.map(r => `
+          <tr>
+            <td><span class="open-dot"></span><span class="biz-name">${r.business_name}</span></td>
+            <td><span class="recipient">${r.recipient || "—"}</span></td>
+            <td><span class="time">${new Date(r.opened_at).toLocaleString("de-CH")}</span></td>
+          </tr>`).join("")}
+        </tbody>
+      </table>`;
+  }
+}
+
+async function loadAll() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/opens?select=*&order=opened_at.desc&limit=500`, {
-      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
-    });
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/opens?select=*&order=opened_at.desc&limit=500`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
     const data = await res.json();
 
-    // Stats
-    const total = data.length;
-    const unique = new Set(data.map(r => r.business_name)).size;
-    const today = data.filter(r => new Date(r.opened_at).toDateString() === new Date().toDateString()).length;
+    // Aufteilen nach source
+    const outreach = data.filter(r => !r.source || r.source === "outreach");
+    const shopify  = data.filter(r => r.source === "shopify");
 
-    document.getElementById("totalOpens").textContent = total;
-    document.getElementById("uniqueBiz").textContent = unique;
-    document.getElementById("todayOpens").textContent = today;
-    document.getElementById("openRate").textContent = total > 0 ? "—" : "0%";
+    renderPanel("o-", outreach, "bar-fill-indigo", "");
+    renderPanel("s-", shopify,  "bar-fill-green",  "bar-count-green");
+
     document.getElementById("lastUpdated").textContent = "Stand: " + new Date().toLocaleTimeString("de-CH");
-
-    // Bar chart
-    const counts = {};
-    data.forEach(r => counts[r.business_name] = (counts[r.business_name] || 0) + 1);
-    const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 10);
-    const max = sorted[0]?.[1] || 1;
-    document.getElementById("bizCount").textContent = unique + " Firmen";
-
-    if (sorted.length > 0) {
-      document.getElementById("barChart").innerHTML = sorted.map(([name, count]) => `
-        <div class="bar-row">
-          <div class="bar-label" title="${name}">${name}</div>
-          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(count/max*100)}%"></div></div>
-          <div class="bar-count">${count}</div>
-        </div>`).join("");
-    }
-
-    // Table
-    document.getElementById("openCount").textContent = total;
-    if (data.length > 0) {
-      document.getElementById("tableWrap").innerHTML = `
-        <table>
-          <thead><tr>
-            <th>Firma</th>
-            <th>Empfänger</th>
-            <th>Zeitpunkt</th>
-          </tr></thead>
-          <tbody>${data.map(r => `
-            <tr>
-              <td><span class="open-dot"></span><span class="biz-name">${r.business_name}</span></td>
-              <td><span class="recipient">${r.recipient || "—"}</span></td>
-              <td><span class="time">${new Date(r.opened_at).toLocaleString("de-CH")}</span></td>
-            </tr>`).join("")}
-          </tbody>
-        </table>`;
-    }
   } catch(e) {
     document.getElementById("lastUpdated").textContent = "Fehler beim Laden";
     console.error(e);
   }
 }
 
-load();
-setInterval(load, 30000); // alle 30s auto-refresh
+loadAll();
+setInterval(loadAll, 30000);
 </script>
 </body>
 </html>
