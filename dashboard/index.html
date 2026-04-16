@@ -2,7 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#07070a">
 <title>DropLaunch — Command Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -250,14 +254,131 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(15,15,18,0.92);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-top:1px solid var(--border);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  height:calc(60px + env(safe-area-inset-bottom,0px));
+}
+.mobile-nav-inner{
+  display:flex;align-items:stretch;height:60px;
+}
+.mnav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;cursor:pointer;transition:.2s;
+  padding:8px 4px;border:none;background:none;color:var(--text3);
+  -webkit-tap-highlight-color:transparent;
+}
+.mnav-item.active{color:var(--indigo)}
+.mnav-item svg{width:20px;height:20px;transition:.2s}
+.mnav-item.active svg{transform:translateY(-1px)}
+.mnav-label{font-size:10px;font-weight:600;letter-spacing:.2px;transition:.2s}
+.mnav-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--indigo);
+  margin-top:2px;
+  opacity:0;transition:.2s;
+}
+.mnav-item.active .mnav-dot{opacity:1}
+
+/* ── TAB TRANSITIONS ── */
+.tab-view{
+  animation:tabIn .25s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes tabIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
-  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;border-right:none;border-bottom:1px solid var(--border)}
-  .main{margin-left:0}
-  .hero-grid{grid-template-columns:repeat(2,1fr)}
-  .grid-3,.grid-2,.grid-3-1{grid-template-columns:1fr}
-  .content{padding:16px}
-  .topbar{padding:14px 16px}
+  /* Hide desktop sidebar */
+  .sidebar{display:none}
+  .mobile-nav{display:block}
+
+  /* Main layout */
+  .main{
+    margin-left:0;
+    padding-bottom:calc(60px + env(safe-area-inset-bottom,0px));
+  }
+
+  /* Topbar */
+  .topbar{
+    padding:14px 16px 12px;
+    padding-top:calc(14px + env(safe-area-inset-top,0px));
+    background:rgba(15,15,18,0.92);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    position:sticky;top:0;
+  }
+  .topbar-sub{display:none}
+  .topbar-title{font-size:16px}
+  .topbar-right .badge{display:none}
+
+  /* Content */
+  .content{padding:14px 12px;gap:14px}
+
+  /* Stats grid — 2 cols, compact */
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .stat-card{padding:14px 14px}
+  .stat-icon{width:28px;height:28px;font-size:13px;margin-bottom:10px}
+  .stat-num{font-size:22px;letter-spacing:-.5px}
+  .stat-label{font-size:10px}
+  .stat-delta{font-size:9px;padding:2px 5px;top:12px;right:10px}
+
+  /* Grids — all single column */
+  .grid-3,.grid-2,.grid-3-1{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  /* Cards */
+  .card{padding:16px 14px;border-radius:14px}
+  .section-title{font-size:13px}
+  .section-sub{font-size:10px}
+
+  /* Funnel */
+  .funnel-label{font-size:11px;min-width:110px}
+  .funnel-count{font-size:11px;min-width:32px}
+  .funnel-pct{font-size:10px;min-width:30px}
+
+  /* Chart */
+  .chart-wrap{height:160px}
+
+  /* Activity */
+  .act-text{font-size:11px}
+  .act-time{font-size:10px}
+
+  /* Reply cards */
+  .reply-grid{grid-template-columns:1fr 1fr}
+  .reply-mail-card{padding:14px 14px}
+  .rmc-firma{font-size:13px}
+  .rmc-top{flex-direction:column;gap:6px}
+  .rmc-meta{justify-content:flex-start}
+
+  /* Action items */
+  .action-item{padding:12px 12px}
+  .action-title{font-size:12px}
+  .action-desc{font-size:11px}
+
+  /* Region table — hide some columns */
+  .region-table th:nth-child(3),
+  .region-table td:nth-child(3),
+  .region-table th:nth-child(4),
+  .region-table td:nth-child(4){display:none}
+  .region-table td,.region-table th{padding:10px 8px;font-size:11px}
+
+  /* Auth card */
+  .auth-card{padding:32px 24px}
 }
 
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
@@ -517,6 +638,38 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
     </div>
   </div>
 </main>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mnav-item active" id="mnav-overview" onclick="showTab('overview')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="mnav-label">Start</span>
+      <div class="mnav-dot"></div>
+    </button>
+    <button class="mnav-item" id="mnav-funnel" onclick="showTab('funnel')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <span class="mnav-label">Funnel</span>
+      <div class="mnav-dot"></div>
+    </button>
+    <button class="mnav-item" id="mnav-replies" onclick="showTab('replies')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="mnav-label">Antworten</span>
+      <div class="mnav-dot"></div>
+    </button>
+    <button class="mnav-item" id="mnav-regions" onclick="showTab('regions')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="mnav-label">Regionen</span>
+      <div class="mnav-dot"></div>
+    </button>
+    <button class="mnav-item" id="mnav-actions" onclick="showTab('actions')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="mnav-label">Aufgaben</span>
+      <div class="mnav-dot"></div>
+    </button>
+  </div>
+</nav>
+
 </div><!-- /dashWrap -->
 
 <script>
@@ -630,12 +783,27 @@ async function decryptAndRenderReplies(password) {
 
 // ── TAB SWITCHING ──
 function showTab(name) {
+  // Hide all tabs
   document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = 'none');
+  // Deactivate all nav items (desktop + mobile)
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-  document.getElementById('tab-' + name).style.display = 'flex';
+  document.querySelectorAll('.mnav-item').forEach(i => i.classList.remove('active'));
+
+  // Show selected tab with animation
+  const tab = document.getElementById('tab-' + name);
+  tab.style.display = 'flex';
+  tab.classList.remove('tab-view');
+  void tab.offsetWidth; // force reflow
+  tab.classList.add('tab-view');
+
+  // Activate desktop nav
   document.querySelectorAll('.nav-item').forEach(i => {
-    if (i.getAttribute('onclick') && i.getAttribute('onclick').includes(name)) i.classList.add('active');
+    if (i.getAttribute('onclick') && i.getAttribute('onclick').includes("'" + name + "'")) i.classList.add('active');
   });
+  // Activate mobile nav
+  const mnavEl = document.getElementById('mnav-' + name);
+  if (mnavEl) mnavEl.classList.add('active');
+
   const titles = {
     overview: ['Übersicht', 'Kanton Thurgau — Live-Daten aus Supabase'],
     funnel:   ['Sales Funnel', 'Conversion von Kalt bis Abschluss'],
@@ -649,6 +817,9 @@ function showTab(name) {
     document.getElementById('pageSub').textContent  = titles[name][1];
   }
   if (name === 'replies' && _sessionPassword && ENCRYPTED_REPLIES) decryptAndRenderReplies(_sessionPassword);
+
+  // Scroll to top on mobile tab switch
+  if (window.innerWidth <= 768) window.scrollTo({top:0, behavior:'smooth'});
 }
 
 // ── SUPABASE ──
