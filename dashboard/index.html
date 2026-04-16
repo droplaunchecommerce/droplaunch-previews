@@ -552,6 +552,291 @@ body{
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:10px}
 
+/* ── LOGO FIX ── */
+.auth-logo-container{
+  position:relative;width:56px;height:56px;margin:0 auto 14px;
+  border-radius:14px;overflow:hidden;
+  background:linear-gradient(135deg,#6366f1,#a78bfa);
+  box-shadow:0 0 32px rgba(99,102,241,.4);
+}
+.auth-logo-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  border-radius:14px;object-fit:cover;
+  transition:opacity .2s;
+}
+.auth-logo-fallback{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:900;color:#fff;letter-spacing:-1px;
+  opacity:0;
+}
+.auth-logo-container.no-img .auth-logo-img{opacity:0}
+.auth-logo-container.no-img .auth-logo-fallback{opacity:1}
+
+.sidebar-logo-icon{
+  position:relative;width:32px;height:32px;border-radius:8px;overflow:hidden;
+  background:linear-gradient(135deg,#6366f1,#a78bfa);
+  box-shadow:0 0 16px rgba(99,102,241,.3);
+  flex-shrink:0;
+}
+.sidebar-logo-icon-fallback{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;opacity:0;
+}
+.sidebar-logo-icon.no-img img{opacity:0}
+.sidebar-logo-icon.no-img .sidebar-logo-icon-fallback{opacity:1}
+
+/* ── KPI SHIMMER ── */
+@keyframes shimmer{
+  0%{background-position:-200% 0}
+  100%{background-position:200% 0}
+}
+.kpi-card-inner::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.02) 50%,transparent 100%);
+  background-size:200% 100%;
+  animation:shimmer 4s ease-in-out infinite;
+  pointer-events:none;
+}
+
+/* ── ENHANCED ORB BREATHING ── */
+@keyframes orbBreathe{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.8}
+  25%{transform:translate(40px,-30px) scale(1.08);opacity:1}
+  50%{transform:translate(20px,25px) scale(.95);opacity:.7}
+  75%{transform:translate(-30px,-10px) scale(1.03);opacity:.9}
+}
+.amb-orb1{animation:orbBreathe 16s ease-in-out infinite!important}
+.amb-orb2{animation:orbBreathe 22s ease-in-out infinite!important;animation-delay:-8s!important}
+.amb-orb3{animation:orbBreathe 12s ease-in-out infinite!important;animation-delay:-4s!important}
+
+/* ══════════════════════════════════════════
+   ECOM DASHBOARD (Content Mode)
+══════════════════════════════════════════ */
+#ecomDash{
+  display:none;
+  position:fixed;inset:0;z-index:300;
+  background:#030a04;
+  font-family:'Inter',-apple-system,sans-serif;
+  color:#f0fdf4;
+  overflow-y:auto;
+}
+.content-mode #ecomDash{display:flex;flex-direction:column}
+.content-mode #dashWrap{display:none!important}
+
+/* ecom sidebar */
+.ec-layout{display:flex;min-height:100vh}
+.ec-sidebar{
+  width:220px;flex-shrink:0;
+  background:rgba(0,20,5,.9);
+  border-right:1px solid rgba(16,185,129,.12);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow:hidden;
+}
+.ec-brand{
+  padding:24px 20px;
+  border-bottom:1px solid rgba(16,185,129,.1);
+}
+.ec-brand-name{
+  font-size:16px;font-weight:900;
+  background:linear-gradient(135deg,#10b981,#34d399,#6ee7b7);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.5px;
+}
+.ec-brand-tag{font-size:9px;color:rgba(16,185,129,.5);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.ec-nav{flex:1;padding:12px 0}
+.ec-nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 20px;font-size:12px;font-weight:500;
+  color:rgba(240,253,244,.4);cursor:pointer;
+  border-left:2px solid transparent;
+  transition:.15s;
+}
+.ec-nav-item.active{color:#10b981;border-left-color:#10b981;background:rgba(16,185,129,.07)}
+.ec-nav-item:hover{color:rgba(240,253,244,.8);background:rgba(255,255,255,.03)}
+.ec-nav-item svg{width:14px;height:14px;opacity:.7}
+.ec-nav-item.active svg{opacity:1}
+.ec-footer{padding:16px 20px;border-top:1px solid rgba(16,185,129,.1)}
+.ec-footer-label{font-size:10px;color:rgba(240,253,244,.25);font-weight:500}
+.ec-cm-btn{
+  margin-top:8px;width:100%;
+  padding:9px 14px;border-radius:8px;
+  background:rgba(16,185,129,.1);
+  border:1px solid rgba(16,185,129,.25);
+  color:#10b981;font-size:11px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:.2s;
+}
+.ec-cm-btn:hover{background:rgba(16,185,129,.18)}
+
+/* ecom main */
+.ec-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.ec-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;
+  background:rgba(0,20,5,.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(16,185,129,.1);
+  position:sticky;top:0;z-index:10;
+}
+.ec-tb-title{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.ec-tb-right{display:flex;align-items:center;gap:10px}
+.ec-live-badge{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:100px;
+  background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);
+  font-size:11px;font-weight:600;color:#10b981;
+}
+.ec-live-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulseDot 2s infinite}
+.ec-date{font-size:11px;color:rgba(240,253,244,.3)}
+
+.ec-content{padding:24px 28px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
+
+/* ecom revenue hero */
+.ec-rev-hero{
+  background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(5,150,105,.05));
+  border:1px solid rgba(16,185,129,.2);
+  border-radius:16px;padding:24px 28px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.ec-rev-hero::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(16,185,129,.15),transparent 70%);
+}
+.ec-rev-label{font-size:12px;font-weight:600;color:rgba(16,185,129,.7);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.ec-rev-num{
+  font-size:48px;font-weight:900;line-height:1;letter-spacing:-3px;
+  background:linear-gradient(135deg,#34d399,#10b981,#6ee7b7);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.ec-rev-sub{font-size:13px;color:rgba(240,253,244,.4);margin-top:6px}
+.ec-rev-month{text-align:right}
+.ec-rev-month-lbl{font-size:11px;color:rgba(240,253,244,.3);margin-bottom:4px}
+.ec-rev-month-num{font-size:24px;font-weight:800;color:#34d399}
+.ec-rev-trend{
+  display:inline-flex;align-items:center;gap:4px;margin-top:4px;
+  font-size:11px;font-weight:600;color:#10b981;
+}
+
+/* ecom KPI grid */
+.ec-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ec-kpi{
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:18px;transition:.2s;
+}
+.ec-kpi:hover{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.04)}
+.ec-kpi-icon{font-size:18px;margin-bottom:10px}
+.ec-kpi-val{font-size:22px;font-weight:800;letter-spacing:-1px;margin-bottom:3px;color:#f0fdf4}
+.ec-kpi-lbl{font-size:11px;color:rgba(240,253,244,.35);font-weight:500}
+.ec-kpi-green .ec-kpi-val{background:linear-gradient(135deg,#34d399,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ec-kpi-gold .ec-kpi-val{background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ecom 2-col grid */
+.ec-grid-2{display:grid;grid-template-columns:3fr 2fr;gap:16px}
+
+/* ecom chart card */
+.ec-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;padding:20px;
+}
+.ec-card-title{font-size:13px;font-weight:700;margin-bottom:16px;color:#d1fae5}
+.ec-chart-wrap{height:160px;position:relative}
+
+/* ecom live orders */
+.ec-order-feed{display:flex;flex-direction:column;gap:0}
+.ec-order-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);
+  animation:orderIn .4s cubic-bezier(0.16,1,0.3,1) both;
+}
+.ec-order-item:last-child{border-bottom:none}
+@keyframes orderIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.ec-order-flag{font-size:16px;flex-shrink:0}
+.ec-order-info{flex:1;min-width:0}
+.ec-order-name{font-size:12px;font-weight:600;color:#f0fdf4}
+.ec-order-product{font-size:11px;color:rgba(240,253,244,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-order-val{font-size:13px;font-weight:700;color:#34d399;flex-shrink:0}
+.ec-order-time{font-size:10px;color:rgba(240,253,244,.25);flex-shrink:0}
+
+/* ecom products table */
+.ec-prod-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.ec-prod-row:last-child{border-bottom:none}
+.ec-prod-rank{font-size:11px;font-weight:700;color:rgba(240,253,244,.2);width:18px;flex-shrink:0}
+.ec-prod-name{font-size:12px;font-weight:500;color:#d1fae5;flex:1}
+.ec-prod-orders{font-size:11px;font-weight:700;color:#f0fdf4}
+.ec-prod-rev{font-size:11px;color:#34d399;font-weight:600;min-width:56px;text-align:right}
+.ec-prod-bar-wrap{width:60px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;flex-shrink:0}
+.ec-prod-bar{height:100%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:2px}
+
+/* ecom countries */
+.ec-country-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ec-country-row:last-child{border-bottom:none}
+.ec-country-flag{font-size:14px;flex-shrink:0}
+.ec-country-name{font-size:12px;font-weight:500;color:#d1fae5;flex:1}
+.ec-country-pct{font-size:12px;font-weight:700;color:#f0fdf4;min-width:32px;text-align:right}
+.ec-country-bar{width:60px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;flex-shrink:0}
+.ec-country-bar-fill{height:100%;background:linear-gradient(90deg,#10b981,#6ee7b7);border-radius:2px}
+
+/* ecom bottom metric row */
+.ec-metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ec-metric{
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  border-radius:10px;padding:14px 16px;
+}
+.ec-metric-lbl{font-size:10px;color:rgba(240,253,244,.3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ec-metric-val{font-size:20px;font-weight:800;color:#f0fdf4}
+
+/* ecom mobile nav */
+.ec-mobile-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:rgba(0,15,3,.95);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(16,185,129,.15);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.ec-mobile-nav-inner{display:flex;height:60px}
+.ec-mnav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;border:none;background:none;color:rgba(240,253,244,.3);
+  font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.ec-mnav-item.active{color:#10b981}
+.ec-mnav-item svg{width:18px;height:18px}
+.ec-mnav-label{font-size:9px;font-weight:600}
+
+/* ecom ambient */
+.ec-amb-orb1{
+  position:fixed;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(16,185,129,.08),transparent 70%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+  animation:orbBreathe 18s ease-in-out infinite;
+}
+.ec-amb-orb2{
+  position:fixed;bottom:-100px;left:-50px;width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(5,150,105,.06),transparent 70%);
+  filter:blur(60px);pointer-events:none;z-index:0;
+  animation:orbBreathe 24s ease-in-out infinite;animation-delay:-10s;
+}
+
+/* ecom mobile responsive */
+@media(max-width:768px){
+  .ec-sidebar{display:none}
+  .ec-mobile-nav{display:block}
+  .ec-main{padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
+  .ec-topbar{padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+  .ec-content{padding:14px 12px;gap:14px}
+  .ec-rev-hero{flex-direction:column;align-items:flex-start;gap:16px}
+  .ec-rev-num{font-size:36px}
+  .ec-kpi-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .ec-grid-2{grid-template-columns:1fr;gap:14px}
+  .ec-metric-row{gap:10px}
+  .ec-kpi{padding:14px}
+  .ec-kpi-val{font-size:18px}
+}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
   .sidebar{display:none}
@@ -609,7 +894,10 @@ body{
   <div class="auth-card" id="authCard">
     <div class="auth-card-inner">
       <div class="auth-logo-wrap">
-        <img class="auth-logo-img" src="https://droplaunch.de/favicon.png" alt="DropLaunch" onerror="this.style.display='none'">
+        <div class="auth-logo-container">
+          <img class="auth-logo-img" src="https://droplaunch.de/favicon.png" alt="DL" onerror="this.parentElement.classList.add('no-img')">
+          <div class="auth-logo-fallback">DL</div>
+        </div>
         <div class="auth-brand">DropLaunch</div>
         <div class="auth-sub">AI Command Center</div>
       </div>
@@ -629,7 +917,10 @@ body{
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <img src="https://droplaunch.de/favicon.png" alt="DL" onerror="this.style.display='none'" style="width:32px;height:32px;border-radius:8px">
+    <div class="sidebar-logo-icon">
+      <img src="https://droplaunch.de/favicon.png" alt="DL" style="width:32px;height:32px;border-radius:8px;display:block" onerror="this.parentElement.classList.add('no-img')">
+      <div class="sidebar-logo-icon-fallback">DL</div>
+    </div>
     <div class="sidebar-logo-text">
       <div class="wordmark">DropLaunch</div>
       <div class="tagline">AI Command Center</div>
@@ -953,6 +1244,189 @@ body{
 
 </div><!-- /dashWrap -->
 
+<!-- ══ ECOM DASHBOARD (Content Mode) ══ -->
+<div id="ecomDash">
+  <!-- Ambient orbs -->
+  <div class="ec-amb-orb1"></div>
+  <div class="ec-amb-orb2"></div>
+
+  <div class="ec-layout">
+    <!-- Sidebar -->
+    <aside class="ec-sidebar">
+      <div class="ec-brand">
+        <div class="ec-brand-name">EcomFlow</div>
+        <div class="ec-brand-tag">Performance Dashboard</div>
+      </div>
+      <nav class="ec-nav">
+        <div class="ec-nav-item active">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Overview
+        </div>
+        <div class="ec-nav-item">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Analytics
+        </div>
+        <div class="ec-nav-item">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Orders
+        </div>
+        <div class="ec-nav-item">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Products
+        </div>
+        <div class="ec-nav-item">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Ads Manager
+        </div>
+        <div class="ec-nav-item">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Customers
+        </div>
+      </nav>
+      <div class="ec-footer">
+        <div class="ec-footer-label">Switch view</div>
+        <button class="ec-cm-btn" onclick="toggleContentMode()">← Exit Content Mode</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="ec-main">
+      <div class="ec-topbar">
+        <div>
+          <div class="ec-tb-title">Today's Performance 🚀</div>
+        </div>
+        <div class="ec-tb-right">
+          <div class="ec-live-badge"><div class="ec-live-dot"></div>LIVE</div>
+          <div class="ec-date" id="ecDate"></div>
+        </div>
+      </div>
+
+      <div class="ec-content" id="ecContent">
+
+        <!-- Revenue Hero -->
+        <div class="ec-rev-hero">
+          <div>
+            <div class="ec-rev-label">Revenue Today</div>
+            <div class="ec-rev-num" id="ecRevToday">€4,293</div>
+            <div class="ec-rev-sub">143 orders · avg. €30.02/order</div>
+          </div>
+          <div class="ec-rev-month">
+            <div class="ec-rev-month-lbl">This Month</div>
+            <div class="ec-rev-month-num">€89,412</div>
+            <div class="ec-rev-trend">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+              +23.4% vs last month
+            </div>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="ec-kpi-grid">
+          <div class="ec-kpi ec-kpi-green">
+            <div class="ec-kpi-icon">🎯</div>
+            <div class="ec-kpi-val">4.8x</div>
+            <div class="ec-kpi-lbl">ROAS</div>
+          </div>
+          <div class="ec-kpi">
+            <div class="ec-kpi-icon">📦</div>
+            <div class="ec-kpi-val" id="ecOrders">143</div>
+            <div class="ec-kpi-lbl">Orders Today</div>
+          </div>
+          <div class="ec-kpi ec-kpi-gold">
+            <div class="ec-kpi-icon">💰</div>
+            <div class="ec-kpi-val">€894</div>
+            <div class="ec-kpi-lbl">Ad Spend</div>
+          </div>
+          <div class="ec-kpi">
+            <div class="ec-kpi-icon">📈</div>
+            <div class="ec-kpi-val">3.6%</div>
+            <div class="ec-kpi-lbl">CVR</div>
+          </div>
+        </div>
+
+        <!-- Chart + Live Orders -->
+        <div class="ec-grid-2">
+          <div class="ec-card">
+            <div class="ec-card-title">Revenue — Last 14 Days</div>
+            <div class="ec-chart-wrap"><canvas id="ecRevenueChart"></canvas></div>
+          </div>
+          <div class="ec-card">
+            <div class="ec-card-title">Live Orders 🔴</div>
+            <div id="ecOrderFeed" class="ec-order-feed"></div>
+          </div>
+        </div>
+
+        <!-- Products + Countries -->
+        <div class="ec-grid-2">
+          <div class="ec-card">
+            <div class="ec-card-title">Top Products Today</div>
+            <div>
+              <div class="ec-prod-row"><div class="ec-prod-rank">1</div><div class="ec-prod-name">Magnetic Phone Holder Pro</div><div class="ec-prod-orders">47</div><div class="ec-prod-rev">€1,410</div><div class="ec-prod-bar-wrap"><div class="ec-prod-bar" style="width:100%"></div></div></div>
+              <div class="ec-prod-row"><div class="ec-prod-rank">2</div><div class="ec-prod-name">LED Desk Lamp RGB</div><div class="ec-prod-orders">31</div><div class="ec-prod-rev">€992</div><div class="ec-prod-bar-wrap"><div class="ec-prod-bar" style="width:66%"></div></div></div>
+              <div class="ec-prod-row"><div class="ec-prod-rank">3</div><div class="ec-prod-name">Wireless Charging Pad</div><div class="ec-prod-orders">28</div><div class="ec-prod-rev">€840</div><div class="ec-prod-bar-wrap"><div class="ec-prod-bar" style="width:60%"></div></div></div>
+              <div class="ec-prod-row"><div class="ec-prod-rank">4</div><div class="ec-prod-name">Posture Corrector Belt</div><div class="ec-prod-orders">22</div><div class="ec-prod-rev">€660</div><div class="ec-prod-bar-wrap"><div class="ec-prod-bar" style="width:47%"></div></div></div>
+              <div class="ec-prod-row"><div class="ec-prod-rank">5</div><div class="ec-prod-name">Hydro Flask 32oz</div><div class="ec-prod-orders">15</div><div class="ec-prod-rev">€391</div><div class="ec-prod-bar-wrap"><div class="ec-prod-bar" style="width:32%"></div></div></div>
+            </div>
+          </div>
+          <div class="ec-card">
+            <div class="ec-card-title">Traffic by Country</div>
+            <div>
+              <div class="ec-country-row"><div class="ec-country-flag">🇩🇪</div><div class="ec-country-name">Deutschland</div><div class="ec-country-pct">52%</div><div class="ec-country-bar"><div class="ec-country-bar-fill" style="width:100%"></div></div></div>
+              <div class="ec-country-row"><div class="ec-country-flag">🇦🇹</div><div class="ec-country-name">Österreich</div><div class="ec-country-pct">22%</div><div class="ec-country-bar"><div class="ec-country-bar-fill" style="width:42%"></div></div></div>
+              <div class="ec-country-row"><div class="ec-country-flag">🇨🇭</div><div class="ec-country-name">Schweiz</div><div class="ec-country-pct">18%</div><div class="ec-country-bar"><div class="ec-country-bar-fill" style="width:35%"></div></div></div>
+              <div class="ec-country-row"><div class="ec-country-flag">🇳🇱</div><div class="ec-country-name">Niederlande</div><div class="ec-country-pct">5%</div><div class="ec-country-bar"><div class="ec-country-bar-fill" style="width:10%"></div></div></div>
+              <div class="ec-country-row"><div class="ec-country-flag">🌍</div><div class="ec-country-name">Andere</div><div class="ec-country-pct">3%</div><div class="ec-country-bar"><div class="ec-country-bar-fill" style="width:6%"></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom metrics -->
+        <div class="ec-metric-row">
+          <div class="ec-metric">
+            <div class="ec-metric-lbl">Net Profit Today</div>
+            <div class="ec-metric-val" style="color:#34d399">€1,847</div>
+          </div>
+          <div class="ec-metric">
+            <div class="ec-metric-lbl">AOV</div>
+            <div class="ec-metric-val">€30.02</div>
+          </div>
+          <div class="ec-metric">
+            <div class="ec-metric-lbl">Return Rate</div>
+            <div class="ec-metric-val" style="color:#f59e0b">2.1%</div>
+          </div>
+        </div>
+
+      </div><!-- /ec-content -->
+    </div><!-- /ec-main -->
+  </div><!-- /ec-layout -->
+
+  <!-- Mobile nav for ecom -->
+  <nav class="ec-mobile-nav">
+    <div class="ec-mobile-nav-inner">
+      <button class="ec-mnav-item active">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span class="ec-mnav-label">Overview</span>
+      </button>
+      <button class="ec-mnav-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span class="ec-mnav-label">Analytics</span>
+      </button>
+      <button class="ec-mnav-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="ec-mnav-label">Orders</span>
+      </button>
+      <button class="ec-mnav-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span class="ec-mnav-label">Ads</span>
+      </button>
+      <button class="ec-mnav-item" onclick="toggleContentMode()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        <span class="ec-mnav-label">Exit</span>
+      </button>
+    </div>
+  </nav>
+</div><!-- /ecomDash -->
+
 <script>
 /* REPLIES_DATA_START */
 const ENCRYPTED_REPLIES = null;
@@ -1030,10 +1504,21 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── CONTENT MODE ──
+let _ecomInit = false;
 function toggleContentMode() {
   contentMode = !contentMode;
   document.body.classList.toggle('content-mode', contentMode);
-  document.getElementById('cmtBadge').textContent = contentMode ? 'ON' : 'OFF';
+  const badge = document.getElementById('cmtBadge');
+  if (badge) badge.textContent = contentMode ? 'ON' : 'OFF';
+  if (contentMode && !_ecomInit) {
+    _ecomInit = true;
+    _initEcomDash();
+  }
+  if (contentMode) {
+    // scroll ecom to top
+    const ec = document.getElementById('ecContent');
+    if (ec) ec.scrollTop = 0;
+  }
 }
 
 // ── TABS ──
@@ -1284,6 +1769,138 @@ function _timeAgo(iso){
 function _esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
 setInterval(loadSupabaseData, 180000);
+
+// ══════════════════════════════════════════
+//   ECOM DASHBOARD
+// ══════════════════════════════════════════
+const EC_NAMES = [
+  ['🇩🇪','Max Müller','Berlin'],['🇩🇪','Laura Schneider','München'],['🇦🇹','Stefan Bauer','Wien'],
+  ['🇨🇭','Lena Weber','Zürich'],['🇩🇪','Jonas Fischer','Hamburg'],['🇩🇪','Sophie Koch','Frankfurt'],
+  ['🇦🇹','Tobias Huber','Graz'],['🇨🇭','Nina Keller','Basel'],['🇩🇪','Felix Braun','Köln'],
+  ['🇩🇪','Hannah Vogel','Stuttgart'],['🇦🇹','Lukas Maier','Linz'],['🇩🇪','Emma Richter','Düsseldorf'],
+  ['🇨🇭','Ben Zimmermann','Bern'],['🇩🇪','Mia Hofmann','Leipzig'],['🇩🇪','Paul Schäfer','Dresden'],
+  ['🇳🇱','Anna de Vries','Amsterdam'],['🇩🇪','Luca Becker','Dortmund'],['🇦🇹','Clara Pichler','Salzburg'],
+];
+const EC_PRODUCTS = [
+  'Magnetic Phone Holder Pro','LED Desk Lamp RGB','Wireless Charging Pad',
+  'Posture Corrector Belt','Hydro Flask 32oz','Smart Pill Organizer',
+  'Car Phone Mount Pro','Mini Projector HD','Foam Neck Pillow',
+];
+const EC_PRICES = [29.99,31.99,29.99,29.99,26.00,24.99,19.99,39.99,18.99];
+
+let ecRevenueChart = null;
+let ecRevBase = 4293;
+let ecOrderCount = 143;
+let ecOrderTimer = null;
+
+function _initEcomDash() {
+  // Date
+  const d = new Date();
+  const el = document.getElementById('ecDate');
+  if (el) el.textContent = d.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+
+  // Revenue chart
+  _buildEcChart();
+
+  // Initial orders
+  _populateInitialOrders();
+
+  // Live order ticker
+  ecOrderTimer = setInterval(_addLiveOrder, _randInt(4000,9000));
+
+  // Revenue slowly ticks up every 30s
+  setInterval(() => {
+    const inc = _randInt(25,80);
+    ecRevBase += inc;
+    ecOrderCount += 1;
+    const el = document.getElementById('ecRevToday');
+    if (el) el.textContent = '€' + ecRevBase.toLocaleString('de-DE');
+    const o = document.getElementById('ecOrders');
+    if (o) o.textContent = ecOrderCount;
+  }, 30000);
+}
+
+function _buildEcChart() {
+  const ctx = document.getElementById('ecRevenueChart');
+  if (!ctx) return;
+  const labels = ['03.04','04.04','05.04','06.04','07.04','08.04','09.04','10.04','11.04','12.04','13.04','14.04','15.04','16.04'];
+  const data   = [2840,3120,2980,4210,3870,5140,4320,6080,5290,4860,7120,5940,8230,4293];
+  const c = ctx.getContext('2d');
+  const grad = c.createLinearGradient(0,0,0,160);
+  grad.addColorStop(0,'rgba(16,185,129,0.45)');
+  grad.addColorStop(1,'rgba(16,185,129,0.02)');
+  if (ecRevenueChart) ecRevenueChart.destroy();
+  ecRevenueChart = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        data,fill:true,backgroundColor:grad,
+        borderColor:'#10b981',borderWidth:2,
+        tension:.4,pointRadius:0,pointHoverRadius:4,
+        pointHoverBackgroundColor:'#10b981',
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'rgba(0,20,5,.95)',titleColor:'#d1fae5',bodyColor:'rgba(209,250,229,.6)',
+        borderColor:'rgba(16,185,129,.25)',borderWidth:1,cornerRadius:8,
+        callbacks:{label:t=>'€'+t.raw.toLocaleString('de-DE')}
+      }},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'rgba(209,250,229,.25)',font:{size:9}}},
+        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'rgba(209,250,229,.25)',font:{size:9},callback:v=>'€'+v.toLocaleString('de-DE')},beginAtZero:false}
+      }
+    }
+  });
+}
+
+function _populateInitialOrders() {
+  const feed = document.getElementById('ecOrderFeed');
+  if (!feed) return;
+  const recent = [...EC_NAMES].sort(()=>Math.random()-.5).slice(0,6);
+  feed.innerHTML = recent.map((n,i) => {
+    const pi = _randInt(0,EC_PRODUCTS.length-1);
+    const mins = (i+1)*_randInt(2,8);
+    return `<div class="ec-order-item">
+      <div class="ec-order-flag">${n[0]}</div>
+      <div class="ec-order-info">
+        <div class="ec-order-name">${n[1]}</div>
+        <div class="ec-order-product">${EC_PRODUCTS[pi]}</div>
+      </div>
+      <div class="ec-order-val">€${EC_PRICES[pi].toFixed(2)}</div>
+      <div class="ec-order-time">vor ${mins}m</div>
+    </div>`;
+  }).join('');
+}
+
+function _addLiveOrder() {
+  const feed = document.getElementById('ecOrderFeed');
+  if (!feed || !contentMode) return;
+  const n = EC_NAMES[_randInt(0,EC_NAMES.length-1)];
+  const pi = _randInt(0,EC_PRODUCTS.length-1);
+  const div = document.createElement('div');
+  div.className = 'ec-order-item';
+  div.innerHTML = `
+    <div class="ec-order-flag">${n[0]}</div>
+    <div class="ec-order-info">
+      <div class="ec-order-name">${n[1]}</div>
+      <div class="ec-order-product">${EC_PRODUCTS[pi]}</div>
+    </div>
+    <div class="ec-order-val">€${EC_PRICES[pi].toFixed(2)}</div>
+    <div class="ec-order-time">gerade</div>
+  `;
+  feed.insertBefore(div, feed.firstChild);
+  // Keep max 7 items
+  while (feed.children.length > 7) feed.removeChild(feed.lastChild);
+  // Reset timer with random interval
+  clearInterval(ecOrderTimer);
+  ecOrderTimer = setInterval(_addLiveOrder, _randInt(4000,9000));
+}
+
+function _randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
 </script>
 </body>
 </html>
