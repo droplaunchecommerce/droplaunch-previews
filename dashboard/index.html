@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DropLaunch — Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070a;
+  --surface:#0f0f12;
+  --surface2:#141418;
+  --border:#1e1e24;
+  --border2:#28282f;
+  --muted:#52525b;
+  --text:#f4f4f5;
+  --text2:#a1a1aa;
+  --text3:#71717a;
+  --indigo:#6366f1;
+  --indigo-glow:rgba(99,102,241,0.15);
+  --green:#22c55e;
+  --green-glow:rgba(34,197,94,0.15);
+  --red:#f87171;
+  --amber:#fbbf24;
+  --amber-glow:rgba(251,191,36,0.15);
+  --cyan:#22d3ee;
+  --radius:12px;
+  --sidebar:220px;
+}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── AUTH GATE ── */
+#authGate{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.auth-card{
+  width:100%;max-width:380px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:20px;
+  padding:40px 36px;
+  display:flex;flex-direction:column;gap:28px;
+}
+.auth-logo{text-align:center}
+.auth-logo .wordmark{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.auth-logo .wordmark span{color:var(--indigo)}
+.auth-logo .tagline{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:.5px;text-transform:uppercase}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px;display:block}
+.auth-input{
+  width:100%;padding:12px 16px;
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:10px;color:var(--text);font-size:14px;font-family:inherit;
+  outline:none;transition:.15s;
+}
+.auth-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-glow)}
+.auth-btn{
+  width:100%;padding:13px;
+  background:var(--indigo);border:none;border-radius:10px;
+  color:#fff;font-size:14px;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:.15s;
+}
+.auth-btn:hover{background:#4f46e5;transform:translateY(-1px)}
+.auth-btn:active{transform:translateY(0)}
+.auth-error{font-size:12px;color:var(--red);text-align:center;display:none}
+.auth-error.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.shake{animation:shake .4s ease}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:100;
+}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-logo .wordmark{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.sidebar-logo .wordmark span{color:var(--indigo)}
+.sidebar-logo .tagline{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.3px;text-transform:uppercase}
+.nav{flex:1;padding:12px 0;overflow-y:auto}
+.nav-section{padding:16px 20px 6px;font-size:10px;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:.15s;border-left:2px solid transparent}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--indigo);border-left-color:var(--indigo);background:var(--indigo-glow)}
+.nav-item svg{opacity:.7;flex-shrink:0}
+.nav-item.active svg{opacity:1}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)}
+.status-dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;margin-right:6px;box-shadow:0 0 6px var(--green)}
+.logout-btn{margin-top:8px;font-size:11px;color:var(--text3);cursor:pointer;display:flex;align-items:center;gap:5px}
+.logout-btn:hover{color:var(--red)}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sidebar);min-height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:50}
+.topbar-title{font-size:15px;font-weight:700}
+.topbar-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;font-size:11px;font-weight:600}
+.badge-green{background:var(--green-glow);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.badge-amber{background:var(--amber-glow);color:var(--amber);border:1px solid rgba(251,191,36,.2)}
+.badge-indigo{background:var(--indigo-glow);color:var(--indigo);border:1px solid rgba(99,102,241,.2)}
+.refresh-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:.15s}
+.refresh-btn:hover{color:var(--text)}
+.content{padding:28px 32px;display:flex;flex-direction:column;gap:28px}
+
+/* ── HERO STATS ── */
+.hero-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;position:relative;overflow:hidden;transition:.2s}
+.stat-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.stat-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.2s}
+.stat-card.indigo::before{background:radial-gradient(circle at 10% 0%,var(--indigo-glow) 0%,transparent 60%)}
+.stat-card.green::before{background:radial-gradient(circle at 10% 0%,var(--green-glow) 0%,transparent 60%)}
+.stat-card.amber::before{background:radial-gradient(circle at 10% 0%,var(--amber-glow) 0%,transparent 60%)}
+.stat-card:hover::before{opacity:1}
+.stat-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:16px}
+.stat-icon.indigo{background:var(--indigo-glow)}
+.stat-icon.green{background:var(--green-glow)}
+.stat-icon.amber{background:var(--amber-glow)}
+.stat-num{font-size:28px;font-weight:800;line-height:1;margin-bottom:4px;letter-spacing:-1px}
+.stat-num.indigo{color:var(--indigo)}
+.stat-num.green{color:var(--green)}
+.stat-num.amber{color:var(--amber)}
+.stat-num.white{color:var(--text)}
+.stat-label{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.2px}
+.stat-delta{position:absolute;top:18px;right:16px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
+.stat-delta.up{background:var(--green-glow);color:var(--green)}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-size:13px;font-weight:700;letter-spacing:-.1px}
+.section-sub{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* ── GRID LAYOUTS ── */
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px}
+
+/* ── FUNNEL ── */
+.funnel-stages{display:flex;flex-direction:column;gap:10px}
+.funnel-stage{display:flex;align-items:center;gap:14px}
+.funnel-bar-wrap{flex:1;height:10px;background:var(--border);border-radius:100px;overflow:hidden}
+.funnel-bar{height:100%;border-radius:100px;transition:width 1s cubic-bezier(0.16,1,0.3,1)}
+.funnel-label{font-size:12px;font-weight:500;color:var(--text2);min-width:130px}
+.funnel-count{font-size:12px;font-weight:700;min-width:40px;text-align:right}
+.funnel-pct{font-size:11px;color:var(--text3);min-width:36px;text-align:right}
+
+/* ── CATEGORY BARS ── */
+.cat-list{display:flex;flex-direction:column;gap:14px}
+.cat-row{display:flex;flex-direction:column;gap:6px}
+.cat-row-header{display:flex;justify-content:space-between;align-items:center}
+.cat-name{font-size:12px;font-weight:600;color:var(--text2)}
+.cat-count{font-size:12px;font-weight:700}
+.cat-bar-wrap{height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.cat-bar{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1)}
+
+/* ── REPLY CARDS ── */
+.reply-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.reply-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+.reply-emoji{font-size:22px;flex-shrink:0}
+.reply-info .reply-type{font-size:12px;font-weight:700;margin-bottom:2px}
+.reply-info .reply-count{font-size:22px;font-weight:800;line-height:1}
+.reply-note{font-size:10px;color:var(--text3);margin-top:3px}
+
+/* ── ACTIVITY FEED ── */
+.activity-list{display:flex;flex-direction:column}
+.activity-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.act-dot.open{background:var(--green);box-shadow:0 0 6px var(--green)}
+.act-dot.reply{background:var(--amber)}
+.act-text{font-size:12px;color:var(--text2);flex:1;line-height:1.4}
+.act-text strong{color:var(--text);font-weight:600}
+.act-time{font-size:10px;color:var(--text3);flex-shrink:0}
+
+/* ── ACTION QUEUE ── */
+.action-list{display:flex;flex-direction:column;gap:10px}
+.action-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px}
+.action-urgency{width:4px;height:40px;border-radius:2px;flex-shrink:0}
+.action-urgency.high{background:var(--red)}
+.action-urgency.med{background:var(--amber)}
+.action-urgency.low{background:var(--indigo)}
+.action-body{flex:1}
+.action-title{font-size:12px;font-weight:600;margin-bottom:2px}
+.action-desc{font-size:11px;color:var(--text3)}
+.action-tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;flex-shrink:0}
+.action-tag.high{background:rgba(248,113,113,.12);color:var(--red)}
+.action-tag.med{background:var(--amber-glow);color:var(--amber)}
+.action-tag.low{background:var(--indigo-glow);color:var(--indigo)}
+
+/* ── REGIONS TABLE ── */
+.region-table{width:100%;border-collapse:collapse}
+.region-table th{text-align:left;padding:8px 12px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+.region-table td{padding:12px 12px;font-size:12px;border-bottom:1px solid var(--border)}
+.region-table tr:last-child td{border-bottom:none}
+.region-table tr:hover td{background:var(--surface2)}
+.region-status{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:100px;font-size:10px;font-weight:600}
+.region-status.active{background:var(--green-glow);color:var(--green)}
+.region-status.next{background:var(--amber-glow);color:var(--amber)}
+.region-status.planned{background:var(--surface2);color:var(--text3)}
+
+/* ── MAIL REPLY CARDS ── */
+.reply-section{margin-bottom:24px}
+.reply-section-title{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.reply-section-title h3{font-size:13px;font-weight:700}
+.reply-section-count{font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px}
+.reply-cards-list{display:flex;flex-direction:column;gap:10px}
+.reply-mail-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:.15s}
+.reply-mail-card:hover{border-color:var(--border2);transform:translateX(2px)}
+.reply-mail-card.interessiert{border-left:3px solid var(--green)}
+.reply-mail-card.telefon-interesse{border-left:3px solid var(--amber)}
+.reply-mail-card.kein-interesse{border-left:3px solid var(--red)}
+.reply-mail-card.urlaub{border-left:3px solid var(--indigo)}
+.reply-mail-card.unbekannt{border-left:3px solid var(--muted)}
+.rmc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.rmc-firma{font-size:14px;font-weight:700}
+.rmc-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.rmc-date{font-size:11px;color:var(--text3)}
+.kat-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.3px}
+.kat-badge.interessiert{background:var(--green-glow);color:var(--green)}
+.kat-badge.telefon-interesse{background:var(--amber-glow);color:var(--amber)}
+.kat-badge.kein-interesse{background:rgba(248,113,113,.12);color:var(--red)}
+.kat-badge.urlaub{background:var(--indigo-glow);color:var(--indigo)}
+.kat-badge.unbekannt{background:var(--surface2);color:var(--text3)}
+.rmc-from{font-size:11px;color:var(--text3);margin-bottom:6px}
+.rmc-subject{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px}
+.rmc-body{font-size:12px;color:var(--text3);line-height:1.6;background:var(--surface2);border-radius:6px;padding:10px 12px}
+.rmc-pills{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.rmc-pill{padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.rmc-pill.phone{background:var(--amber-glow);border-color:rgba(251,191,36,.2);color:var(--amber)}
+.rmc-pill.sent{background:var(--green-glow);border-color:rgba(34,197,94,.2);color:var(--green)}
+.rmc-pill.back{background:var(--indigo-glow);border-color:rgba(99,102,241,.2);color:var(--indigo)}
+
+/* ── CHART ── */
+.chart-wrap{position:relative;height:200px}
+
+/* ── EMPTY / HINT ── */
+.empty-state{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.no-replies-hint{text-align:center;padding:60px 20px;color:var(--text3)}
+.no-replies-hint code{display:block;margin-top:12px;font-size:12px;background:var(--surface2);padding:10px 16px;border-radius:8px;color:var(--indigo);border:1px solid var(--border)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;border-right:none;border-bottom:1px solid var(--border)}
+  .main{margin-left:0}
+  .hero-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-3,.grid-2,.grid-3-1{grid-template-columns:1fr}
+  .content{padding:16px}
+  .topbar{padding:14px 16px}
+}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.pulsing{animation:pulse 2s ease-in-out infinite}
+</style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div id="authGate">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="wordmark">Drop<span>Launch</span></div>
+      <div class="tagline">Command Center</div>
+    </div>
+    <div class="auth-form">
+      <div>
+        <label class="auth-label" for="pwInput">Passwort</label>
+        <input class="auth-input" id="pwInput" type="password" placeholder="••••••••••••" autocomplete="current-password">
+      </div>
+      <button class="auth-btn" onclick="tryLogin()">Einloggen</button>
+      <div class="auth-error" id="authError">Falsches Passwort</div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD (hidden until auth) -->
+<div id="dashWrap" style="display:none">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">Drop<span>Launch</span></div>
+    <div class="tagline">Command Center v2</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Pipeline</div>
+    <div class="nav-item active" onclick="showTab('overview')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Übersicht
+    </div>
+    <div class="nav-item" onclick="showTab('funnel')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Sales Funnel
+    </div>
+    <div class="nav-item" onclick="showTab('replies')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Antworten
+    </div>
+    <div class="nav-item" onclick="showTab('activity')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Aktivität
+    </div>
+    <div class="nav-section">Ausbau</div>
+    <div class="nav-item" onclick="showTab('regions')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Regionen
+    </div>
+    <div class="nav-item" onclick="showTab('actions')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Aufgaben
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="status-dot"></span>Pipeline aktiv
+    <div style="margin-top:4px;font-size:10px" id="lastRefresh">–</div>
+    <div class="logout-btn" onclick="logout()">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title" id="pageTitle">Übersicht</div>
+      <div class="topbar-sub" id="pageSub">Kanton Thurgau — Live-Daten</div>
+    </div>
+    <div class="topbar-right">
+      <span class="badge badge-green"><span class="status-dot" style="width:5px;height:5px;margin:0"></span> Live</span>
+      <button class="refresh-btn" onclick="loadSupabaseData()">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- TAB: OVERVIEW -->
+  <div id="tab-overview" class="content">
+    <div class="hero-grid">
+      <div class="stat-card indigo">
+        <div class="stat-icon indigo">🏢</div>
+        <div class="stat-num indigo">199</div>
+        <div class="stat-label">Firmen gefunden</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon green">📨</div>
+        <div class="stat-num green">174</div>
+        <div class="stat-label">Mails gesendet</div>
+        <div class="stat-delta up">+25 offen</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-icon amber">👁</div>
+        <div class="stat-num amber" id="stat-opens">418</div>
+        <div class="stat-label">Gesamte Öffnungen</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon green">✅</div>
+        <div class="stat-num green" id="stat-unique">138</div>
+        <div class="stat-label">Unique Öffner</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-icon amber">🔥</div>
+        <div class="stat-num amber" id="stat-hot">59</div>
+        <div class="stat-label">Hot Leads (3+)</div>
+      </div>
+      <div class="stat-card indigo">
+        <div class="stat-icon indigo">📊</div>
+        <div class="stat-num indigo" id="stat-openrate">79%</div>
+        <div class="stat-label">Öffnungsrate</div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <!-- Funnel -->
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Sales Funnel</div><div class="section-sub">Von Kalt bis Abschluss</div></div></div>
+        <div class="funnel-stages">
+          <div class="funnel-stage"><div class="funnel-label">Firmen gefunden</div><div class="funnel-bar-wrap"><div class="funnel-bar" id="fb-total" style="width:0%;background:#6366f1"></div></div><div class="funnel-count">199</div><div class="funnel-pct">100%</div></div>
+          <div class="funnel-stage"><div class="funnel-label">Mail gesendet</div><div class="funnel-bar-wrap"><div class="funnel-bar" id="fb-sent" style="width:0%;background:#22c55e"></div></div><div class="funnel-count">174</div><div class="funnel-pct">87%</div></div>
+          <div class="funnel-stage"><div class="funnel-label">Geöffnet</div><div class="funnel-bar-wrap"><div class="funnel-bar" id="fb-open" style="width:0%;background:#fbbf24"></div></div><div class="funnel-count" id="fc-open">138</div><div class="funnel-pct" id="fp-open">79%</div></div>
+          <div class="funnel-stage"><div class="funnel-label">Hot Lead (3+)</div><div class="funnel-bar-wrap"><div class="funnel-bar" id="fb-hot" style="width:0%;background:#f87171"></div></div><div class="funnel-count" id="fc-hot">59</div><div class="funnel-pct" id="fp-hot">34%</div></div>
+          <div class="funnel-stage"><div class="funnel-label">Geantwortet</div><div class="funnel-bar-wrap"><div class="funnel-bar" id="fb-reply" style="width:0%;background:#22d3ee"></div></div><div class="funnel-count">9</div><div class="funnel-pct">5%</div></div>
+        </div>
+      </div>
+      <!-- Categories -->
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Branchen</div><div class="section-sub">Verteilung der Firmen</div></div></div>
+        <div class="cat-list">
+          <div class="cat-row"><div class="cat-row-header"><span class="cat-name">🍽 Restaurant</span><span class="cat-count">70</span></div><div class="cat-bar-wrap"><div class="cat-bar" style="width:0%;background:#6366f1" data-w="70"></div></div></div>
+          <div class="cat-row"><div class="cat-row-header"><span class="cat-name">☕ Café</span><span class="cat-count">60</span></div><div class="cat-bar-wrap"><div class="cat-bar" style="width:0%;background:#22c55e" data-w="60"></div></div></div>
+          <div class="cat-row"><div class="cat-row-header"><span class="cat-name">🛠 Handwerker</span><span class="cat-count">59</span></div><div class="cat-bar-wrap"><div class="cat-bar" style="width:0%;background:#fbbf24" data-w="59"></div></div></div>
+          <div class="cat-row"><div class="cat-row-header"><span class="cat-name">✂️ Barbershop</span><span class="cat-count">31</span></div><div class="cat-bar-wrap"><div class="cat-bar" style="width:0%;background:#f87171" data-w="31"></div></div></div>
+          <div class="cat-row"><div class="cat-row-header"><span class="cat-name">🏗 Bauunternehmen</span><span class="cat-count">18</span></div><div class="cat-bar-wrap"><div class="cat-bar" style="width:0%;background:#22d3ee" data-w="18"></div></div></div>
+        </div>
+      </div>
+      <!-- Replies summary -->
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Antworten</div><div class="section-sub">9 Rückmeldungen</div></div></div>
+        <div class="reply-grid">
+          <div class="reply-card"><div class="reply-emoji">🏖</div><div class="reply-info"><div class="reply-count" style="color:var(--amber)">4</div><div class="reply-type">Urlaub</div><div class="reply-note">Vorgemerkt</div></div></div>
+          <div class="reply-card"><div class="reply-emoji">❌</div><div class="reply-info"><div class="reply-count" style="color:var(--red)">3</div><div class="reply-type">Absage</div><div class="reply-note">Entfernt</div></div></div>
+          <div class="reply-card"><div class="reply-emoji">📞</div><div class="reply-info"><div class="reply-count" style="color:var(--green)">2</div><div class="reply-type">Interesse</div><div class="reply-note">Rückruf fällig</div></div></div>
+          <div class="reply-card" style="opacity:.4"><div class="reply-emoji">🤝</div><div class="reply-info"><div class="reply-count" style="color:var(--indigo)">0</div><div class="reply-type">Abschluss</div><div class="reply-note">In Arbeit</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3-1">
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Öffnungen über Zeit</div><div class="section-sub" id="chart-sub">Lädt…</div></div></div>
+        <div class="chart-wrap"><canvas id="opensChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Live Aktivität</div><div class="section-sub">Letzte Öffnungen</div></div></div>
+        <div class="activity-list" id="activity-list"><div class="empty-state pulsing">Lädt…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: FUNNEL -->
+  <div id="tab-funnel" class="content" style="display:none">
+    <div class="grid-2">
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Conversion — Detail</div><div class="section-sub">Kanton Thurgau</div></div></div>
+        <div style="display:flex;flex-direction:column;gap:20px;margin-top:8px">
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:600">Kalt → Gesendet</span><span style="font-size:12px;font-weight:700;color:var(--green)">87.4%</span></div><div style="height:8px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:87%;height:100%;background:var(--green);border-radius:100px"></div></div><div style="font-size:11px;color:var(--text3);margin-top:4px">174 von 199 — Rest: kein E-Mail / Agentur-Mail</div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:600">Gesendet → Geöffnet</span><span style="font-size:12px;font-weight:700;color:var(--amber)">79.3%</span></div><div style="height:8px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:79%;height:100%;background:var(--amber);border-radius:100px"></div></div><div style="font-size:11px;color:var(--text3);margin-top:4px">138 unique Öffner</div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:600">Geöffnet → Hot Lead</span><span style="font-size:12px;font-weight:700;color:var(--red)">42.8%</span></div><div style="height:8px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:43%;height:100%;background:var(--red);border-radius:100px"></div></div><div style="font-size:11px;color:var(--text3);margin-top:4px">59 Firmen mit 3+ Öffnungen</div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:600">Gesendet → Geantwortet</span><span style="font-size:12px;font-weight:700;color:var(--cyan)">5.2%</span></div><div style="height:8px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:5%;height:100%;background:var(--cyan);border-radius:100px"></div></div><div style="font-size:11px;color:var(--text3);margin-top:4px">9 Rückmeldungen · 2 konkretes Interesse</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-header"><div><div class="section-title">Mail Status</div></div></div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface2);border-radius:8px"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green)"></div><span style="font-size:12px;font-weight:600">followup-gesendet</span></div><span style="font-size:18px;font-weight:800;color:var(--green)">174</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface2);border-radius:8px"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div><span style="font-size:12px;font-weight:600">gesendet</span></div><span style="font-size:18px;font-weight:800;color:var(--amber)">25</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface2);border-radius:8px"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;background:var(--text3);border-radius:50%"></div><span style="font-size:12px;font-weight:600">kein E-Mail</span></div><span style="font-size:18px;font-weight:800;color:var(--text2)">7</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface2);border-radius:8px"><div style="display:flex;align-items:center;gap:10px"><div style="width:8px;height:8px;background:var(--red);border-radius:50%"></div><span style="font-size:12px;font-weight:600">agentur-mail</span></div><span style="font-size:18px;font-weight:800;color:var(--red)">14</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: REPLIES -->
+  <div id="tab-replies" class="content" style="display:none">
+    <div id="replies-container">
+      <div class="card"><div class="no-replies-hint">
+        <div style="font-size:32px;margin-bottom:12px">📬</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px">Noch keine Daten</div>
+        <div style="font-size:12px;margin-bottom:16px">reply_handler.py ausführen — Daten werden automatisch eingebettet.</div>
+        <code>python reply_handler.py</code>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- TAB: ACTIVITY -->
+  <div id="tab-activity" class="content" style="display:none">
+    <div class="card">
+      <div class="section-header"><div><div class="section-title">Alle Öffnungen</div><div class="section-sub" id="activity-count">Lädt…</div></div><button class="refresh-btn" onclick="loadSupabaseData()">Refresh</button></div>
+      <div class="activity-list" id="activity-list-full"><div class="empty-state pulsing">Lädt…</div></div>
+    </div>
+  </div>
+
+  <!-- TAB: REGIONS -->
+  <div id="tab-regions" class="content" style="display:none">
+    <div class="card">
+      <div class="section-header"><div><div class="section-title">Regionen-Rollout</div><div class="section-sub">DACH — 13 Regionen geplant</div></div></div>
+      <table class="region-table">
+        <thead><tr><th>Region</th><th>Land</th><th>Potenzial</th><th>CLI-Flag</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Kanton Thurgau</td><td>🇨🇭 CH</td><td>~220</td><td><code style="font-size:10px;color:var(--indigo)">--region thurgau</code></td><td><span class="region-status active">✓ Aktiv</span></td></tr>
+          <tr><td style="font-weight:600">Kanton Zürich</td><td>🇨🇭 CH</td><td>~800</td><td><code style="font-size:10px;color:var(--indigo)">--region zuerich</code></td><td><span class="region-status next">→ Nächste</span></td></tr>
+          <tr><td style="font-weight:600">Kanton Bern</td><td>🇨🇭 CH</td><td>~500</td><td><code style="font-size:10px;color:var(--indigo)">--region bern</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Kanton Basel</td><td>🇨🇭 CH</td><td>~300</td><td><code style="font-size:10px;color:var(--indigo)">--region basel</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Kanton Aargau</td><td>🇨🇭 CH</td><td>~400</td><td><code style="font-size:10px;color:var(--indigo)">--region aargau</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">München</td><td>🇩🇪 DE</td><td>~2000</td><td><code style="font-size:10px;color:var(--indigo)">--region muenchen</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Stuttgart</td><td>🇩🇪 DE</td><td>~800</td><td><code style="font-size:10px;color:var(--indigo)">--region stuttgart</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Hamburg</td><td>🇩🇪 DE</td><td>~1500</td><td><code style="font-size:10px;color:var(--indigo)">--region hamburg</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Frankfurt</td><td>🇩🇪 DE</td><td>~1200</td><td><code style="font-size:10px;color:var(--indigo)">--region frankfurt</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Wien</td><td>🇦🇹 AT</td><td>~1800</td><td><code style="font-size:10px;color:var(--indigo)">--region wien</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+          <tr><td style="font-weight:600">Graz</td><td>🇦🇹 AT</td><td>~600</td><td><code style="font-size:10px;color:var(--indigo)">--region graz</code></td><td><span class="region-status planned">Geplant</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:20px;padding:16px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:12px;font-weight:600;margin-bottom:6px">Geschätztes Potenzial DACH gesamt</div>
+        <div style="font-size:11px;color:var(--text3)">~11.925 Firmen · 70% Öffnungsrate = <strong style="color:var(--amber)">~8.350 Leads</strong> · 2% Conversion = <strong style="color:var(--green)">~167 Kunden × CHF 890 = CHF 148.000+</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ACTIONS -->
+  <div id="tab-actions" class="content" style="display:none">
+    <div class="card">
+      <div class="section-header"><div><div class="section-title">Offene Aufgaben</div><div class="section-sub">Nach Dringlichkeit</div></div></div>
+      <div class="action-list">
+        <div class="action-item"><div class="action-urgency high"></div><div class="action-body"><div class="action-title">📞 Die Coiffeurmeisterin anrufen</div><div class="action-desc">052 212 84 64 — Telefon-Interesse signalisiert</div></div><div class="action-tag high">JETZT</div></div>
+        <div class="action-item"><div class="action-urgency high"></div><div class="action-body"><div class="action-title">📞 Traditional Barbershop anrufen</div><div class="action-desc">052 722 22 24 — Rückruf fällig</div></div><div class="action-tag high">JETZT</div></div>
+        <div class="action-item"><div class="action-urgency med"></div><div class="action-body"><div class="action-title">🌍 Zürich Pipeline starten</div><div class="action-desc">python main.py --region zuerich</div></div><div class="action-tag med">DIESE WOCHE</div></div>
+        <div class="action-item"><div class="action-urgency med"></div><div class="action-body"><div class="action-title">📅 Rössli Follow-up nach 27. April</div><div class="action-desc">Urlaub bis dahin — dann erneut kontaktieren</div></div><div class="action-tag med">27. APR</div></div>
+        <div class="action-item"><div class="action-urgency med"></div><div class="action-body"><div class="action-title">📧 SPF/DKIM für droplaunch.de</div><div class="action-desc">In GoDaddy DNS eintragen — verhindert Spam</div></div><div class="action-tag med">BALD</div></div>
+        <div class="action-item"><div class="action-urgency low"></div><div class="action-body"><div class="action-title">🛍 Shopify Pipeline ausbauen</div><div class="action-desc">shopify_main.py mit DDG-Discovery aufbauen</div></div><div class="action-tag low">PIPELINE</div></div>
+        <div class="action-item"><div class="action-urgency low"></div><div class="action-body"><div class="action-title">🌐 droplaunch.de Redesign</div><div class="action-desc">Nach erstem Abschluss — UI + AI Copilot Seite</div></div><div class="action-tag low">PHASE 2</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+</div><!-- /dashWrap -->
+
+<script>
+/* REPLIES_DATA_START */
+const ENCRYPTED_REPLIES = null;
+/* REPLIES_DATA_END */
+
+// ── CONFIG ──
+const SUPABASE_URL = 'https://lmpxqscthfkxefgtdeyh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxtcHhxc2N0aGZreGVmZ3RkZXloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0MjU2ODgsImV4cCI6MjA1OTAwMTY4OH0.V9o0HBOqnS3kR79Mx3pqUj_7H3d9nQgSMJgjuQUMOBs';
+const SESSION_KEY = 'dl_auth_v1';
+
+let opensChart = null;
+let _sessionPassword = null;
+
+// ── AUTH ──
+async function tryLogin() {
+  const pw = document.getElementById('pwInput').value;
+  if (!pw) return;
+  const btn = document.querySelector('.auth-btn');
+  btn.textContent = '…';
+  btn.disabled = true;
+  const ok = await _verifyPassword(pw);
+  if (ok) {
+    _sessionPassword = pw;
+    sessionStorage.setItem(SESSION_KEY, btoa(pw));
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('dashWrap').style.display = 'block';
+    loadSupabaseData();
+    setTimeout(animateBars, 200);
+    setTimeout(animateCatBars, 250);
+    if (ENCRYPTED_REPLIES) decryptAndRenderReplies(pw);
+  } else {
+    const card = document.querySelector('.auth-card');
+    card.classList.add('shake');
+    setTimeout(() => card.classList.remove('shake'), 400);
+    const err = document.getElementById('authError');
+    err.classList.add('show');
+    setTimeout(() => err.classList.remove('show'), 2500);
+  }
+  btn.textContent = 'Einloggen';
+  btn.disabled = false;
+}
+
+async function _verifyPassword(pw) {
+  // Hash password with SHA-256 and compare to stored hash
+  const PASS_HASH = '52b7b17e0808cd28f600af30bca14d2e92bb370ac27eb138fc2834ab6f5c8157';
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  return hash === PASS_HASH;
+}
+
+function logout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  _sessionPassword = null;
+  document.getElementById('dashWrap').style.display = 'none';
+  document.getElementById('authGate').style.display = 'flex';
+  document.getElementById('pwInput').value = '';
+}
+
+// On load: check session
+window.addEventListener('DOMContentLoaded', () => {
+  const stored = sessionStorage.getItem(SESSION_KEY);
+  if (stored) {
+    try {
+      const pw = atob(stored);
+      _sessionPassword = pw;
+      _verifyPassword(pw).then(ok => {
+        if (ok) {
+          document.getElementById('authGate').style.display = 'none';
+          document.getElementById('dashWrap').style.display = 'block';
+          loadSupabaseData();
+          setTimeout(animateBars, 200);
+          setTimeout(animateCatBars, 250);
+          if (ENCRYPTED_REPLIES) decryptAndRenderReplies(pw);
+        }
+      });
+    } catch(e) { sessionStorage.removeItem(SESSION_KEY); }
+  }
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+  });
+});
+
+// ── CRYPTO — AES-GCM decrypt ──
+function _b64ToBytes(b64) {
+  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
+
+async function decryptAndRenderReplies(password) {
+  if (!ENCRYPTED_REPLIES) return;
+  try {
+    const [saltB64, ivB64, ctB64] = ENCRYPTED_REPLIES.split(':');
+    const salt = _b64ToBytes(saltB64);
+    const iv   = _b64ToBytes(ivB64);
+    const ct   = _b64ToBytes(ctB64);
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey(
+      { name:'PBKDF2', salt, iterations:100000, hash:'SHA-256' },
+      keyMat,
+      { name:'AES-GCM', length:256 },
+      false, ['decrypt']
+    );
+    const plain = await crypto.subtle.decrypt({ name:'AES-GCM', iv }, key, ct);
+    const data = JSON.parse(new TextDecoder().decode(plain));
+    _renderRepliesData(data);
+  } catch(e) {
+    console.warn('Decrypt error:', e);
+  }
+}
+
+// ── TAB SWITCHING ──
+function showTab(name) {
+  document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('tab-' + name).style.display = 'flex';
+  document.querySelectorAll('.nav-item').forEach(i => {
+    if (i.getAttribute('onclick') && i.getAttribute('onclick').includes(name)) i.classList.add('active');
+  });
+  const titles = {
+    overview: ['Übersicht', 'Kanton Thurgau — Live-Daten aus Supabase'],
+    funnel:   ['Sales Funnel', 'Conversion von Kalt bis Abschluss'],
+    replies:  ['Antworten', 'Echte Rückmeldungen von potenziellen Kunden'],
+    activity: ['Aktivität', 'Alle Öffnungen im Zeitverlauf'],
+    regions:  ['Regionen', 'DACH Rollout-Plan'],
+    actions:  ['Aufgaben', 'Nach Dringlichkeit sortiert'],
+  };
+  if (titles[name]) {
+    document.getElementById('pageTitle').textContent = titles[name][0];
+    document.getElementById('pageSub').textContent  = titles[name][1];
+  }
+  if (name === 'replies' && _sessionPassword && ENCRYPTED_REPLIES) decryptAndRenderReplies(_sessionPassword);
+}
+
+// ── SUPABASE ──
+async function loadSupabaseData() {
+  try {
+    const res = await fetch(
+      SUPABASE_URL + '/rest/v1/opens?select=*&order=opened_at.desc&limit=200',
+      { headers:{ 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY } }
+    );
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    processData(data);
+    document.getElementById('lastRefresh').textContent = new Date().toLocaleTimeString('de-CH');
+  } catch(e) {
+    console.warn('Supabase:', e);
+    renderFallbackChart();
+    document.getElementById('activity-list').innerHTML = '<div class="empty-state" style="font-size:11px">Supabase offline</div>';
+  }
+}
+
+function processData(rows) {
+  const uniqueNames = new Set(rows.map(r => r.business_name || r.recipient));
+  const total = rows.length;
+  const unique = uniqueNames.size;
+  const openCount = {};
+  rows.forEach(r => { const k = r.business_name||r.recipient||'?'; openCount[k]=(openCount[k]||0)+1; });
+  const hot = Object.values(openCount).filter(c=>c>=3).length;
+  const sent = 174;
+  const rate = Math.round((unique/sent)*100);
+
+  document.getElementById('stat-opens').textContent = total;
+  document.getElementById('stat-unique').textContent = unique;
+  document.getElementById('stat-hot').textContent = hot;
+  document.getElementById('stat-openrate').textContent = rate+'%';
+  document.getElementById('fc-open').textContent = unique;
+  document.getElementById('fc-hot').textContent = hot;
+  document.getElementById('fp-open').textContent = rate+'%';
+  document.getElementById('fp-hot').textContent = Math.round((hot/sent)*100)+'%';
+  document.getElementById('chart-sub').textContent = total+' Öffnungen total · '+unique+' unique';
+  document.getElementById('activity-count').textContent = total+' Öffnungen · '+unique+' Firmen';
+
+  const byDay = {};
+  rows.forEach(r => { if (!r.opened_at) return; const d=r.opened_at.substring(0,10); byDay[d]=(byDay[d]||0)+1; });
+  const days = Object.keys(byDay).sort().slice(-14);
+  renderChart(days, days.map(d=>byDay[d]));
+  renderActivity(rows.slice(0,12), 'activity-list');
+  renderActivity(rows.slice(0,50), 'activity-list-full');
+}
+
+function renderChart(labels, data) {
+  const ctx = document.getElementById('opensChart').getContext('2d');
+  if (opensChart) opensChart.destroy();
+  opensChart = new Chart(ctx, {
+    type:'bar',
+    data:{ labels:labels.map(d=>{ const dt=new Date(d); return dt.toLocaleDateString('de-CH',{day:'2-digit',month:'2-digit'}); }), datasets:[{ data, backgroundColor:'rgba(99,102,241,0.5)', hoverBackgroundColor:'#6366f1', borderRadius:4, borderSkipped:false }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#141418', titleColor:'#f4f4f5', bodyColor:'#a1a1aa', borderColor:'#28282f', borderWidth:1 }}, scales:{ x:{grid:{color:'#1e1e24'},ticks:{color:'#71717a',font:{size:10}}}, y:{grid:{color:'#1e1e24'},ticks:{color:'#71717a',font:{size:10},precision:0},beginAtZero:true} } }
+  });
+}
+
+function renderFallbackChart() {
+  const days=['04.04','05.04','06.04','07.04','08.04','09.04','10.04','11.04','12.04','13.04','14.04','15.04','16.04'];
+  const counts=[12,8,24,31,18,42,55,28,19,38,47,33,41];
+  renderChart(days,counts);
+  document.getElementById('chart-sub').textContent='Fallback-Daten (Supabase offline)';
+}
+
+function renderActivity(rows, id) {
+  const el = document.getElementById(id);
+  if (!el||!rows.length) { if(el) el.innerHTML='<div class="empty-state">Keine Daten</div>'; return; }
+  el.innerHTML = rows.map(r => {
+    const name = r.business_name||r.recipient||'Unbekannt';
+    const time = r.opened_at ? timeAgo(r.opened_at) : '–';
+    return `<div class="activity-item"><div class="act-dot open"></div><div class="act-text"><strong>${escHtml(name)}</strong> hat die Mail geöffnet</div><div class="act-time">${time}</div></div>`;
+  }).join('');
+}
+
+// ── REPLIES RENDER ──
+const KAT_CFG = {
+  'interessiert':      {emoji:'🔥',label:'Echtes Interesse'},
+  'telefon-interesse': {emoji:'📞',label:'Rückruf gewünscht'},
+  'urlaub':            {emoji:'🏖',label:'Urlaub / Abwesenheit'},
+  'kein-interesse':    {emoji:'❌',label:'Kein Interesse'},
+  'unbekannt':         {emoji:'❓',label:'Unklar'},
+};
+
+function _renderRepliesData(data) {
+  const container = document.getElementById('replies-container');
+  const updatedAt = data.updated_at ? new Date(data.updated_at).toLocaleString('de-CH') : '–';
+  let html = `<div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between"><div style="font-size:11px;color:var(--text3)">Synchronisiert: <strong style="color:var(--text2)">${updatedAt}</strong></div><span class="badge badge-green">Inbox</span></div>`;
+  const order = ['interessiert','telefon-interesse','urlaub','kein-interesse','unbekannt'];
+  let any = false;
+  for (const kat of order) {
+    const entries = (data.kategorien||{})[kat]||[];
+    if (!entries.length) continue;
+    any = true;
+    const cfg = KAT_CFG[kat];
+    const cards = entries.map(e => {
+      const pills = [];
+      if (e.telefon) pills.push(`<div class="rmc-pill phone">📞 ${escHtml(e.telefon)}</div>`);
+      if (e.rueckkehr) pills.push(`<div class="rmc-pill back">🗓 Zurück: ${e.rueckkehr}</div>`);
+      if (e.reply_sent) pills.push(`<div class="rmc-pill sent">✓ Auto-Reply gesendet</div>`);
+      const body = e.body_kurz ? escHtml(e.body_kurz.substring(0,220))+(e.body_kurz.length>220?'…':'') : '';
+      return `<div class="reply-mail-card ${kat}">
+        <div class="rmc-top"><div class="rmc-firma">${escHtml(e.firma||'—')}</div><div class="rmc-meta"><div class="rmc-date">${e.datum||''}</div><div class="kat-badge ${kat}">${cfg.emoji} ${cfg.label}</div></div></div>
+        <div class="rmc-from">${escHtml(e.von||e.email||'')}</div>
+        ${e.subject?`<div class="rmc-subject">Betreff: ${escHtml(e.subject)}</div>`:''}
+        ${body?`<div class="rmc-body">${body}</div>`:''}
+        ${pills.length?`<div class="rmc-pills">${pills.join('')}</div>`:''}
+      </div>`;
+    }).join('');
+    html += `<div class="card reply-section"><div class="reply-section-title"><h3>${cfg.emoji} ${cfg.label}</h3><span class="reply-section-count kat-badge ${kat}">${entries.length}</span></div><div class="reply-cards-list">${cards}</div></div>`;
+  }
+  if (!any) html += `<div class="card"><div class="no-replies-hint"><div style="font-size:32px;margin-bottom:12px">📭</div><div>Keine Antworten gefunden</div></div></div>`;
+  container.innerHTML = html;
+}
+
+// ── ANIMATIONS ──
+function animateBars() {
+  const total=199,sent=174,open=138,hot=59,reply=9;
+  [['fb-total',100],['fb-sent',Math.round(sent/total*100)],['fb-open',Math.round(open/total*100)],['fb-hot',Math.round(hot/total*100)],['fb-reply',Math.round(reply/total*100)]].forEach(([id,pct])=>{
+    const el=document.getElementById(id);
+    if(el) setTimeout(()=>el.style.width=pct+'%',50);
+  });
+}
+function animateCatBars() {
+  document.querySelectorAll('.cat-bar').forEach(bar=>{
+    const w=parseInt(bar.getAttribute('data-w')||0);
+    setTimeout(()=>bar.style.width=Math.round(w/70*100)+'%',50);
+  });
+}
+
+// ── UTILS ──
+function timeAgo(iso) {
+  const diff=Date.now()-new Date(iso).getTime(),mins=Math.floor(diff/60000);
+  if(mins<60)return'vor '+mins+'min';
+  const hrs=Math.floor(mins/60);
+  if(hrs<24)return'vor '+hrs+'h';
+  return'vor '+Math.floor(hrs/24)+'T';
+}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+setInterval(loadSupabaseData, 180000);
+</script>
+</body>
+</html>
