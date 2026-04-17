@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Urs Gautschi Bauschreinerei — Website-Entwurf</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --c-primary:#2d3728;
@@ -19,8 +19,8 @@
   --c-white:#fff;
   --c-border:rgba(0,0,0,0.08);
   --c-shadow:rgba(0,0,0,0.06);
-  --font-display:'Fraunces',serif;
-  --font-body:'Outfit',sans-serif;
+  --font-display:'DM Serif Display',serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
   --max-w:1140px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -152,7 +152,20 @@ section{padding:96px 32px}
 .footer-credit{color:rgba(255,255,255,0.3)}
 .footer-credit a{color:var(--c-accent);text-decoration:none}
 
+/* STATS */
+.stats-bar{background:var(--c-dark);padding:40px 32px}
+.stats-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.stat-item{flex:1;min-width:160px;text-align:center;padding:16px 24px;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,0.1)}
+.stat-num{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;line-height:1.1;margin-bottom:6px}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,0.5);font-weight:500;letter-spacing:.5px}
+
 /* ANIMATIONS */
+@keyframes heroSlideUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:heroSlideUp .8s cubic-bezier(0.16,1,0.3,1) both}
+.hero h1{animation:heroSlideUp .9s .12s cubic-bezier(0.16,1,0.3,1) both}
+.hero-sub{animation:heroSlideUp 1s .22s cubic-bezier(0.16,1,0.3,1) both}
+.hero-btns{animation:heroSlideUp 1s .36s cubic-bezier(0.16,1,0.3,1) both}
 .reveal{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(0.16,1,0.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}
@@ -248,6 +261,12 @@ section{padding:96px 32px}
   </div>
   <div class="hero-scroll">Entdecken<span></span></div>
 </section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">15+</div><div class="stat-lbl">Jahre Erfahrung</div></div><div class="stat-item reveal"><div class="stat-num">250+</div><div class="stat-lbl">Abgeschlossene Projekte</div></div><div class="stat-item reveal"><div class="stat-num">100%</div><div class="stat-lbl">Termintreue</div></div>
+  </div>
+</div>
 
 <section class="leistungen" id="leistungen">
 <div class="section-inner">
@@ -442,7 +461,13 @@ if(burger&&mMenu){
 }
 
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>80),{passive:true});
+const heroBg=document.querySelector('.hero-bg');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>80);
+  if(heroBg&&window.scrollY<window.innerHeight){
+    heroBg.style.transform=`translateY(${window.scrollY*0.35}px)`;
+  }
+},{passive:true});
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
