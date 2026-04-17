@@ -1170,6 +1170,10 @@ body{
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       Cold Calls
     </div>
+    <div class="nav-item" onclick="showTab('prep')">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Vorbereitung
+    </div>
   </nav>
 
   <div class="sidebar-footer">
@@ -1772,6 +1776,161 @@ body{
     </div><!-- /cc-layout -->
   </div><!-- /tab-coldcall -->
 
+  <!-- ══════════════════════════════════════════════════════════════
+       TAB: VORBEREITUNG — Audit für heute's Cold Call
+  ═══════════════════════════════════════════════════════════════ -->
+  <div id="tab-prep" class="content" style="display:none">
+    <div style="max-width:820px;width:100%;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Firma Header -->
+      <div style="background:var(--glass);border:1px solid rgba(99,102,241,.3);border-radius:var(--radius);padding:22px 24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--indigo);margin-bottom:6px">Heutiger Cold Call — 18 Uhr+</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px">Toni's Pizzeria</div>
+          <div style="font-size:13px;color:var(--text2)">Ristorante &amp; Pizzeria · Weinfelden, Kanton Thurgau</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <a href="tel:+41716226422" style="display:flex;align-items:center;gap:8px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:var(--indigo);font-size:15px;font-weight:700;padding:10px 18px;border-radius:10px;text-decoration:none">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            071 622 64 22
+          </a>
+          <div style="display:flex;gap:8px">
+            <a href="https://www.tonis-pizzeria.ch" target="_blank" style="font-size:11px;color:var(--text2);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:6px">tonis-pizzeria.ch ↗</a>
+            <a href="https://www.google.com/maps/search/Toni%27s+Pizzeria+Weinfelden" target="_blank" style="font-size:11px;color:var(--text2);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:6px">Google Maps ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audit Ergebnis -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+        <!-- Schwachstellen -->
+        <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:6px">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Website-Schwachstellen
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:16px;flex-shrink:0">📵</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--text)">Kein responsives Design</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px">Auf Handy kaum nutzbar — genau dort suchen Kunden abends nach Restaurants</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:16px;flex-shrink:0">📷</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--text)">Nur 3 Bilder auf der ganzen Site</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px">Kein Foto vom Essen, kein Ambiente — erstes Interesse geht sofort verloren</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:16px;flex-shrink:0">📊</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--text)">Kein Analytics</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px">Wissen nicht wie viele Leute die Seite besuchen — komplett im Dunkeln</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:16px;flex-shrink:0">📅</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--text)">Keine Online-Reservierung</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px">Kunden müssen anrufen — viele tun es einfach nicht und gehen woanders hin</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:16px;flex-shrink:0">📸</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--text)">Kein Instagram</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px">Facebook vorhanden, aber kein IG — genau da ist die Essen-Zielgruppe</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gesprächs-Hints -->
+        <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:6px">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Gesprächs-Hints
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="padding:10px 12px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:8px">
+              <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Einstieg</div>
+              <div style="font-size:12px;color:var(--text2)">„Ich hab eure Website kurz angeschaut — habt ihr grad eine Minute?"</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:8px">
+              <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Thema Handy</div>
+              <div style="font-size:12px;color:var(--text2)">„Über 70% der Restaurantsuchen laufen heute über Handy — und eure Seite funktioniert da leider nicht richtig."</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:8px">
+              <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Thema Bilder</div>
+              <div style="font-size:12px;color:var(--text2)">„Essen entscheidet man mit den Augen — 3 Fotos auf der ganzen Seite sind zu wenig, damit jemand Lust bekommt."</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(99,102,241,.05);border:1px solid rgba(99,102,241,.2);border-radius:8px">
+              <div style="font-size:11px;font-weight:700;color:var(--indigo);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Angebot</div>
+              <div style="font-size:12px;color:var(--text2)">„Wir machen euch eine neue Website — ich schick euch einen fertigen Entwurf heute noch, komplett kostenlos zum Anschauen."</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.2);border-radius:8px">
+              <div style="font-size:11px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Falls Ablehnung</div>
+              <div style="font-size:12px;color:var(--text2)">„Kein Problem — darf ich Ihnen wenigstens die Vorschau per Mail schicken? Kostet nichts, und Sie sehen's erst dann."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Was wir wissen -->
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);margin-bottom:14px">Was wir über sie wissen</div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Typ</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text)">Ristorante &amp; Pizzeria</div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Standort</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text)">Weinfelden, TG</div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Telefon</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text)">071 622 64 22</div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Facebook</div>
+            <div style="font-size:13px;font-weight:600;color:var(--green)">vorhanden ✓</div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Instagram</div>
+            <div style="font-size:13px;font-weight:600;color:var(--red)">fehlt ✗</div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:3px">Website Score</div>
+            <div style="font-size:13px;font-weight:600;color:var(--amber)">4 / 10 Punkte</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:5px">Was sie gut machen</div>
+          <div style="font-size:12px;color:var(--text2)">HTTPS aktiv · Meta-Beschreibung vorhanden · Facebook-Präsenz · Telefonnummer sichtbar · Öffnungszeiten auf der Seite</div>
+        </div>
+      </div>
+
+      <!-- Status-Tracker -->
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);margin-bottom:14px">Call-Status</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap" id="prepStatusRow">
+          <button onclick="setPrepStatus('offen')" class="prep-status-btn" data-s="offen" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer">Noch nicht angerufen</button>
+          <button onclick="setPrepStatus('versucht')" class="prep-status-btn" data-s="versucht" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(245,158,11,.3);background:rgba(245,158,11,.08);color:var(--amber);font-size:12px;font-weight:600;cursor:pointer">Versucht / nicht erreicht</button>
+          <button onclick="setPrepStatus('interessiert')" class="prep-status-btn" data-s="interessiert" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.08);color:var(--indigo);font-size:12px;font-weight:600;cursor:pointer">Interesse geweckt</button>
+          <button onclick="setPrepStatus('termin')" class="prep-status-btn" data-s="termin" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.08);color:var(--green);font-size:12px;font-weight:600;cursor:pointer">Termin vereinbart</button>
+          <button onclick="setPrepStatus('abgelehnt')" class="prep-status-btn" data-s="abgelehnt" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(248,113,113,.3);background:rgba(248,113,113,.08);color:var(--red);font-size:12px;font-weight:600;cursor:pointer">Kein Interesse</button>
+        </div>
+        <div id="prepStatusNote" style="margin-top:12px;font-size:12px;color:var(--text3);display:none"></div>
+      </div>
+
+    </div>
+  </div><!-- /tab-prep -->
+
 </main>
 
 <!-- MOBILE BOTTOM NAV -->
@@ -1991,7 +2150,7 @@ body{
 
 <script>
 /* REPLIES_DATA_START */
-const ENCRYPTED_REPLIES = "3OEdiUs8zYIJ/C0LgOAqbQ==:Sz5saTbaEIK17bm7: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";
+const ENCRYPTED_REPLIES = "tjkI0uSD0s4Pk6dg9/CQmg==:oOLV7nlWaQOepLXV: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";
 /* REPLIES_DATA_END */
 
 // ── CONFIG ──
@@ -2103,6 +2262,7 @@ function showTab(name) {
     regions:['Regionen','DACH Rollout · 13 Regionen geplant'],
     actions:['Aufgaben','Nach Dringlichkeit sortiert'],
     coldcall:['Cold Calls','Direkt anrufen — Hints statt Skript'],
+    prep:['Vorbereitung','Toni\'s Pizzeria Weinfelden · Heute 18 Uhr+'],
   };
   if (titles[name]) {
     document.getElementById('pageTitle').textContent = titles[name][0];
@@ -2979,6 +3139,38 @@ function ccRestoreStatus() {
     if (state) { btn.dataset.status=status; btn.textContent=state.l; }
   });
 }
+
+// ── VORBEREITUNG TAB ──────────────────────────────────────
+const PREP_KEY = 'dl_prep_tonispizzeria';
+function setPrepStatus(s) {
+  localStorage.setItem(PREP_KEY, s);
+  _renderPrepStatus(s);
+}
+function _renderPrepStatus(s) {
+  const labels = {
+    offen: {label:'Noch nicht angerufen', note:'', color:'var(--text2)'},
+    versucht: {label:'Versucht / nicht erreicht', note:'Nochmal versuchen — abends meistens besser erreichbar.', color:'var(--amber)'},
+    interessiert: {label:'Interesse geweckt!', note:'Follow-up: Entwurf fertig machen und Link per Mail senden.', color:'var(--indigo)'},
+    termin: {label:'Termin vereinbart', note:'In Aufgaben eintragen und Entwurf vor dem Termin finalisieren.', color:'var(--green)'},
+    abgelehnt: {label:'Kein Interesse', note:'Notiz gemacht. Nächste Firma im Funnel.', color:'var(--red)'},
+  };
+  document.querySelectorAll('.prep-status-btn').forEach(btn => {
+    const active = btn.dataset.s === s;
+    btn.style.opacity = active ? '1' : '0.45';
+    btn.style.transform = active ? 'scale(1.03)' : 'scale(1)';
+  });
+  const note = document.getElementById('prepStatusNote');
+  if (note && labels[s]) {
+    const info = labels[s];
+    note.style.display = info.note ? 'block' : 'none';
+    note.style.color = info.color;
+    note.textContent = info.note;
+  }
+}
+(function initPrep() {
+  const saved = localStorage.getItem(PREP_KEY) || 'offen';
+  _renderPrepStatus(saved);
+})();
 
 </script>
 </body>
