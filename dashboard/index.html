@@ -421,25 +421,76 @@ body{
 }
 
 /* ── ACTION ITEMS ── */
-.action-item{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 16px;
-  background:var(--glass);border:1px solid var(--border);border-radius:11px;
-  transition:.15s;margin-bottom:10px;
-}
-.action-item:last-child{margin-bottom:0}
-.action-item:hover{background:var(--glass-h);border-color:var(--border-h)}
-.action-bar{width:3px;height:38px;border-radius:2px;flex-shrink:0}
-.action-bar.high{background:var(--red)}
-.action-bar.med{background:var(--amber)}
-.action-bar.low{background:var(--indigo)}
-.action-body{flex:1;min-width:0}
-.action-title{font-size:12px;font-weight:600;margin-bottom:2px}
-.action-desc{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.action-chip{font-size:9px;font-weight:700;padding:3px 8px;border-radius:100px;flex-shrink:0;letter-spacing:.5px}
-.action-chip.high{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2)}
-.action-chip.med{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
-.action-chip.low{background:rgba(99,102,241,.12);color:var(--indigo);border:1px solid rgba(99,102,241,.2)}
+/* ── TASK WORKFLOW ── */
+.task-add-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:9px;border:1px solid var(--border);background:var(--glass);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+.task-add-btn:hover{border-color:var(--border-h);color:var(--text);background:var(--glass-h)}
+.task-count-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px;background:rgba(99,102,241,.1);color:var(--indigo);border:1px solid rgba(99,102,241,.2)}
+.task-item{background:var(--glass);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.3s;margin-bottom:8px}
+.task-item:last-child{margin-bottom:0}
+.task-item-row{display:flex;align-items:center;gap:12px;padding:12px 16px;transition:.15s}
+.task-item-row:hover{background:var(--glass-h)}
+.task-check{width:22px;height:22px;border-radius:50%;flex-shrink:0;border:2px solid var(--border-h);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.task-check:hover{border-color:var(--green)}
+.task-check.checked{background:var(--green);border-color:var(--green)}
+.task-check svg{display:none;width:12px;height:12px}
+.task-check.checked svg{display:block}
+.task-bar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:22px}
+.task-bar.high{background:var(--red)}
+.task-bar.med{background:var(--amber)}
+.task-bar.low{background:var(--indigo)}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.task-subdesc{font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.task-right{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.task-chip{font-size:9px;font-weight:700;padding:3px 8px;border-radius:100px;letter-spacing:.4px}
+.task-chip.high{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.task-chip.med{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.task-chip.low{background:rgba(99,102,241,.12);color:var(--indigo);border:1px solid rgba(99,102,241,.2)}
+.task-expand-btn{width:26px;height:26px;border-radius:7px;flex-shrink:0;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:.2s}
+.task-expand-btn:hover{border-color:var(--border-h);color:var(--text2)}
+.task-expand-btn.open{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3);color:var(--indigo)}
+.task-detail{display:none;padding:0 16px 14px 52px;flex-direction:column;gap:10px}
+.task-detail.open{display:flex}
+.task-comment-input{width:100%;padding:9px 12px;border-radius:9px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text);font-size:12px;font-family:inherit;resize:vertical;min-height:62px;outline:none;transition:.2s;line-height:1.5}
+.task-comment-input::placeholder{color:var(--text3)}
+.task-comment-input:focus{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.04)}
+.task-detail-actions{display:flex;gap:8px;align-items:center}
+.task-done-btn{padding:6px 14px;border-radius:8px;border:none;background:var(--green);color:#fff;font-size:11px;font-weight:700;font-family:inherit;cursor:pointer;transition:.15s}
+.task-done-btn:hover{background:#16a34a;transform:translateY(-1px)}
+.task-saved-hint{font-size:10px;color:var(--text3);opacity:0;transition:.3s}
+.task-saved-hint.show{opacity:1}
+/* Done section */
+.task-done-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;margin-top:12px;background:var(--glass);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.15s;user-select:none}
+.task-done-hd:hover{background:var(--glass-h)}
+.task-done-hd-left{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.3px;text-transform:uppercase}
+.task-done-count{font-size:10px;padding:1px 7px;border-radius:100px;background:rgba(255,255,255,.07);color:var(--text3)}
+.task-done-chevron{font-size:10px;color:var(--text3);transition:.25s}
+.task-done-chevron.open{transform:rotate(180deg)}
+.task-done-list{display:none;flex-direction:column;gap:6px;margin-top:8px}
+.task-done-list.open{display:flex}
+.task-done-row{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:rgba(34,197,94,.03);border:1px solid rgba(34,197,94,.1);border-radius:10px}
+.task-done-icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:var(--green);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.task-done-icon svg{width:10px;height:10px}
+.task-done-body{flex:1;min-width:0}
+.task-done-title{font-size:12px;font-weight:600;color:var(--text3);text-decoration:line-through;margin-bottom:3px}
+.task-done-date{font-size:10px;color:var(--text3)}
+.task-done-note{font-size:11px;color:var(--text2);margin-top:5px;padding:5px 9px;background:rgba(255,255,255,.02);border-radius:7px;border-left:2px solid rgba(255,255,255,.07);line-height:1.45}
+.task-reopen-btn{flex-shrink:0;padding:4px 10px;border-radius:7px;border:1px solid var(--border);background:var(--glass);color:var(--text3);font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap}
+.task-reopen-btn:hover{border-color:var(--border-h);color:var(--text2)}
+/* New task form */
+.task-new-form{background:rgba(99,102,241,.05);border:1px dashed rgba(99,102,241,.25);border-radius:12px;padding:14px;display:none;flex-direction:column;gap:10px;margin-bottom:10px}
+.task-new-form.open{display:flex}
+.task-new-row{display:flex;gap:8px;flex-wrap:wrap}
+.task-new-input{flex:1;min-width:130px;padding:8px 11px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:12px;font-family:inherit;outline:none;transition:.2s}
+.task-new-input::placeholder{color:var(--text3)}
+.task-new-input:focus{border-color:rgba(99,102,241,.4)}
+.task-new-select{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:12px;font-family:inherit;outline:none}
+.task-new-select option{background:#0d0d1a;color:var(--text)}
+.task-new-actions{display:flex;gap:8px}
+.task-new-confirm{padding:7px 16px;border-radius:8px;border:none;background:var(--indigo);color:#fff;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;transition:.15s}
+.task-new-confirm:hover{background:#4f46e5}
+.task-new-cancel{padding:7px 13px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;transition:.15s}
+.task-new-cancel:hover{color:var(--text2)}
 
 /* ── REGIONS ── */
 .region-table{width:100%;border-collapse:collapse}
@@ -1358,16 +1409,42 @@ body{
   <!-- ── ACTIONS ── -->
   <div id="tab-actions" class="content" style="display:none">
     <div class="card">
-      <div class="card-header"><div><div class="card-title">Offene Aufgaben</div><div class="card-sub">Priorität: Hoch → Niedrig</div></div></div>
-      <div>
-        <div class="action-item"><div class="action-bar high"></div><div class="action-body"><div class="action-title">📞 Die Coiffeurmeisterin anrufen</div><div class="action-desc sensitive">052 212 84 64 — Telefon-Interesse, haben geantwortet</div></div><div class="action-chip high">JETZT</div></div>
-        <div class="action-item"><div class="action-bar high"></div><div class="action-body"><div class="action-title">📞 Traditional Barbershop anrufen</div><div class="action-desc sensitive">052 722 22 24 — Rückruf signalisiert</div></div><div class="action-chip high">JETZT</div></div>
-        <div class="action-item"><div class="action-bar med"></div><div class="action-body"><div class="action-title">🌍 Zürich Pipeline starten</div><div class="action-desc">python main.py --region zuerich — ~800 neue Firmen</div></div><div class="action-chip med">DIESE WOCHE</div></div>
-        <div class="action-item"><div class="action-bar med"></div><div class="action-body"><div class="action-title">📅 Rössli Follow-up</div><div class="action-desc">Nach 27. April — Urlaub bis dahin</div></div><div class="action-chip med">27. APR</div></div>
-        <div class="action-item"><div class="action-bar med"></div><div class="action-body"><div class="action-title">📧 SPF/DKIM für droplaunch.de</div><div class="action-desc">GoDaddy DNS → Spam-Filter-Fix</div></div><div class="action-chip med">BALD</div></div>
-        <div class="action-item"><div class="action-bar low"></div><div class="action-body"><div class="action-title">🛍 Shopify Pipeline skalieren</div><div class="action-desc">shopify_main.py mit DDG-Discovery ausbauen</div></div><div class="action-chip low">PIPELINE</div></div>
-        <div class="action-item"><div class="action-bar low"></div><div class="action-body"><div class="action-title">🌐 droplaunch.de Redesign</div><div class="action-desc">Nach erstem Abschluss — UI + AI Copilot Positionierung</div></div><div class="action-chip low">PHASE 2</div></div>
+      <div class="card-header">
+        <div><div class="card-title">Aufgaben</div><div class="card-sub">Cold Call Workflow · Klick auf ○ oder "Abschliessen" zum Abhaken</div></div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="task-count-badge" id="taskOpenCount">–</span>
+          <button class="task-add-btn" onclick="taskToggleForm()">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Neue Aufgabe
+          </button>
+        </div>
       </div>
+      <div class="task-new-form" id="taskNewForm">
+        <div class="task-new-row">
+          <input class="task-new-input" id="taskNewTitle" placeholder="Aufgabe..." onkeydown="if(event.key==='Enter')taskCreate()">
+          <input class="task-new-input" id="taskNewDesc" placeholder="Details (optional)">
+          <input class="task-new-input" id="taskNewChip" placeholder="Label (HEUTE, BALD…)" style="max-width:130px">
+          <select class="task-new-select" id="taskNewPrio">
+            <option value="high">🔴 Hoch</option>
+            <option value="med" selected>🟡 Mittel</option>
+            <option value="low">🔵 Niedrig</option>
+          </select>
+        </div>
+        <div class="task-new-actions">
+          <button class="task-new-confirm" onclick="taskCreate()">Hinzufügen</button>
+          <button class="task-new-cancel" onclick="taskToggleForm()">Abbrechen</button>
+        </div>
+      </div>
+      <div id="taskOpenList"></div>
+      <div class="task-done-hd" onclick="taskToggleDone()">
+        <div class="task-done-hd-left">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Erledigt
+          <span class="task-done-count" id="taskDoneCount">0</span>
+        </div>
+        <span class="task-done-chevron" id="taskDoneChevron">▼</span>
+      </div>
+      <div class="task-done-list" id="taskDoneList"></div>
     </div>
   </div>
 
@@ -2028,6 +2105,7 @@ function showTab(name) {
     document.getElementById('pageSub').textContent = titles[name][1];
   }
   if (name === 'replies' && _sessionPw && ENCRYPTED_REPLIES) decryptReplies(_sessionPw);
+  if (name === 'actions') renderTasks();
   if (name === 'coldcall') {
     ccRestoreStatus();
     const hl = document.getElementById('ccHintList');
@@ -2387,6 +2465,187 @@ function _addLiveOrder() {
 }
 
 function _randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+// ── TASK WORKFLOW ──
+const TASK_BUILTIN = [
+  {id:'tc-coiffeur',  prio:'high', chip:'JETZT',       icon:'📞', title:'Die Coiffeurmeisterin anrufen',  desc:'052 212 84 64 — Telefon-Interesse, 3x geantwortet', sensitive:true},
+  {id:'tc-barbershop',prio:'high', chip:'JETZT',       icon:'📞', title:'Traditional Barbershop anrufen', desc:'052 722 22 24 — Rückruf signalisiert', sensitive:true},
+  {id:'tc-roessli',   prio:'med',  chip:'27. APR',     icon:'📅', title:'Rössli Follow-up',               desc:'Nach 27. April — Urlaub bis dahin'},
+  {id:'tc-zuerich',   prio:'med',  chip:'DIESE WOCHE', icon:'🌍', title:'Zürich Pipeline starten',        desc:'python main.py --region zuerich — ~800 neue Firmen'},
+  {id:'tc-spf',       prio:'med',  chip:'BALD',        icon:'📧', title:'SPF/DKIM für droplaunch.de',     desc:'GoDaddy DNS → Spam-Filter-Fix'},
+  {id:'tc-shopify',   prio:'low',  chip:'PIPELINE',    icon:'🛍', title:'Shopify Pipeline skalieren',     desc:'shopify_main.py mit DDG-Discovery ausbauen'},
+  {id:'tc-redesign',  prio:'low',  chip:'PHASE 2',     icon:'🌐', title:'droplaunch.de Redesign',         desc:'Nach erstem Abschluss — UI + AI Copilot Positionierung'},
+];
+const TASKS_KEY = 'dl_tasks_v2';
+
+function _loadTS() {
+  try { return JSON.parse(localStorage.getItem(TASKS_KEY) || '{"b":{},"c":[]}'); }
+  catch(e) { return {b:{},c:[]}; }
+}
+function _saveTS(s) { localStorage.setItem(TASKS_KEY, JSON.stringify(s)); }
+
+function _allTasks() {
+  const s = _loadTS();
+  const builtin = TASK_BUILTIN.map(t => Object.assign({}, t, {done:false,comment:'',doneAt:null}, s.b[t.id]||{}));
+  const custom  = (s.c||[]).map(t => Object.assign({},t));
+  return [...builtin, ...custom];
+}
+
+function renderTasks() {
+  const all = _allTasks();
+  const open = all.filter(t=>!t.done);
+  const done = all.filter(t=>t.done);
+  const oc = document.getElementById('taskOpenCount');
+  if (oc) oc.textContent = open.length + ' offen';
+  const dc = document.getElementById('taskDoneCount');
+  if (dc) dc.textContent = done.length;
+
+  const ol = document.getElementById('taskOpenList');
+  if (ol) ol.innerHTML = open.length
+    ? open.map(_renderTaskItem).join('')
+    : '<div style="padding:24px;text-align:center;font-size:13px;color:var(--green)">🎉 Alle Aufgaben erledigt</div>';
+
+  const dl = document.getElementById('taskDoneList');
+  if (dl) dl.innerHTML = done.length
+    ? done.map(_renderDoneItem).join('')
+    : '<div style="padding:12px 16px;font-size:11px;color:var(--text3)">Noch nichts erledigt</div>';
+}
+
+function _renderTaskItem(t) {
+  const sc = t.sensitive ? ' sensitive' : '';
+  return `<div class="task-item" id="ti-${t.id}">
+  <div class="task-item-row">
+    <button class="task-check" onclick="taskComplete('${t.id}')" title="Erledigt">
+      <svg fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+    </button>
+    <div class="task-bar ${t.prio}"></div>
+    <div class="task-body">
+      <div class="task-title">${t.icon?t.icon+' ':''}${t.title}</div>
+      <div class="task-subdesc${sc}">${t.desc||''}</div>
+    </div>
+    <div class="task-right">
+      <span class="task-chip ${t.prio}">${t.chip||''}</span>
+      <button class="task-expand-btn" id="tebtn-${t.id}" onclick="taskExpand('${t.id}')" title="Kommentar">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="task-detail" id="td-${t.id}">
+    <textarea class="task-comment-input" placeholder="Kommentar, Notiz, Ergebnis des Anrufs…" oninput="taskCommentChange('${t.id}',this.value)">${t.comment||''}</textarea>
+    <div class="task-detail-actions">
+      <button class="task-done-btn" onclick="taskComplete('${t.id}')">✓ Abschliessen</button>
+      <span class="task-saved-hint" id="tsaved-${t.id}">Gespeichert</span>
+    </div>
+  </div>
+</div>`;
+}
+
+function _renderDoneItem(t) {
+  return `<div class="task-done-row">
+  <div class="task-done-icon">
+    <svg fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+  </div>
+  <div class="task-done-body">
+    <div class="task-done-title">${t.icon?t.icon+' ':''}${t.title}</div>
+    ${t.doneAt?`<div class="task-done-date">Erledigt am ${t.doneAt}</div>`:''}
+    ${t.comment?`<div class="task-done-note">${t.comment.replace(/</g,'&lt;')}</div>`:''}
+  </div>
+  <button class="task-reopen-btn" onclick="taskReopen('${t.id}')">Wieder öffnen</button>
+</div>`;
+}
+
+function taskComplete(id) {
+  const s = _loadTS();
+  const today = new Date().toLocaleDateString('de-CH',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const ta = document.querySelector(`#td-${id} .task-comment-input`);
+  const comment = ta ? ta.value : '';
+  const isCustom = (s.c||[]).some(t=>t.id===id);
+  if (isCustom) {
+    const i = s.c.findIndex(t=>t.id===id);
+    if (i>=0) Object.assign(s.c[i], {done:true, doneAt:today, comment});
+  } else {
+    s.b[id] = Object.assign({}, s.b[id]||{}, {done:true, doneAt:today, comment});
+  }
+  _saveTS(s);
+  const el = document.getElementById('ti-'+id);
+  if (el) {
+    el.style.cssText = 'opacity:0;transform:translateX(30px);transition:.3s';
+    setTimeout(renderTasks, 320);
+  } else renderTasks();
+}
+
+function taskReopen(id) {
+  const s = _loadTS();
+  const isCustom = (s.c||[]).some(t=>t.id===id);
+  if (isCustom) {
+    const i = s.c.findIndex(t=>t.id===id);
+    if (i>=0) Object.assign(s.c[i], {done:false, doneAt:null});
+  } else {
+    s.b[id] = Object.assign({}, s.b[id]||{}, {done:false, doneAt:null});
+  }
+  _saveTS(s);
+  renderTasks();
+}
+
+function taskExpand(id) {
+  const d = document.getElementById('td-'+id);
+  const b = document.getElementById('tebtn-'+id);
+  if (!d) return;
+  const o = d.classList.toggle('open');
+  if (b) b.classList.toggle('open', o);
+}
+
+const _cTimers = {};
+function taskCommentChange(id, val) {
+  clearTimeout(_cTimers[id]);
+  _cTimers[id] = setTimeout(() => {
+    const s = _loadTS();
+    const isCustom = (s.c||[]).some(t=>t.id===id);
+    if (isCustom) {
+      const i = s.c.findIndex(t=>t.id===id);
+      if (i>=0) s.c[i].comment = val;
+    } else {
+      s.b[id] = Object.assign({}, s.b[id]||{}, {comment:val});
+    }
+    _saveTS(s);
+    const el = document.getElementById('tsaved-'+id);
+    if (el) { el.classList.add('show'); setTimeout(()=>el.classList.remove('show'), 1600); }
+  }, 600);
+}
+
+function taskToggleForm() {
+  const f = document.getElementById('taskNewForm');
+  if (!f) return;
+  if (f.classList.toggle('open')) setTimeout(()=>document.getElementById('taskNewTitle').focus(),50);
+}
+
+function taskCreate() {
+  const title = (document.getElementById('taskNewTitle').value||'').trim();
+  if (!title) return;
+  const s = _loadTS();
+  s.c = s.c||[];
+  s.c.push({
+    id:'custom-'+Date.now(),
+    title,
+    desc:(document.getElementById('taskNewDesc').value||'').trim(),
+    chip:(document.getElementById('taskNewChip').value||'').trim()||'TODO',
+    prio:document.getElementById('taskNewPrio').value,
+    icon:'',done:false,comment:'',doneAt:null,
+    createdAt:new Date().toLocaleDateString('de-CH')
+  });
+  _saveTS(s);
+  ['taskNewTitle','taskNewDesc','taskNewChip'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('taskNewPrio').value='med';
+  document.getElementById('taskNewForm').classList.remove('open');
+  renderTasks();
+}
+
+function taskToggleDone() {
+  const l = document.getElementById('taskDoneList');
+  const c = document.getElementById('taskDoneChevron');
+  if (l) l.classList.toggle('open');
+  if (c) c.classList.toggle('open');
+}
 
 // ── AUDIT TOOL ──
 let _auditCurrent = null;
