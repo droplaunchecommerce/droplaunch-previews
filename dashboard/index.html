@@ -1468,7 +1468,7 @@ body{
           </div>
           <div class="cc-phone-row">
             <div class="cc-phone"><a href="tel:+41719970000">+41 71 997 00 00</a></div>
-            <div class="cc-web"><a href="https://www.pulcinella-weinfelden.ch" target="_blank">pulcinella-weinfelden.ch ↗</a></div>
+            <div class="cc-web"><a href="https://pulcinellaweinfelden.ch" target="_blank">pulcinellaweinfelden.ch ↗</a></div>
           </div>
         </div>
 
@@ -1580,7 +1580,7 @@ body{
           </div>
           <div class="cc-phone-row">
             <div class="cc-phone"><a href="tel:+41716691155">+41 71 669 11 55</a></div>
-            <div class="cc-web"><a href="https://www.kiloundgramm.ch" target="_blank">kiloundgramm.ch ↗</a></div>
+            <div class="cc-web" style="color:var(--amber);font-size:11px">Website nicht verifiziert</div>
           </div>
         </div>
 
@@ -1608,7 +1608,7 @@ body{
           </div>
           <div class="cc-phone-row">
             <div class="cc-phone"><a href="tel:+41714462383">+41 71 446 23 83</a></div>
-            <div class="cc-web"><a href="http://www.plaza-bar.ch" target="_blank">plaza-bar.ch ↗</a></div>
+            <div class="cc-web"><a href="https://www.plaza-arbon.ch" target="_blank">plaza-arbon.ch ↗</a></div>
           </div>
         </div>
 
@@ -2408,13 +2408,19 @@ async function runAudit() {
 
   let html = '', mobileScore = null, doc2 = null;
 
-  // 1. Fetch HTML via proxy
+  // 1. Fetch HTML via eigener Vercel-Endpoint (server-side, kein CORS)
   try {
     const r = await Promise.race([
-      fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url)),
-      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 8000))
+      fetch('https://tracker-droplaunch.vercel.app/api/audit?url=' + encodeURIComponent(url)),
+      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 12000))
     ]);
-    if (r.ok) { html = await r.text(); doc2 = new DOMParser().parseFromString(html, 'text/html'); }
+    if (r.ok) {
+      const data = await r.json();
+      if (data.html && data.html.length > 200) {
+        html = data.html;
+        doc2 = new DOMParser().parseFromString(html, 'text/html');
+      }
+    }
   } catch(e) {}
 
   // 2. PageSpeed API (no key needed for basic)
