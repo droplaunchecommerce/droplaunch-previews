@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#05050a">
+<title>DropLaunch · Cold Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05050a;--bg2:#0d0d18;--glass:rgba(255,255,255,.04);
+  --border:rgba(255,255,255,.08);--border-h:rgba(255,255,255,.15);
+  --text:#ededf5;--text2:#8888aa;--text3:#3e3e5a;
+  --indigo:#6366f1;--violet:#a78bfa;--green:#22c55e;
+  --amber:#f59e0b;--red:#f87171;--cyan:#22d3ee;
+  --r:14px;
+}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── LOCK ── */
+#lock{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:24px}
+.lock-logo{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:32px}
+.lock-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:32px 28px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:16px}
+.lock-title{font-size:20px;font-weight:800;text-align:center}
+.lock-sub{font-size:13px;color:var(--text2);text-align:center}
+.lock-input{background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:15px;font-family:inherit;width:100%;outline:none;transition:.2s}
+.lock-input:focus{border-color:var(--indigo)}
+.lock-btn{background:var(--indigo);color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.lock-btn:hover{opacity:.85}
+.lock-err{font-size:12px;color:var(--red);text-align:center;display:none}
+
+/* ── APP ── */
+#app{display:none;min-height:100vh;padding-bottom:80px}
+
+/* ── TOP BAR ── */
+.topbar{position:sticky;top:0;z-index:10;background:rgba(5,5,10,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar-brand{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo)}
+.topbar-stats{display:flex;gap:10px;align-items:center}
+.tstat{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--glass);border:1px solid var(--border)}
+.tstat-g{color:var(--green);border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.08)}
+.tstat-a{color:var(--amber);border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.08)}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px;border-bottom:1px solid var(--border)}
+.stat-box{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.stat-n{font-size:24px;font-weight:800}
+.stat-l{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ── FIRM LIST ── */
+.section-hd{padding:16px 16px 8px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px}
+.section-hd::after{content:'';flex:1;height:1px;background:var(--border)}
+.firm-list{display:flex;flex-direction:column;gap:10px;padding:0 16px}
+
+/* ── FIRM CARD ── */
+.firm-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.2s}
+.firm-card.priority{border-color:rgba(99,102,241,.35);background:rgba(99,102,241,.04)}
+.firm-card.done-call{opacity:.55}
+.firm-head{padding:16px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.firm-left{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.firm-name{font-size:16px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.firm-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:100px}
+.badge-heute{background:rgba(99,102,241,.2);color:var(--indigo);border:1px solid rgba(99,102,241,.3)}
+.badge-cat{background:var(--glass);color:var(--text2);border:1px solid var(--border)}
+.badge-city{color:var(--text3);font-size:11px;font-weight:500}
+.firm-status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;background:var(--text3)}
+.firm-status-dot.s-offen{background:var(--text3)}
+.firm-status-dot.s-versucht{background:var(--amber)}
+.firm-status-dot.s-interessiert{background:var(--indigo)}
+.firm-status-dot.s-termin{background:var(--green)}
+.firm-status-dot.s-abgelehnt{background:var(--red)}
+.firm-chevron{transition:transform .25s;color:var(--text3);flex-shrink:0}
+.firm-card.open .firm-chevron{transform:rotate(180deg)}
+
+/* ── FIRM BODY ── */
+.firm-body{display:none;border-top:1px solid var(--border)}
+.firm-card.open .firm-body{display:block}
+
+/* ACTIONS ROW */
+.firm-actions{padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap;background:rgba(0,0,0,.15)}
+.btn-call{flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:14px;font-weight:700;padding:11px 16px;border-radius:10px;text-decoration:none;font-family:inherit;cursor:pointer}
+.btn-call:active{opacity:.75}
+.btn-link{display:flex;align-items:center;gap:6px;color:var(--text2);font-size:12px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;background:var(--glass)}
+
+/* BEST TIME */
+.best-time{padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.best-time-label{font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.best-time-val{font-size:12px;color:var(--text2)}
+
+/* SECTIONS */
+.firm-section{padding:14px 16px;border-bottom:1px solid var(--border)}
+.fsec-hd{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.fsec-hd-red{color:var(--red)}
+.fsec-hd-green{color:var(--green)}
+.fsec-hd-violet{color:var(--violet)}
+.fsec-hd-cyan{color:var(--cyan)}
+
+/* WEAKNESSES */
+.weakness-list{display:flex;flex-direction:column;gap:8px}
+.weakness-item{display:flex;gap:10px;align-items:flex-start}
+.weakness-icon{font-size:15px;flex-shrink:0;line-height:1.4}
+.weakness-text{display:flex;flex-direction:column;gap:2px}
+.weakness-title{font-size:13px;font-weight:600;color:var(--text)}
+.weakness-desc{font-size:11px;color:var(--text2)}
+
+/* HINTS */
+.hint-list{display:flex;flex-direction:column;gap:8px}
+.hint-item{padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,.2)}
+.hint-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.hint-txt{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* STATUS */
+.status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.status-btn{padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border:1px solid var(--border);background:var(--glass);color:var(--text2);transition:.15s;flex:1;min-width:80px;text-align:center}
+.status-btn.active-offen{background:rgba(255,255,255,.07);color:var(--text);border-color:var(--border-h)}
+.status-btn.active-versucht{background:rgba(245,158,11,.12);color:var(--amber);border-color:rgba(245,158,11,.3)}
+.status-btn.active-interessiert{background:rgba(99,102,241,.12);color:var(--indigo);border-color:rgba(99,102,241,.3)}
+.status-btn.active-termin{background:rgba(34,197,94,.12);color:var(--green);border-color:rgba(34,197,94,.3)}
+.status-btn.active-abgelehnt{background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.3)}
+.rueckruf-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rueckruf-label{font-size:11px;color:var(--text2);white-space:nowrap}
+.rueckruf-input{background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:12px;font-family:inherit;outline:none;flex:1;min-width:120px}
+.rueckruf-input:focus{border-color:var(--amber)}
+
+/* WHOS THERE */
+.contact-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.contact-btn{padding:7px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid var(--border);background:var(--glass);color:var(--text2)}
+.contact-btn.selected{background:rgba(167,139,250,.12);color:var(--violet);border-color:rgba(167,139,250,.3)}
+
+/* NOTES */
+.notes-area{width:100%;background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:13px;font-family:inherit;resize:vertical;min-height:80px;outline:none;line-height:1.5}
+.notes-area:focus{border-color:var(--indigo)}
+.notes-saved{font-size:10px;color:var(--text3);margin-top:4px;text-align:right;transition:.3s}
+
+/* CALL LOG */
+.log-btn{width:100%;padding:11px;border-radius:10px;border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.07);color:var(--green);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:12px;transition:.15s}
+.log-btn:active{opacity:.75}
+.log-list{display:flex;flex-direction:column;gap:6px}
+.log-entry{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-top:1px solid var(--border)}
+.log-time{font-size:11px;color:var(--text3);white-space:nowrap;flex-shrink:0;padding-top:1px}
+.log-content{font-size:12px;color:var(--text2);flex:1;line-height:1.4}
+.log-del{font-size:11px;color:var(--text3);cursor:pointer;flex-shrink:0;padding:2px 4px}
+
+/* ADD FIRM BTN */
+.add-firm-bar{padding:16px;margin-top:8px}
+.add-firm-btn{width:100%;padding:14px;border-radius:12px;border:1px dashed var(--border);background:transparent;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.add-firm-btn:hover{border-color:var(--border-h);color:var(--text);background:var(--glass)}
+
+/* ADD SHEET */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:none;align-items:flex-end}
+.sheet-overlay.open{display:flex}
+.sheet{background:var(--bg2);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:24px 16px 40px;width:100%;max-width:600px;margin:0 auto}
+.sheet-hd{font-size:16px;font-weight:800;margin-bottom:16px}
+.sheet-input{background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:15px;font-family:inherit;width:100%;outline:none;margin-bottom:10px}
+.sheet-input:focus{border-color:var(--indigo)}
+.sheet-btns{display:flex;gap:10px}
+.sheet-ok{flex:1;padding:13px;border-radius:10px;background:var(--indigo);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.sheet-cancel{padding:13px 20px;border-radius:10px;background:var(--glass);color:var(--text2);border:1px solid var(--border);font-size:14px;cursor:pointer;font-family:inherit}
+.sheet-status{font-size:12px;color:var(--text2);margin-top:10px;min-height:18px}
+
+/* BOTTOM SAFE AREA */
+@media(max-width:480px){
+  .firm-name{font-size:15px}
+  .stats-row{gap:8px;padding:12px}
+  .stat-n{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOCK ── -->
+<div id="lock">
+  <div class="lock-logo">DropLaunch</div>
+  <div class="lock-box">
+    <div class="lock-title">Cold Call Tool</div>
+    <div class="lock-sub">Nur für authorisierte Mitarbeiter</div>
+    <input class="lock-input" type="password" id="lockPw" placeholder="Passwort" autocomplete="current-password">
+    <button class="lock-btn" onclick="tryUnlock()">Anmelden</button>
+    <div class="lock-err" id="lockErr">Falsches Passwort</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">Cold Call</div>
+    <div class="topbar-stats">
+      <span class="tstat tstat-g" id="statCalls">0 Anrufe</span>
+      <span class="tstat tstat-a" id="statInterest">0 Interessenten</span>
+    </div>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-n" id="statN1">0</div>
+      <div class="stat-l">Anrufe heute</div>
+    </div>
+    <div class="stat-box" style="border-color:rgba(99,102,241,.2);background:rgba(99,102,241,.04)">
+      <div class="stat-n" style="color:var(--indigo)" id="statN2">0</div>
+      <div class="stat-l">Interessiert</div>
+    </div>
+    <div class="stat-box" style="border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.04)">
+      <div class="stat-n" style="color:var(--green)" id="statN3">0</div>
+      <div class="stat-l">Termine</div>
+    </div>
+  </div>
+
+  <!-- FIRM LIST -->
+  <div class="section-hd">Heute · <span id="dateLabel"></span></div>
+  <div class="firm-list" id="firmList"></div>
+
+  <!-- ADD FIRM -->
+  <div class="add-firm-bar">
+    <button class="add-firm-btn" onclick="openSheet()">
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Neue Firma hinzufügen
+    </button>
+  </div>
+
+</div>
+
+<!-- ADD SHEET -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheetClick(event)">
+  <div class="sheet">
+    <div class="sheet-hd">Firma hinzufügen</div>
+    <input class="sheet-input" type="text" id="sheetDomain" placeholder="Domain z.B. pizza-meyer.ch" autocapitalize="none" autocorrect="off">
+    <input class="sheet-input" type="tel" id="sheetPhone" placeholder="Telefon (optional)">
+    <div class="sheet-btns">
+      <button class="sheet-cancel" onclick="closeSheet()">Abbrechen</button>
+      <button class="sheet-ok" onclick="addFirm()">Analysieren & hinzufügen</button>
+    </div>
+    <div class="sheet-status" id="sheetStatus"></div>
+  </div>
+</div>
+
+<script>
+// ── PASS HASH (SHA-256 of "droplaunch") ─────────────────────────────
+const PASS_HASH = '19374c705b2cf233fb79c48fb23ac98b064d105caa89e6f90420729f65477922';
+const STORAGE_KEY = 'dl_sven_v2';
+const AUDIT_PROXY = 'https://tracker-droplaunch.vercel.app/api/audit';
+
+// ── PRE-LOADED FIRMS ──────────────────────────────────────────────────
+const DEFAULT_FIRMS = [
+  {
+    id: 'tonispizzeria',
+    name: "Toni's Pizzeria",
+    category: 'Pizzeria',
+    city: 'Weinfelden, TG',
+    phone: '071 622 64 22',
+    website: 'https://www.tonis-pizzeria.ch',
+    priority: true,
+    bestTime: '14:00–17:00 · vor dem Abendservice',
+    weaknesses: [
+      {icon:'📵', title:'Kein responsives Design', desc:'Auf Handy kaum nutzbar — genau da suchen Gäste abends'},
+      {icon:'📷', title:'Nur 3 Bilder auf der ganzen Seite', desc:'Ohne Essen-Fotos gibt\'s keinen Appetit — und keinen Klick'},
+      {icon:'📊', title:'Kein Analytics', desc:'Wissen nicht wie viele Leute die Seite besuchen — im Dunkeln'},
+      {icon:'📅', title:'Keine Online-Reservierung', desc:'Kunden müssen anrufen — viele tun es einfach nicht'},
+      {icon:'📸', title:'Kein Instagram', desc:'Facebook vorhanden, aber kein IG — grosse Foodie-Zielgruppe verpasst'},
+    ],
+    hints: [
+      {tag:'Einstieg', color:'var(--cyan)', bg:'rgba(34,211,238,.06)', border:'rgba(34,211,238,.15)', txt:'„Ich hab kurz auf eure Website geschaut — habt ihr grad eine Minute?"'},
+      {tag:'Handy-Argument', color:'var(--amber)', bg:'rgba(245,158,11,.06)', border:'rgba(245,158,11,.15)', txt:'„Über 70% der Restaurant-Suchen laufen abends über Handy — und eure Seite funktioniert da leider nicht richtig."'},
+      {tag:'Bilder', color:'var(--amber)', bg:'rgba(245,158,11,.06)', border:'rgba(245,158,11,.15)', txt:'„Essen entscheidet man mit den Augen. Drei Fotos auf der ganzen Seite sind zu wenig damit jemand Lust kriegt."'},
+      {tag:'Angebot', color:'var(--indigo)', bg:'rgba(99,102,241,.06)', border:'rgba(99,102,241,.2)', txt:'„Wir machen euch einen fertigen Website-Entwurf — komplett kostenlos zum Anschauen. Dann entscheidet ihr."'},
+      {tag:'Falls Nein', color:'var(--violet)', bg:'rgba(167,139,250,.06)', border:'rgba(167,139,250,.2)', txt:'„Kein Problem — darf ich die Vorschau einfach per Mail schicken? Kostet nichts, keine Verpflichtung."'},
+    ],
+  },
+  {
+    id: 'falkenweinfelden',
+    name: 'Restaurant Falken',
+    category: 'Pizzeria',
+    city: 'Weinfelden, TG',
+    phone: '071 622 57 22',
+    website: 'https://pizzeria-falken.ch',
+    priority: false,
+    bestTime: '14:00–17:00 · Nachmittagspause',
+    weaknesses: [
+      {icon:'📷', title:'Nur 1 Bild auf der gesamten Website', desc:'Extrem wenig Visuelles für ein Restaurant'},
+      {icon:'📊', title:'Kein Analytics', desc:'Keine Daten über Seitenbesucher'},
+      {icon:'🗺️', title:'Kein Google Maps eingebunden', desc:'Kunden finden sie online schlechter'},
+    ],
+    hints: [
+      {tag:'Einstieg', color:'var(--cyan)', bg:'rgba(34,211,238,.06)', border:'rgba(34,211,238,.15)', txt:'„Ich hab kurz auf eure Website geschaut — habt ihr grad eine Minute?"'},
+      {tag:'Bilder', color:'var(--amber)', bg:'rgba(245,158,11,.06)', border:'rgba(245,158,11,.15)', txt:'„Ihr habt nur ein einziges Bild auf der ganzen Seite. Das reicht nicht um Appetit zu machen."'},
+      {tag:'Angebot', color:'var(--indigo)', bg:'rgba(99,102,241,.06)', border:'rgba(99,102,241,.2)', txt:'„Wir zeigen euch kostenlos wie das aussehen könnte — ein fertiger Entwurf, keine Verpflichtung."'},
+    ],
+  },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let _data = {};        // {firmId: {status, notes, log, rueckruf, contact, added}}
+let _firms = [];       // all firms (defaults + custom)
+let _openId = null;
+
+function _save() { localStorage.setItem(STORAGE_KEY, JSON.stringify({data:_data,custom:_firms.filter(f=>f.custom)})); }
+function _load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    _data = s.data || {};
+    const custom = s.custom || [];
+    _firms = [...DEFAULT_FIRMS, ...custom];
+  } catch { _firms = [...DEFAULT_FIRMS]; _data = {}; }
+}
+function _firmData(id) {
+  if (!_data[id]) _data[id] = {status:'offen', notes:'', log:[], rueckruf:'', contact:''};
+  return _data[id];
+}
+
+// ── LOCK ──────────────────────────────────────────────────────────────
+async function tryUnlock() {
+  const pw = document.getElementById('lockPw').value;
+  const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  const hex = Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if (hex === PASS_HASH) {
+    document.getElementById('lock').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    _load();
+    renderAll();
+  } else {
+    document.getElementById('lockErr').style.display = 'block';
+    document.getElementById('lockPw').value = '';
+  }
+}
+document.getElementById('lockPw').addEventListener('keydown', e => { if(e.key==='Enter') tryUnlock(); });
+
+// ── RENDER ALL ────────────────────────────────────────────────────────
+function renderAll() {
+  renderStats();
+  renderFirms();
+  document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('de-CH',{weekday:'long',day:'numeric',month:'long'});
+}
+
+function renderStats() {
+  const today = new Date().toDateString();
+  let calls=0, interest=0, meetings=0;
+  _firms.forEach(f => {
+    const d = _firmData(f.id);
+    const todayLogs = (d.log||[]).filter(l => new Date(l.ts).toDateString()===today);
+    if (todayLogs.length) calls++;
+    if (d.status==='interessiert') interest++;
+    if (d.status==='termin') meetings++;
+  });
+  document.getElementById('statCalls').textContent = calls + ' Anrufe';
+  document.getElementById('statInterest').textContent = interest + ' Interessenten';
+  document.getElementById('statN1').textContent = calls;
+  document.getElementById('statN2').textContent = interest;
+  document.getElementById('statN3').textContent = meetings;
+}
+
+function renderFirms() {
+  const list = document.getElementById('firmList');
+  list.innerHTML = '';
+  // Priority first
+  const sorted = [..._firms].sort((a,b) => (b.priority?1:0)-(a.priority?1:0));
+  sorted.forEach(f => list.appendChild(buildCard(f)));
+}
+
+function buildCard(firm) {
+  const d = _firmData(firm.id);
+  const card = document.createElement('div');
+  card.className = 'firm-card' + (firm.priority?' priority':'') + (d.status==='abgelehnt'?' done-call':'');
+  if (_openId === firm.id) card.classList.add('open');
+  card.id = 'card-'+firm.id;
+
+  card.innerHTML = `
+    <div class="firm-head" onclick="toggleCard('${firm.id}')">
+      <div class="firm-left">
+        <div class="firm-name">${firm.name}</div>
+        <div class="firm-meta">
+          ${firm.priority ? '<span class="badge badge-heute">HEUTE</span>' : ''}
+          <span class="badge badge-cat">${firm.category}</span>
+          <span class="badge-city">${firm.city}</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="firm-status-dot s-${d.status}"></div>
+        <svg class="firm-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="firm-body">
+      <!-- ACTION BUTTONS -->
+      <div class="firm-actions">
+        <a class="btn-call" href="tel:${firm.phone.replace(/\s/g,'')}">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          ${firm.phone}
+        </a>
+        <a class="btn-link" href="${firm.website}" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Website
+        </a>
+        <a class="btn-link" href="https://www.google.com/maps/search/${encodeURIComponent(firm.name+' '+firm.city)}" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Maps
+        </a>
+      </div>
+
+      <!-- BEST TIME -->
+      <div class="best-time">
+        <span class="best-time-label">⏰ Beste Zeit</span>
+        <span class="best-time-val">${firm.bestTime}</span>
+      </div>
+
+      <!-- WEAKNESSES -->
+      <div class="firm-section">
+        <div class="fsec-hd fsec-hd-red">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Schwachstellen der Website
+        </div>
+        <div class="weakness-list">
+          ${firm.weaknesses.map(w=>`
+            <div class="weakness-item">
+              <span class="weakness-icon">${w.icon}</span>
+              <div class="weakness-text">
+                <div class="weakness-title">${w.title}</div>
+                <div class="weakness-desc">${w.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- HINTS -->
+      <div class="firm-section">
+        <div class="fsec-hd fsec-hd-green">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Gesprächs-Hints
+        </div>
+        <div class="hint-list">
+          ${firm.hints.map(h=>`
+            <div class="hint-item" style="background:${h.bg};border-color:${h.border}">
+              <div class="hint-tag" style="color:${h.color}">${h.tag}</div>
+              <div class="hint-txt">${h.txt}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- STATUS + RÜCKRUF -->
+      <div class="firm-section">
+        <div class="fsec-hd fsec-hd-violet">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Call-Status
+        </div>
+        <div class="status-row">
+          ${['offen','versucht','interessiert','termin','abgelehnt'].map(s=>`
+            <button class="status-btn ${d.status===s?'active-'+s:''}" onclick="setStatus('${firm.id}','${s}')">${{offen:'Offen',versucht:'Versucht',interessiert:'Interessiert',termin:'Termin',abgelehnt:'Nein'}[s]}</button>
+          `).join('')}
+        </div>
+        <div class="rueckruf-row" ${d.status!=='versucht'?'style="display:none"':''} id="rueckruf-${firm.id}">
+          <span class="rueckruf-label">Rückruf um:</span>
+          <input class="rueckruf-input" type="text" placeholder="z.B. Montag 14:00" value="${d.rueckruf||''}" oninput="saveRueckruf('${firm.id}',this.value)">
+        </div>
+      </div>
+
+      <!-- WER HAT ABGENOMMEN -->
+      <div class="firm-section">
+        <div class="fsec-hd" style="color:var(--text2)">Wer hat abgenommen?</div>
+        <div class="contact-row">
+          ${['Inhaber/in','Angestellte/r','Nicht erreicht','AB / VM'].map(c=>`
+            <button class="contact-btn ${d.contact===c?'selected':''}" onclick="setContact('${firm.id}','${c}')">${c}</button>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- NOTIZEN -->
+      <div class="firm-section">
+        <div class="fsec-hd fsec-hd-cyan">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="12" height="12"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Notizen
+        </div>
+        <textarea class="notes-area" placeholder="Was wurde gesagt? Wie war die Stimmung? Was für den nächsten Anruf merken?" oninput="saveNotes('${firm.id}',this.value)" id="notes-${firm.id}">${d.notes||''}</textarea>
+        <div class="notes-saved" id="notessaved-${firm.id}"></div>
+      </div>
+
+      <!-- CALL LOG -->
+      <div class="firm-section">
+        <div class="fsec-hd" style="color:var(--text2)">Anruf-Protokoll</div>
+        <button class="log-btn" onclick="logCall('${firm.id}')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14" style="display:inline;margin-right:6px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Anruf protokollieren
+        </button>
+        <div class="log-list" id="log-${firm.id}">
+          ${renderLog(firm.id)}
+        </div>
+      </div>
+
+    </div>
+  `;
+  return card;
+}
+
+function renderLog(id) {
+  const d = _firmData(id);
+  if (!d.log || !d.log.length) return '<div style="font-size:12px;color:var(--text3)">Noch kein Anruf protokolliert</div>';
+  return d.log.slice().reverse().map((entry,i)=>`
+    <div class="log-entry">
+      <div class="log-time">${new Date(entry.ts).toLocaleString('de-CH',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>
+      <div class="log-content">${entry.status} ${entry.contact?'· '+entry.contact:''} ${entry.note?'— '+entry.note:''}</div>
+      <span class="log-del" onclick="delLog('${id}',${d.log.length-1-i})">✕</span>
+    </div>
+  `).join('');
+}
+
+// ── INTERACTIONS ──────────────────────────────────────────────────────
+function toggleCard(id) {
+  _openId = _openId === id ? null : id;
+  renderFirms();
+}
+
+function setStatus(id, status) {
+  const d = _firmData(id);
+  d.status = status;
+  _save();
+  renderAll();
+}
+
+function saveRueckruf(id, val) {
+  _firmData(id).rueckruf = val;
+  _save();
+}
+
+function setContact(id, c) {
+  const d = _firmData(id);
+  d.contact = d.contact === c ? '' : c;
+  _save();
+  // re-render contact row
+  document.querySelectorAll(`#card-${id} .contact-btn`).forEach(btn => {
+    btn.classList.toggle('selected', btn.textContent === d.contact);
+  });
+}
+
+let _noteTimer = null;
+function saveNotes(id, val) {
+  _firmData(id).notes = val;
+  _save();
+  const el = document.getElementById('notessaved-'+id);
+  if (el) { el.textContent = 'Gespeichert ✓'; el.style.opacity='1'; }
+  clearTimeout(_noteTimer);
+  _noteTimer = setTimeout(()=>{ if(el){el.style.opacity='0';} },2000);
+}
+
+function logCall(id) {
+  const d = _firmData(id);
+  const statusLabels = {offen:'Offen',versucht:'Versucht',interessiert:'Interessiert',termin:'Termin vereinbart',abgelehnt:'Kein Interesse'};
+  d.log = d.log || [];
+  d.log.push({ts: Date.now(), status: statusLabels[d.status]||d.status, contact: d.contact||'', note: d.notes ? d.notes.slice(0,80) : ''});
+  _save();
+  document.getElementById('log-'+id).innerHTML = renderLog(id);
+  renderStats();
+  // flash
+  const btn = document.querySelector(`#card-${id} .log-btn`);
+  if (btn) { btn.textContent = 'Protokolliert ✓'; setTimeout(()=>{ btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14" style="display:inline;margin-right:6px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Anruf protokollieren'; },1500); }
+}
+
+function delLog(id, idx) {
+  const d = _firmData(id);
+  d.log.splice(idx, 1);
+  _save();
+  document.getElementById('log-'+id).innerHTML = renderLog(id);
+  renderStats();
+}
+
+// ── ADD FIRM ──────────────────────────────────────────────────────────
+function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); document.getElementById('sheetDomain').focus(); }
+function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.getElementById('sheetStatus').textContent=''; }
+function closeSheetClick(e) { if(e.target===document.getElementById('sheetOverlay')) closeSheet(); }
+
+async function addFirm() {
+  let domain = document.getElementById('sheetDomain').value.trim();
+  const phone = document.getElementById('sheetPhone').value.trim();
+  const status = document.getElementById('sheetStatus');
+  if (!domain) { status.textContent = 'Bitte Domain eingeben'; return; }
+  if (!domain.startsWith('http')) domain = 'https://' + domain;
+  status.textContent = 'Website wird analysiert…';
+  try {
+    const r = await fetch(`${AUDIT_PROXY}?url=${encodeURIComponent(domain)}`);
+    const j = await r.json();
+    const html = j.html || '';
+    // Basic parsing
+    const titleM = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+    const title = titleM ? titleM[1].trim().split(/[|\-·]/)[0].trim() : domain.replace(/https?:\/\/(www\.)?/,'').split('.')[0];
+    const domainClean = domain.replace(/https?:\/\/(www\.)?/,'').replace(/\//,'');
+    const id = 'custom_' + domainClean.replace(/[^a-z0-9]/gi,'_');
+    // Detect issues
+    const weaknesses = [];
+    if (!html.includes('@media')) weaknesses.push({icon:'📵',title:'Kein responsives Design',desc:'Auf Handy kaum nutzbar'});
+    if ((html.match(/<img/gi)||[]).length < 4) weaknesses.push({icon:'📷',title:'Wenig Bilder',desc:`Nur ${(html.match(/<img/gi)||[]).length} Bilder gefunden — zu wenig für visuellen Eindruck`});
+    if (!html.includes('google-analytics') && !html.includes('gtag')) weaknesses.push({icon:'📊',title:'Kein Analytics',desc:'Keine Daten über Seitenbesucher'});
+    if (!/reservier|buchung|reservation/i.test(html)) weaknesses.push({icon:'📅',title:'Keine Online-Reservierung',desc:'Kunden müssen anrufen'});
+    if (!html.includes('instagram')) weaknesses.push({icon:'📸',title:'Kein Instagram',desc:'Social-Media-Potenzial nicht genutzt'});
+    if (weaknesses.length === 0) weaknesses.push({icon:'✅',title:'Technisch okay',desc:'Keine groben Schwachstellen gefunden — feines Netz nötig'});
+    const firm = {
+      id, name: title, category: 'Restaurant', city: domainClean,
+      phone: phone || '– nicht angegeben',
+      website: j.finalUrl || domain,
+      priority: false, custom: true,
+      bestTime: '10:00–11:30 oder 14:00–17:00',
+      weaknesses,
+      hints: [
+        {tag:'Einstieg',color:'var(--cyan)',bg:'rgba(34,211,238,.06)',border:'rgba(34,211,238,.15)',txt:'„Ich hab kurz auf eure Website geschaut — habt ihr grad eine Minute?"'},
+        {tag:'Schwachstelle',color:'var(--amber)',bg:'rgba(245,158,11,.06)',border:'rgba(245,158,11,.15)',txt:`„${weaknesses[0]?.title} — da können wir euch direkt helfen."`},
+        {tag:'Angebot',color:'var(--indigo)',bg:'rgba(99,102,241,.06)',border:'rgba(99,102,241,.2)',txt:'„Wir zeigen euch einen fertigen Entwurf — kostenlos und unverbindlich."'},
+      ],
+    };
+    _firms.push(firm);
+    _save();
+    closeSheet();
+    document.getElementById('sheetDomain').value = '';
+    document.getElementById('sheetPhone').value = '';
+    _openId = id;
+    renderAll();
+  } catch(e) {
+    status.textContent = 'Fehler: ' + e.message;
+  }
+}
+</script>
+</body>
+</html>
