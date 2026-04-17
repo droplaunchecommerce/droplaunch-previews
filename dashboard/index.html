@@ -958,6 +958,70 @@ body{
 }
 .cc-hint-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 .cc-hint b{color:var(--text);font-weight:600}
+/* ── AUDIT TOOL ── */
+.cc-audit-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px 22px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.cc-audit-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cc-audit-title{font-size:14px;font-weight:700;color:var(--text)}
+.cc-audit-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.cc-audit-input-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cc-audit-input{
+  flex:1;min-width:200px;
+  padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:.2s;
+}
+.cc-audit-input::placeholder{color:var(--text3)}
+.cc-audit-input:focus{border-color:rgba(99,102,241,.45);background:rgba(99,102,241,.05);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.cc-audit-btn{
+  padding:10px 18px;border-radius:10px;
+  background:var(--grad);border:none;
+  color:#fff;font-size:13px;font-weight:700;font-family:inherit;
+  cursor:pointer;white-space:nowrap;transition:.2s;
+  box-shadow:0 4px 16px rgba(99,102,241,.25);
+}
+.cc-audit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.cc-audit-btn:disabled{opacity:.5;cursor:default;transform:none}
+.cc-audit-result{display:none;flex-direction:column;gap:14px;border-top:1px solid var(--border);padding-top:16px}
+.cc-audit-result.show{display:flex}
+.cc-audit-site-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cc-audit-site{font-size:13px;font-weight:700;color:var(--text)}
+.cc-audit-score-wrap{display:flex;align-items:center;gap:8px}
+.cc-audit-score{
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.3px;
+}
+.cc-audit-score-bad{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.cc-audit-score-ok{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.cc-audit-score-good{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.cc-audit-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cc-audit-section-lbl{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.cc-audit-points{display:flex;flex-direction:column;gap:6px}
+.cc-apoint{
+  display:flex;align-items:flex-start;gap:9px;
+  padding:8px 10px;border-radius:9px;
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  font-size:12px;color:var(--text2);line-height:1.5;
+}
+.cc-apoint-icon{flex-shrink:0;font-size:13px;margin-top:1px}
+.cc-apoint.plus{border-color:rgba(34,197,94,.15);background:rgba(34,197,94,.04);color:#86efac}
+.cc-audit-add-btn{
+  align-self:flex-start;
+  padding:8px 16px;border-radius:9px;border:1px solid rgba(99,102,241,.35);
+  background:rgba(99,102,241,.1);color:var(--indigo);
+  font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;transition:.2s;
+}
+.cc-audit-add-btn:hover{background:rgba(99,102,241,.18);border-color:rgba(99,102,241,.5)}
+.cc-audit-spinner{
+  display:none;width:16px;height:16px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);border-top-color:#fff;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cc-audit-loading .cc-audit-spinner{display:inline-block}
+@media(max-width:700px){.cc-audit-cols{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1309,6 +1373,45 @@ body{
 
   <!-- ── COLD CALLS ── -->
   <div id="tab-coldcall" class="content" style="display:none">
+
+    <!-- AUDIT TOOL -->
+    <div class="cc-audit-card" id="auditCard">
+      <div class="cc-audit-header">
+        <div>
+          <div class="cc-audit-title">Website Audit</div>
+          <div class="cc-audit-sub">Domain eingeben → sofortige Stichpunkte für den Anruf</div>
+        </div>
+      </div>
+      <div class="cc-audit-input-row">
+        <input class="cc-audit-input" id="auditInput" type="text" placeholder="z.B. restaurant-mustermann.ch" autocomplete="off"
+          onkeydown="if(event.key==='Enter')runAudit()">
+        <button class="cc-audit-btn" id="auditBtn" onclick="runAudit()">
+          <span id="auditBtnTxt">Analysieren</span>
+          <span class="cc-audit-spinner" id="auditSpinner"></span>
+        </button>
+      </div>
+      <div class="cc-audit-result" id="auditResult">
+        <div class="cc-audit-site-row">
+          <div class="cc-audit-site" id="auditSiteName"></div>
+          <div class="cc-audit-score-wrap">
+            <span class="cc-audit-score" id="auditScoreBadge"></span>
+            <a id="auditSiteLink" href="#" target="_blank" style="font-size:11px;color:var(--text3);text-decoration:none">Website ↗</a>
+          </div>
+        </div>
+        <div class="cc-audit-cols">
+          <div>
+            <div class="cc-audit-section-lbl">Was ansprechen</div>
+            <div class="cc-audit-points" id="auditPoints"></div>
+          </div>
+          <div>
+            <div class="cc-audit-section-lbl">Was bereits gut ist</div>
+            <div class="cc-audit-points" id="auditPositives"></div>
+          </div>
+        </div>
+        <button class="cc-audit-add-btn" id="auditAddBtn" onclick="auditAddToList()">+ Zur Call-Liste hinzufügen</button>
+      </div>
+    </div>
+
     <div class="cc-layout">
 
       <!-- LEFT: Call List -->
@@ -1585,7 +1688,7 @@ body{
         <div class="cc-hint-list" id="ccHintList"></div>
       </div>
 
-    </div>
+    </div><!-- /cc-layout -->
   </div><!-- /tab-coldcall -->
 
 </main>
@@ -2284,6 +2387,177 @@ function _addLiveOrder() {
 }
 
 function _randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+// ── AUDIT TOOL ──
+let _auditCurrent = null;
+
+async function runAudit() {
+  let raw = (document.getElementById('auditInput').value || '').trim();
+  if (!raw) return;
+  // normalize
+  raw = raw.replace(/^https?:\/\//i,'').replace(/\/.*$/,'').toLowerCase();
+  const url = 'https://' + raw;
+
+  // UI: loading
+  const btn = document.getElementById('auditBtn');
+  const spinner = document.getElementById('auditSpinner');
+  const btnTxt = document.getElementById('auditBtnTxt');
+  btn.disabled = true; btn.classList.add('cc-audit-loading');
+  btnTxt.textContent = 'Analyse läuft...';
+  document.getElementById('auditResult').classList.remove('show');
+
+  let html = '', mobileScore = null, doc2 = null;
+
+  // 1. Fetch HTML via proxy
+  try {
+    const r = await Promise.race([
+      fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url)),
+      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 8000))
+    ]);
+    if (r.ok) { html = await r.text(); doc2 = new DOMParser().parseFromString(html, 'text/html'); }
+  } catch(e) {}
+
+  // 2. PageSpeed API (no key needed for basic)
+  try {
+    const ps = await Promise.race([
+      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' + encodeURIComponent(url) + '&strategy=mobile'),
+      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 10000))
+    ]);
+    if (ps.ok) {
+      const d = await ps.json();
+      mobileScore = d.lighthouseResult && d.lighthouseResult.categories
+        ? Math.round(d.lighthouseResult.categories.performance.score * 100)
+        : null;
+    }
+  } catch(e) {}
+
+  // 3. Analyse
+  const points = [], positives = [];
+
+  // SSL
+  if (!url.startsWith('https')) {
+    points.push({i:'🔒', t:'Kein HTTPS — Browser zeigt "Nicht sicher", Besucher springen sofort ab'});
+  } else { positives.push({i:'🔒', t:'HTTPS aktiv — Website ist sicher'}); }
+
+  // Mobile performance
+  if (mobileScore !== null) {
+    if (mobileScore < 45) points.push({i:'📱', t:`Mobile-Score: ${mobileScore}/100 — über 60% der Besucher kommen vom Handy, Seite lädt viel zu langsam`});
+    else if (mobileScore < 70) points.push({i:'📱', t:`Mobile noch ausbaufähig (${mobileScore}/100) — spürbar langsam auf dem Handy`});
+    else positives.push({i:'📱', t:`Mobile-Performance gut (${mobileScore}/100)`});
+  }
+
+  if (doc2) {
+    // Booking / reservation
+    const hasBooking = /reserv|buchen|termin\s|booking|book\s|jetzt buchen|online.{0,20}buch|appointm/i.test(html);
+    if (!hasBooking) points.push({i:'📅', t:'Kein Online-Buchungssystem — "Was wenn jemand abends um 22h buchen will?"'});
+    else positives.push({i:'📅', t:'Online-Buchung / Reservation vorhanden'});
+
+    // Contact form
+    const forms = doc2.querySelectorAll('form');
+    const hasContactForm = Array.from(forms).some(f => {
+      const txt = (f.innerHTML + f.getAttribute('action') + '').toLowerCase();
+      return /contact|kontakt|nachricht|message|anfrage|email|mail/i.test(txt) || f.querySelectorAll('input[type=email],textarea').length > 0;
+    });
+    if (!hasContactForm) points.push({i:'📋', t:'Kein Kontaktformular — Kunden können nicht direkt über die Website anfragen'});
+    else positives.push({i:'📋', t:'Kontaktformular vorhanden'});
+
+    // Images / gallery
+    const imgs = doc2.querySelectorAll('img:not([width="1"]):not([height="1"])');
+    if (imgs.length < 4) points.push({i:'📸', t:`Kaum Bilder (${imgs.length} gefunden) — keine Galerie, Atmosphäre kommt nicht rüber`});
+    else if (imgs.length < 8) points.push({i:'📸', t:`Galerie dünn (${imgs.length} Bilder) — zu wenig um die Qualität rüberzubringen`});
+    else positives.push({i:'📸', t:`Bilder vorhanden (${imgs.length})`});
+
+    // Instagram
+    if (!html.includes('instagram.com')) points.push({i:'📲', t:'Kein Instagram-Link — Social-Media nicht mit der Website verbunden'});
+    else positives.push({i:'📲', t:'Instagram verlinkt'});
+
+    // Google Maps
+    if (!/maps\.google|google\.com\/maps|goo\.gl\/maps|iframe.*maps/i.test(html))
+      points.push({i:'🗺️', t:'Kein Google Maps eingebettet — Standort für Besucher nicht sofort sichtbar'});
+    else positives.push({i:'🗺️', t:'Google Maps eingebettet'});
+
+    // Opening hours
+    if (!/öffnungszeiten|opening hours|geöffnet|montag|dienstag|monday|tuesday|horaire/i.test(html))
+      points.push({i:'🕐', t:'Keine Öffnungszeiten sichtbar — Besucher wissen nicht wann erreichbar'});
+    else positives.push({i:'🕐', t:'Öffnungszeiten vorhanden'});
+
+    // Reviews / ratings
+    if (!/bewertung|review|rating|google.*stern|tripadvisor|trustpilot/i.test(html))
+      points.push({i:'⭐', t:'Keine Bewertungen sichtbar — Google-Sterne als Vertrauenssignal fehlen komplett'});
+    else positives.push({i:'⭐', t:'Bewertungen / Reviews eingebunden'});
+
+    // Phone visible
+    if (!/tel:|phone|telefon|\+\d{8,}|\d{2,3}[\s.\/]\d{3}/i.test(html))
+      points.push({i:'📞', t:'Keine Telefonnummer auf der Startseite direkt sichtbar'});
+  } else {
+    points.push({i:'⚠️', t:'Website konnte nicht geladen werden — möglicherweise offline oder blockiert'});
+  }
+
+  // Sort: max 5 points, max 3 positives
+  const topPoints = points.slice(0, 6);
+  const topPos = positives.slice(0, 4);
+
+  // Score: 10 = perfect, subtract per issue
+  const issues = points.length;
+  const rawScore = Math.max(0, Math.min(100, 100 - issues * 13));
+
+  // Render
+  document.getElementById('auditSiteName').textContent = raw;
+  document.getElementById('auditSiteLink').href = url;
+  document.getElementById('auditSiteLink').textContent = raw + ' ↗';
+
+  const sb = document.getElementById('auditScoreBadge');
+  sb.textContent = issues === 0 ? 'Sehr gut' : issues <= 2 ? `${issues} Problem${issues>1?'e':''}` : `${issues} Probleme`;
+  sb.className = 'cc-audit-score ' + (issues <= 1 ? 'cc-audit-score-good' : issues <= 3 ? 'cc-audit-score-ok' : 'cc-audit-score-bad');
+
+  document.getElementById('auditPoints').innerHTML = topPoints.length
+    ? topPoints.map(p=>`<div class="cc-apoint"><span class="cc-apoint-icon">${p.i}</span><span>${p.t}</span></div>`).join('')
+    : '<div class="cc-apoint plus"><span class="cc-apoint-icon">✅</span><span>Keine grossen Probleme gefunden</span></div>';
+
+  document.getElementById('auditPositives').innerHTML = topPos.length
+    ? topPos.map(p=>`<div class="cc-apoint plus"><span class="cc-apoint-icon">${p.i}</span><span>${p.t}</span></div>`).join('')
+    : '<div class="cc-apoint"><span class="cc-apoint-icon">—</span><span>Nichts Positives erkannt</span></div>';
+
+  _auditCurrent = { name: raw, url, points: topPoints };
+  document.getElementById('auditResult').classList.add('show');
+
+  // Reset UI
+  btn.disabled = false; btn.classList.remove('cc-audit-loading');
+  btnTxt.textContent = 'Analysieren';
+}
+
+function auditAddToList() {
+  if (!_auditCurrent) return;
+  const { name, url, points } = _auditCurrent;
+  const id = 'audit-' + name.replace(/[^a-z0-9]/gi,'');
+  if (document.querySelector(`.cc-card[data-id="${id}"]`)) return;
+  const note = points.slice(0,2).map(p=>p.t).join(' · ') || 'Manuell hinzugefügt';
+  const card = document.createElement('div');
+  card.className = 'cc-card'; card.dataset.id = id;
+  const domain = name.replace(/^www\./,'');
+  card.innerHTML = `
+    <div class="cc-card-top">
+      <div class="cc-card-meta">
+        <div class="cc-name">${domain}</div>
+        <div class="cc-badge-row"><span class="cc-cat cc-cat-handwerker" style="text-transform:none">Audit-Lead</span></div>
+      </div>
+      <button class="cc-status-btn" data-id="${id}" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+    </div>
+    <div class="cc-phone-row">
+      <div class="cc-web"><a href="${url}" target="_blank">${domain} ↗</a></div>
+    </div>
+    <div class="cc-note">${note}</div>`;
+  // Insert after the kalt-liste section header
+  const headers = document.querySelectorAll('.cc-section-hd');
+  const kaltHd = Array.from(headers).find(h=>h.textContent.includes('Kalt-Liste'));
+  if (kaltHd && kaltHd.nextElementSibling) {
+    kaltHd.parentNode.insertBefore(card, kaltHd.nextElementSibling);
+  } else {
+    document.querySelector('.cc-list').appendChild(card);
+  }
+  document.getElementById('auditAddBtn').textContent = '✓ Hinzugefügt';
+  document.getElementById('auditAddBtn').disabled = true;
+}
 
 // ── COLD CALLS ──
 const CC_HINTS = {
