@@ -869,7 +869,95 @@ body{
   .pipeline-stats{width:100%;justify-content:flex-start}
   .auth-card-inner{padding:32px 24px}
   .cm-overlay{font-size:11px;top:80px}
+  .cc-layout{grid-template-columns:1fr}
+  .cc-hints{position:relative;top:auto}
+  .cc-phone a{font-size:14px}
 }
+
+/* ── COLD CALL TAB ── */
+.cc-layout{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+.cc-list{display:flex;flex-direction:column;gap:10px}
+.cc-section-hd{
+  display:flex;align-items:center;gap:10px;margin-top:6px;
+  font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text3);
+}
+.cc-section-hd::after{content:'';flex:1;height:1px;background:var(--border)}
+.cc-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--radius);padding:15px 18px;
+  display:flex;flex-direction:column;gap:9px;transition:.2s;
+}
+.cc-card:hover{border-color:var(--border-h);background:var(--glass-h)}
+.cc-card.priority{border-color:rgba(99,102,241,.25);background:rgba(99,102,241,.04)}
+.cc-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.cc-card-meta{display:flex;flex-direction:column;gap:5px}
+.cc-name{font-size:14px;font-weight:700;color:var(--text)}
+.cc-badge-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.cc-cat{font-size:10px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:100px}
+.cc-cat-restaurant{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.cc-cat-cafe{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.2)}
+.cc-cat-barbershop{background:rgba(167,139,250,.1);color:var(--violet);border:1px solid rgba(167,139,250,.2)}
+.cc-cat-handwerker{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.cc-hot-tag{
+  font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:2px 8px;border-radius:100px;
+  background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2);
+  animation:ccPulse 2s ease-in-out infinite;
+}
+@keyframes ccPulse{0%,100%{opacity:1}50%{opacity:.55}}
+.cc-phone-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cc-phone a{
+  font-size:15px;font-weight:700;color:var(--text);text-decoration:none;
+  letter-spacing:.2px;transition:.15s;
+}
+.cc-phone a:hover{color:var(--indigo)}
+.cc-web a{font-size:11px;color:var(--text3);text-decoration:none;transition:.15s}
+.cc-web a:hover{color:var(--text2)}
+.cc-note{
+  font-size:11px;color:var(--text2);line-height:1.5;
+  padding:7px 10px;background:rgba(255,255,255,.02);
+  border-radius:8px;border-left:2px solid var(--indigo);
+}
+.cc-status-btn{
+  flex-shrink:0;padding:5px 11px;border-radius:100px;
+  border:1px solid var(--border);background:var(--glass);color:var(--text3);
+  font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;transition:.2s;white-space:nowrap;
+}
+.cc-status-btn:hover{border-color:var(--border-h);color:var(--text2)}
+.cc-status-btn[data-status="priority"]{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4);color:var(--indigo)}
+.cc-status-btn[data-status="calling"]{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);color:var(--amber)}
+.cc-status-btn[data-status="noanswer"]{background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.15);color:#d97706}
+.cc-status-btn[data-status="callback"]{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.3);color:var(--violet)}
+.cc-status-btn[data-status="done"]{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:var(--green)}
+.cc-status-btn[data-status="nope"]{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red)}
+/* Hints panel */
+.cc-hints{
+  position:sticky;top:80px;
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.cc-hints-title{font-size:13px;font-weight:700;color:var(--text)}
+.cc-hints-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.cc-htabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.cc-htab{
+  padding:4px 10px;border-radius:100px;
+  border:1px solid var(--border);background:var(--glass);
+  color:var(--text3);font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;transition:.15s;
+}
+.cc-htab:hover{color:var(--text2);border-color:var(--border-h)}
+.cc-htab.active{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.35);color:var(--indigo)}
+.cc-hint-list{display:flex;flex-direction:column;gap:8px}
+.cc-hint{
+  padding:10px 12px;border-radius:10px;
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  font-size:12px;color:var(--text2);line-height:1.55;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.cc-hint-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.cc-hint b{color:var(--text);font-weight:600}
 </style>
 </head>
 <body>
@@ -961,6 +1049,11 @@ body{
     <div class="nav-item" onclick="showTab('actions')">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Aufgaben
+    </div>
+    <div class="nav-section">Sales</div>
+    <div class="nav-item" onclick="showTab('coldcall')">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Cold Calls
     </div>
   </nav>
 
@@ -1214,6 +1307,287 @@ body{
     </div>
   </div>
 
+  <!-- ── COLD CALLS ── -->
+  <div id="tab-coldcall" class="content" style="display:none">
+    <div class="cc-layout">
+
+      <!-- LEFT: Call List -->
+      <div class="cc-list">
+
+        <div class="cc-section-hd">🔥 Jetzt anrufen — haben geantwortet</div>
+
+        <div class="cc-card priority" data-id="coiffeurmeisterin">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Die Coiffeurmeisterin</div>
+              <div class="cc-badge-row">
+                <span class="cc-cat cc-cat-barbershop">Coiffeur</span>
+                <span class="cc-hot-tag">3x geantwortet!</span>
+              </div>
+            </div>
+            <button class="cc-status-btn" data-id="coiffeurmeisterin" data-status="priority" onclick="ccCycle(this)">Jetzt anrufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41522128464">052 212 84 64</a></div>
+            <div class="cc-web"><a href="https://die-coiffeurmeisterin.ch" target="_blank">die-coiffeurmeisterin.ch ↗</a></div>
+          </div>
+          <div class="cc-note">Auto-Reply enthielt explizit die Telefonnummer — haben bewusst signalisiert, dass sie zurückgerufen werden wollen.</div>
+        </div>
+
+        <div class="cc-card priority" data-id="traditionalbarber">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Traditional Barbershop</div>
+              <div class="cc-badge-row">
+                <span class="cc-cat cc-cat-barbershop">Barbershop</span>
+                <span class="cc-hot-tag">Rückruf-Hinweis</span>
+              </div>
+            </div>
+            <button class="cc-status-btn" data-id="traditionalbarber" data-status="priority" onclick="ccCycle(this)">Jetzt anrufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41527222224">052 722 22 24</a></div>
+            <div class="cc-web"><a href="https://traditionalbarber.ch" target="_blank">traditionalbarber.ch ↗</a></div>
+          </div>
+          <div class="cc-note">Reply enthält Telefonnummer für Terminvereinbarung — kennen unsere Mail bereits.</div>
+        </div>
+
+        <div class="cc-section-hd">📋 Kalt-Liste — noch kein Kontakt per Mail</div>
+
+        <!-- Restaurants -->
+        <div class="cc-card" data-id="pulcinella">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Pulcinella</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-restaurant">Restaurant</span><span style="font-size:11px;color:var(--text3)">Weinfelden</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="pulcinella" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41719970000">+41 71 997 00 00</a></div>
+            <div class="cc-web"><a href="https://www.pulcinella-weinfelden.ch" target="_blank">pulcinella-weinfelden.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="alcovo">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Al Covo</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-restaurant">Restaurant</span><span style="font-size:11px;color:var(--text3)">Wittenbach</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="alcovo" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41712902020">+41 71 290 20 20</a></div>
+            <div class="cc-web"><a href="https://www.alcovo.ch" target="_blank">alcovo.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="freihof">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Thai Restaurant Freihof</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-restaurant">Restaurant</span><span style="font-size:11px;color:var(--text3)">Münchwilen TG</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="freihof" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41719663700">+41 71 966 37 00</a></div>
+            <div class="cc-web"><a href="https://www.freihof-thai.ch" target="_blank">freihof-thai.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="ilcastello">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Il Castello</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-restaurant">Restaurant</span><span style="font-size:11px;color:var(--text3)">Müllheim Dorf</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="ilcastello" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41527631153">+41 52 763 11 53</a></div>
+            <div class="cc-web"><a href="https://www.pizzeria-castello.ch" target="_blank">pizzeria-castello.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="eintracht">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Eintracht</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-restaurant">Restaurant</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="eintracht" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41719471330">+41 71 947 13 30</a></div>
+          </div>
+        </div>
+
+        <!-- Cafés -->
+        <div class="cc-card" data-id="mohn">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Café Mohn</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="mohn" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41716228555">+41 71 622 85 55</a></div>
+            <div class="cc-web"><a href="https://www.beckmohn.ch" target="_blank">beckmohn.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="kaplanei">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Rüpplinsche Kaplanei</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="kaplanei" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41527215408">+41 52 721 54 08</a></div>
+            <div class="cc-web"><a href="https://www.kaplanei.ch" target="_blank">kaplanei.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="cafezumelch">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Café zum Elch</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="cafezumelch" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41797064602">+41 79 706 46 02</a></div>
+            <div class="cc-web"><a href="http://www.littlefinland.ch" target="_blank">littlefinland.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="kiloundgramm">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">kilo+gramm</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="kiloundgramm" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41716691155">+41 71 669 11 55</a></div>
+            <div class="cc-web"><a href="https://www.kiloundgramm.ch" target="_blank">kiloundgramm.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="lieblingsplatz">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Lieblingsplatz</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="lieblingsplatz" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41799072274">+41 79 907 22 74</a></div>
+            <div class="cc-web"><a href="https://lieblingsplatz-cafe.ch" target="_blank">lieblingsplatz-cafe.ch ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="plaza">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Plaza</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-cafe">Café</span><span style="font-size:11px;color:var(--text3)">Arbon</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="plaza" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41714462383">+41 71 446 23 83</a></div>
+            <div class="cc-web"><a href="http://www.plaza-bar.ch" target="_blank">plaza-bar.ch ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Barbershops -->
+        <div class="cc-card" data-id="glueckundglanz">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Glück &amp; Glanz</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-barbershop">Barbershop</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="glueckundglanz" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+4975447429">+49 7544 72429</a></div>
+            <div class="cc-web"><a href="https://www.glueckundglanz.net" target="_blank">glueckundglanz.net ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="coifsenna">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Coiffeur Senna</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-barbershop">Coiffeur</span><span style="font-size:11px;color:var(--text3)">Bischofszell</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="coifsenna" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41765180011">+41 76 518 00 11</a></div>
+            <div class="cc-web"><a href="https://www.coiffeur-senna.ch" target="_blank">coiffeur-senna.ch ↗</a></div>
+          </div>
+        </div>
+
+        <!-- Handwerker -->
+        <div class="cc-card" data-id="elektrobaezner">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Elektro Bäzner</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-handwerker">Handwerker</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="elektrobaezner" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+497541950700">+49 7541 95070</a></div>
+            <div class="cc-web"><a href="http://www.baezner.de" target="_blank">baezner.de ↗</a></div>
+          </div>
+        </div>
+
+        <div class="cc-card" data-id="zehnderholz">
+          <div class="cc-card-top">
+            <div class="cc-card-meta">
+              <div class="cc-name">Zehnder Holz und Bau</div>
+              <div class="cc-badge-row"><span class="cc-cat cc-cat-handwerker">Handwerker</span><span style="font-size:11px;color:var(--text3)">Winterthur</span></div>
+            </div>
+            <button class="cc-status-btn" data-id="zehnderholz" data-status="open" onclick="ccCycle(this)">Noch nicht angerufen</button>
+          </div>
+          <div class="cc-phone-row">
+            <div class="cc-phone"><a href="tel:+41522451060">+41 52 245 10 60</a></div>
+            <div class="cc-web"><a href="https://zehnder-holz.ch" target="_blank">zehnder-holz.ch ↗</a></div>
+          </div>
+        </div>
+
+      </div><!-- /cc-list -->
+
+      <!-- RIGHT: Hints Panel -->
+      <div class="cc-hints">
+        <div>
+          <div class="cc-hints-title">Call Hints</div>
+          <div class="cc-hints-sub">Kein Skript — nur die richtigen Winkel</div>
+        </div>
+        <div class="cc-htabs">
+          <button class="cc-htab active" onclick="ccHint('universal',this)">Universal</button>
+          <button class="cc-htab" onclick="ccHint('barbershop',this)">Barbershop</button>
+          <button class="cc-htab" onclick="ccHint('restaurant',this)">Restaurant</button>
+          <button class="cc-htab" onclick="ccHint('cafe',this)">Café</button>
+          <button class="cc-htab" onclick="ccHint('handwerker',this)">Handwerker</button>
+        </div>
+        <div class="cc-hint-list" id="ccHintList"></div>
+      </div>
+
+    </div>
+  </div><!-- /tab-coldcall -->
+
 </main>
 
 <!-- MOBILE BOTTOM NAV -->
@@ -1238,6 +1612,10 @@ body{
     <button class="mnav-item" id="mnav-actions" onclick="showTab('actions')">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       <span class="mnav-label">Aufgaben</span><div class="mnav-dot"></div>
+    </button>
+    <button class="mnav-item" id="mnav-coldcall" onclick="showTab('coldcall')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="mnav-label">Calls</span><div class="mnav-dot"></div>
     </button>
   </div>
 </nav>
@@ -1540,12 +1918,18 @@ function showTab(name) {
     activity:['Live Aktivität','Alle Öffnungen in Echtzeit'],
     regions:['Regionen','DACH Rollout · 13 Regionen geplant'],
     actions:['Aufgaben','Nach Dringlichkeit sortiert'],
+    coldcall:['Cold Calls','Direkt anrufen — Hints statt Skript'],
   };
   if (titles[name]) {
     document.getElementById('pageTitle').textContent = titles[name][0];
     document.getElementById('pageSub').textContent = titles[name][1];
   }
   if (name === 'replies' && _sessionPw && ENCRYPTED_REPLIES) decryptReplies(_sessionPw);
+  if (name === 'coldcall') {
+    ccRestoreStatus();
+    const hl = document.getElementById('ccHintList');
+    if (hl && !hl.children.length) ccHint('universal', document.querySelector('.cc-htab'));
+  }
   if (window.innerWidth <= 768) window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -1900,6 +2284,84 @@ function _addLiveOrder() {
 }
 
 function _randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+// ── COLD CALLS ──
+const CC_HINTS = {
+  universal:[
+    {i:'🎯',t:'<b>Opening:</b> "Wir haben bereits einen Entwurf für euch gebaut — ich wollte kurz fragen ob ihr den mal anschauen wollt."'},
+    {i:'💡',t:'<b>Kein Pitch:</b> Sprich über <em>ihre</em> Website, nicht über uns. Zeig dass du sie dir wirklich angeschaut hast.'},
+    {i:'📅',t:'<b>Ziel des Calls:</b> Nicht abschliessen — nur einen kurzen Zoom oder Vor-Ort-Termin vereinbaren.'},
+    {i:'❓',t:'<b>Einwand "kein Budget":</b> "Wann wäre es denn interessant für euch?" — Zeitpunkt fragen, nicht Budget diskutieren.'},
+    {i:'🤝',t:'<b>Einwand "kein Interesse":</b> "Verstehe ich — darf ich in 3 Monaten nochmal kurz melden?" — meistens Ja.'},
+    {i:'🔗',t:'<b>Abschluss:</b> "Ich schick euch nachher den Link — einfach kurz reinschauen, völlig unverbindlich."'},
+  ],
+  barbershop:[
+    {i:'📱',t:'<b>Stärkstes Argument:</b> "Wie viele Anrufe bekommt ihr pro Tag für Terminbuchungen?" → Online-Buchung spart das komplett.'},
+    {i:'⏰',t:'"Wenn jemand abends um 22h buchen will — mit Online-Buchung verliert ihr den Termin nicht."'},
+    {i:'📸',t:'Galerie der eigenen Arbeit — Neukunden wollen sehen was sie bekommen, bevor sie den ersten Termin machen.'},
+    {i:'📲',t:'"Eure Instagram-Posts können automatisch auf der Website erscheinen — kein doppelter Aufwand."'},
+    {i:'🌟',t:'Google-Bewertungen prominent einbinden — bei Coiffeurs ist Vertrauen das A und O.'},
+  ],
+  restaurant:[
+    {i:'📅',t:'"Nehmt ihr aktuell Reservierungen per Telefon an?" → "Was wenn jemand abends um 22h einen Tisch buchen will?"'},
+    {i:'⭐',t:'"Eure Google-Bewertungen sind euer bestes Verkaufsargument — die zeigen wir direkt auf der Startseite."'},
+    {i:'🍽️',t:'"Leute googeln die Speisekarte bevor sie reservieren — ist eure aktuell einfach und schnell auffindbar?"'},
+    {i:'📸',t:'"Das Ambiente bei euch kommt online gerade nicht rüber — das können wir mit einer Vollbild-Galerie ändern."'},
+    {i:'🗺️',t:'"Wenn jemand Restaurant in [Stadt] googelt — erscheint ihr da prominent? Das können wir messbar verbessern."'},
+  ],
+  cafe:[
+    {i:'🎨',t:'"Euer Ambiente kommt online nicht rüber — mit der richtigen Galerie kommen Leute rein weil sie es schon kennen."'},
+    {i:'📋',t:'Wochenkarte / Tagesspecials sichtbar machen — "Leute entscheiden durch Google Maps was sie sehen."'},
+    {i:'🎵',t:'Events, Live-Musik, Lesungen — kann alles automatisch auf der Website erscheinen, einmal einrichten.'},
+    {i:'📲',t:'Instagram-Galerie direkt integriert — einmal posten, auf Website + Social gleichzeitig sichtbar.'},
+    {i:'☕',t:'"Habt ihr Stammkunden die euch weiterempfehlen? Deren Bewertungen machen wir für neue Besucher sichtbar."'},
+  ],
+  handwerker:[
+    {i:'🕐',t:'"Kunden fragen auch sonntags an — mit einem Kontaktformular verpasst ihr keine Anfrage mehr."'},
+    {i:'📷',t:'Referenzen mit Fotos: "Das erste was jemand macht — schauen ob die Arbeit gut ist. Haben wir bereits eingebaut."'},
+    {i:'🔍',t:'"Wenn jemand Elektriker / Maler in [Ort] googelt — erscheint ihr da? Das können wir deutlich verbessern."'},
+    {i:'📞',t:'Klarer CTA: "Bei vielen Handwerker-Websites ist es schwer Kontakt aufzunehmen — das lösen wir direkt."'},
+    {i:'✅',t:'"Eure Arbeit ist gut — die Website soll das spiegeln. Im Moment zeigt sie euer Niveau nicht."'},
+  ],
+};
+const CC_STATES=[
+  {k:'open',    l:'Noch nicht angerufen'},
+  {k:'calling', l:'Gerade dran...'},
+  {k:'noanswer',l:'Kein Anschluss'},
+  {k:'callback',l:'Rückruf vereinbart'},
+  {k:'done',    l:'Abgeschlossen ✓'},
+  {k:'nope',    l:'Kein Interesse'},
+];
+function ccHint(cat, btn) {
+  document.querySelectorAll('.cc-htab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const list = document.getElementById('ccHintList');
+  if (!list) return;
+  list.innerHTML = (CC_HINTS[cat]||[]).map(h=>
+    `<div class="cc-hint"><div class="cc-hint-icon">${h.i}</div><div class="cc-hint-text">${h.t}</div></div>`
+  ).join('');
+}
+function ccCycle(btn) {
+  const id = btn.dataset.id;
+  const cur = btn.dataset.status;
+  const pool = cur==='priority' ? [{k:'priority',l:'Jetzt anrufen'},...CC_STATES] : CC_STATES;
+  const idx = pool.findIndex(s=>s.k===cur);
+  const next = pool[(idx+1)%pool.length];
+  btn.dataset.status = next.k;
+  btn.textContent = next.l;
+  const cc = JSON.parse(localStorage.getItem('cc_status')||'{}');
+  cc[id] = next.k;
+  localStorage.setItem('cc_status', JSON.stringify(cc));
+}
+function ccRestoreStatus() {
+  const cc = JSON.parse(localStorage.getItem('cc_status')||'{}');
+  Object.entries(cc).forEach(([id,status])=>{
+    const btn = document.querySelector(`.cc-status-btn[data-id="${id}"]`);
+    if (!btn) return;
+    const state = CC_STATES.find(s=>s.k===status);
+    if (state) { btn.dataset.status=status; btn.textContent=state.l; }
+  });
+}
 
 </script>
 </body>
