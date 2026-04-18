@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!-- Entwurf erstellt von DropLaunch.de — Kopieren verboten -->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soul — Website-Entwurf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-primary:#153227;
+  --c-primary-light:#eabba7;
+  --c-accent:#eabba7;
+  --c-cream:#FAF6F1;
+  --c-dark:#1a1a1a;
+  --c-text:#333;
+  --c-text-light:#666;
+  --c-white:#fff;
+  --c-border:rgba(0,0,0,0.08);
+  --c-shadow:rgba(0,0,0,0.06);
+  --font-display:'DM Serif Display',serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --max-w:1140px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);color:var(--c-text);background:var(--c-white);-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none;overflow-x:hidden}
+img{-webkit-user-drag:none;pointer-events:none}
+.wm{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:5.5vw;color:rgba(0,0,0,0.025);pointer-events:none;z-index:9999;white-space:nowrap;letter-spacing:.6em;font-weight:700;font-family:var(--font-body)}
+.entwurf-badge{position:fixed;top:20px;right:20px;z-index:10000;background:#4F46E5;color:#fff;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-body);box-shadow:0 4px 20px rgba(79,70,229,0.4)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 0;transition:all .4s ease}
+.nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);box-shadow:0 2px 30px var(--c-shadow);padding:12px 0}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--font-display);font-size:20px;color:#fff;text-decoration:none;transition:color .3s}
+.nav.scrolled .nav-logo{color:var(--c-dark)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+.nav.scrolled .nav-links a{color:var(--c-text-light)}
+.nav-links a:hover{color:var(--c-accent)}
+.nav-cta-btn{background:var(--c-accent);color:var(--c-dark);padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;transition:all .3s}
+.nav-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+.nav.scrolled .nav-cta-btn{background:var(--c-primary);color:#fff}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://soulzuerich.ch/static/outside-7b0356fe47be4c7c0afa53295e72e6ef.jpeg') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
+.hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
+.hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
+.hero h1{font-family:var(--font-display);font-size:clamp(42px,6vw,76px);color:#fff;line-height:1.08;margin-bottom:20px;max-width:720px}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.78);max-width:540px;line-height:1.75;margin-bottom:36px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;text-decoration:none;transition:all .3s ease;cursor:pointer;border:none}
+.btn-primary{background:var(--c-accent);color:var(--c-dark)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+.btn-outline{background:transparent;border:1.5px solid rgba(255,255,255,0.35);color:#fff}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.1)}
+.btn-outline-dark{display:inline-flex;align-items:center;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--c-primary);text-decoration:none;border-bottom:2px solid var(--c-accent);padding-bottom:2px;transition:opacity .2s}
+.btn-outline-dark:hover{opacity:.7}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,0.45);font-size:12px;text-align:center;animation:float 2.5s ease-in-out infinite}
+.hero-scroll span{display:block;width:22px;height:36px;border:2px solid rgba(255,255,255,0.3);border-radius:12px;margin:8px auto 0;position:relative}
+.hero-scroll span::after{content:'';position:absolute;top:5px;left:50%;width:3px;height:7px;margin-left:-1.5px;background:rgba(255,255,255,0.5);border-radius:2px;animation:scrollDot 1.8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes scrollDot{0%{opacity:1;top:5px}100%{opacity:0;top:20px}}
+
+/* SECTIONS */
+section{padding:96px 32px}
+.section-inner{max-width:var(--max-w);margin:0 auto}
+.section-label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c-primary);margin-bottom:12px}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,4vw,46px);color:var(--c-dark);margin-bottom:16px;line-height:1.2}
+.section-subtitle{font-size:16px;color:var(--c-text-light);max-width:560px;line-height:1.75;margin-bottom:48px}
+
+/* LEISTUNGEN */
+.leistungen{background:var(--c-cream)}
+.leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
+.leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#eabba7,#153227);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
+.leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
+.leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
+
+/* ÜBER UNS */
+.ueber-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.ueber-text .section-title{margin-bottom:20px}
+.ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
+.ueber-photo{border-radius:20px;overflow:hidden;height:420px}
+.ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#15322733,#eabba744)}
+
+/* GALERIE */
+.galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
+.galerie-grid .g-item{border-radius:14px;overflow:hidden;position:relative}
+.galerie-grid .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.galerie-grid .g-item:hover img{transform:scale(1.07)}
+.galerie-grid .g-item:nth-child(1){grid-row:1/3;grid-column:1/2}
+.galerie-grid .g-item:nth-child(4){grid-column:2/4}
+
+/* BEWERTUNGEN */
+.bewertungen{background:var(--c-cream)}
+.bew-header{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.google-g{width:36px;height:36px}
+.bew-overall{display:flex;align-items:center;gap:12px;margin-bottom:44px}
+.bew-overall .score{font-family:var(--font-display);font-size:42px;color:var(--c-dark)}
+.bew-overall .stars{color:#FBBC04;font-size:22px;letter-spacing:2px}
+.bew-overall .count{font-size:14px;color:var(--c-text-light)}
+.bew-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.bew-card{background:var(--c-white);padding:28px;border-radius:14px;border:1px solid var(--c-border)}
+.bew-card-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bew-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px}
+.bew-name{font-weight:600;font-size:15px;color:var(--c-dark)}
+.bew-date{font-size:12px;color:var(--c-text-light)}
+.bew-stars{color:#FBBC04;font-size:14px;letter-spacing:1px;margin-bottom:10px}
+.bew-text{font-size:14px;color:var(--c-text-light);line-height:1.75}
+.bew-google-badge{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;color:#999;font-weight:500}
+.bew-google-badge svg{width:14px;height:14px}
+
+/* MAP */
+.map-wrap{border-radius:16px;overflow:hidden;height:400px;margin-bottom:24px;box-shadow:0 8px 40px var(--c-shadow)}
+.map-wrap iframe{width:100%;height:100%;border:0}
+.map-info{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.map-address{font-size:15px;color:var(--c-text-light);line-height:1.7}
+.map-address strong{color:var(--c-dark);font-family:var(--font-display);font-size:18px;display:block;margin-bottom:4px}
+.btn-route{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--c-primary);color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s}
+.btn-route:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* CTA BANNER */
+.cta-banner{background:linear-gradient(135deg,#153227 0%,#eabba7 100%);text-align:center;padding:80px 32px}
+.cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
+.cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
+.cta-banner .btn-white{background:#fff;color:#153227;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
+.cta-banner .btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.18)}
+
+/* FOOTER */
+.footer{background:var(--c-dark);color:rgba(255,255,255,0.65);padding:72px 32px 36px}
+.footer-inner{max-width:var(--max-w);margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.footer-brand h3{font-family:var(--font-display);font-size:26px;color:#fff;margin-bottom:12px}
+.footer-brand p{font-size:14px;line-height:1.8;max-width:320px}
+.footer h4{color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.footer ul{list-style:none}
+.footer li{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.footer li:last-child{border-bottom:none}
+.footer li span:last-child{color:rgba(255,255,255,0.9);font-weight:500;text-align:right}
+.footer-contact li{display:block;border-bottom:none;padding:4px 0}
+.footer a{color:rgba(255,255,255,0.55);text-decoration:none;transition:color .3s}
+.footer a:hover{color:var(--c-accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:8px}
+.footer-credit{color:rgba(255,255,255,0.3)}
+.footer-credit a{color:var(--c-accent);text-decoration:none}
+
+/* STATS */
+.stats-bar{background:var(--c-dark);padding:40px 32px}
+.stats-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.stat-item{flex:1;min-width:160px;text-align:center;padding:16px 24px;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,0.1)}
+.stat-num{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;line-height:1.1;margin-bottom:6px}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,0.5);font-weight:500;letter-spacing:.5px}
+
+/* ANIMATIONS */
+@keyframes heroSlideUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:heroSlideUp .8s cubic-bezier(0.16,1,0.3,1) both}
+.hero h1{animation:heroSlideUp .9s .12s cubic-bezier(0.16,1,0.3,1) both}
+.hero-sub{animation:heroSlideUp 1s .22s cubic-bezier(0.16,1,0.3,1) both}
+.hero-btns{animation:heroSlideUp 1s .36s cubic-bezier(0.16,1,0.3,1) both}
+.reveal{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* BURGER */
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-burger span{display:block;height:2px;border-radius:2px;background:#fff;transition:all .3s}
+.nav.scrolled .nav-burger span{background:var(--c-dark)}
+.nav-mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.96);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu a{color:#fff;text-decoration:none;font-size:22px;font-family:var(--font-display);font-weight:400;letter-spacing:.5px;transition:color .2s}
+.nav-mobile-menu a:hover{color:var(--c-accent)}
+.nav-mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links,.nav-cta-btn{display:none}
+  .nav-burger{display:flex}
+  .hero h1{font-size:clamp(30px,8vw,42px)}
+  .hero-sub{font-size:15px}
+  .hero-btns{flex-direction:column;gap:10px}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .ueber-grid{grid-template-columns:1fr;gap:32px}
+  .ueber-photo{height:240px;order:2}
+  .ueber-text{order:1}
+  .galerie-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px}
+  .galerie-grid .g-item:nth-child(1){grid-row:auto;grid-column:auto}
+  .galerie-grid .g-item:nth-child(4){grid-column:auto}
+  .footer-top{grid-template-columns:1fr;gap:32px}
+  .map-info{flex-direction:column;align-items:flex-start}
+  .map-wrap{height:280px}
+  .bew-grid{grid-template-columns:1fr}
+  .cta-banner{padding:56px 20px}
+  section{padding:56px 20px}
+  .hero-content{padding:0 20px}
+  .nav-inner{padding:0 20px}
+  .leistungen-grid{grid-template-columns:1fr;gap:16px}
+  .leistung-card{padding:24px 20px}
+  .bew-overall .score{font-size:32px}
+  .footer{padding:48px 20px 28px}
+}
+@media(max-width:400px){
+  .hero h1{font-size:28px}
+  .hero-tag{font-size:10px}
+  .section-title{font-size:26px}
+  .galerie-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .galerie-grid .g-item{height:180px}
+}
+</style>
+</head>
+<body>
+
+<div class="wm">ENTWURF — DROPLAUNCH.DE</div>
+<div class="entwurf-badge">✦ ENTWURF</div>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+  <a href="#" class="nav-logo"><img src="https://soulzuerich.ch/icons/icon-512x512.png?v=9875e555a2af76696d863f7f95044463" alt="Soul" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#bewertungen">Bewertungen</a></li>
+    <li><a href="#standort">Standort</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-cta-btn">Tisch reservieren</a>
+  <button class="nav-burger" id="navBurger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+</nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <button class="nav-mobile-close" id="mobileClose">&#x2715;</button>
+  <a href="#leistungen" class="mobile-link">Leistungen</a>
+  <a href="#galerie" class="mobile-link">Galerie</a>
+  <a href="#bewertungen" class="mobile-link">Bewertungen</a>
+  <a href="#standort" class="mobile-link">Standort</a>
+  <a href="#kontakt" class="mobile-link" style="color:var(--c-accent);font-weight:700;">Tisch reservieren</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Café · Zürich</div>
+    <h1>Wo der Tag gut beginnt.</h1>
+    <p class="hero-sub">Soul: Zurich's modern all-day kitchen bar. Enjoy brunch, business lunches, refined dinners, cocktails, and wines in a warm, vibrant city atmosphere.</p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
+      <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Entdecken<span></span></div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">4.9★</div><div class="stat-lbl">Google-Bewertung</div></div><div class="stat-item reveal"><div class="stat-num">Täglich</div><div class="stat-lbl">Frisch gebacken</div></div><div class="stat-item reveal"><div class="stat-num">10+</div><div class="stat-lbl">Jahre Kaffeekultur</div></div>
+  </div>
+</div>
+
+<section class="leistungen" id="leistungen">
+<div class="section-inner">
+  <span class="section-label reveal">Unser Angebot</span>
+  <h2 class="section-title reveal">Was wir für Sie tun.</h2>
+  <p class="section-subtitle reveal">Qualität, die überzeugt — persönlich, zuverlässig und auf Sie zugeschnitten.</p>
+  <div class="leistungen-grid">
+    
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <h3>Kaffee-Spezialitäten</h3>
+        <p>Espresso, Cappuccino, Flat White — handgemacht aus besten Single-Origin-Bohnen.</p>
+      </div>
+      <div class="leistung-card reveal reveal-delay-2">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20"/><path d="M20 4v16"/></svg>
+        </div>
+        <h3>Frühstück & Brunch</h3>
+        <p>Jeden Morgen frisch — hausgemachte Spezialitäten, saisonale Zutaten, volle Energie für den Tag.</p>
+      </div>
+      <div class="leistung-card reveal reveal-delay-3">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <h3>Kuchen & Backwaren</h3>
+        <p>Täglich frisch gebacken — von der Hauscrèmeschnitte bis zum saftigen Rüeblikuchen.</p>
+      </div>
+  </div>
+</div>
+</section>
+
+<section id="ueber" style="background:var(--c-white);padding:96px 32px;">
+<div class="section-inner">
+  <div class="ueber-grid">
+    <div class="ueber-text">
+      <span class="section-label reveal">Über uns</span>
+      <h2 class="section-title reveal">Soul</h2>
+      <p class="ueber-body reveal">Soul: Zurich's modern all-day kitchen bar. Enjoy brunch, business lunches, refined dinners, cocktails, and wines in a warm, vibrant city atmosphere.</p>
+      <a href="https://soulzuerich.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+    </div>
+    <div class="ueber-photo reveal">
+      <img src="https://soulzuerich.ch/static/outside-7b0356fe47be4c7c0afa53295e72e6ef.jpeg" alt="Soul" loading="lazy">
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="galerie" style="padding:96px 32px;">
+<div class="section-inner">
+  <span class="section-label reveal">Impressionen</span>
+  <h2 class="section-title reveal">Ein Blick hinter die Kulissen</h2>
+  <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
+  <div class="galerie-grid">
+    
+    <div class="g-item reveal"><img src="https://soulzuerich.ch/static/outside-7b0356fe47be4c7c0afa53295e72e6ef.jpeg" alt="Soul" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-1"><img src="https://soulzuerich.ch/static/dinner_options_2-6406dbc065aba26a3346cc22ed6d83d3.jpg" alt="Soul" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-2"><img src="https://soulzuerich.ch/static/cocktail_2-5aca88d6ab3b78ab449f436288e7c572.jpg" alt="Soul" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-3"><img src="https://soulzuerich.ch/static/chef_cooking-90d762349c240a031151507dd21c5fad.jpg" alt="Soul" loading="lazy"></div>
+  </div>
+</div>
+</section>
+
+<section class="bewertungen" id="bewertungen">
+<div class="section-inner">
+  <div class="bew-header reveal">
+    <svg class="google-g" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+    <div>
+      <span class="section-label">Kundenbewertungen</span>
+      <h2 class="section-title" style="margin-bottom:0">Was unsere Kunden sagen</h2>
+    </div>
+  </div>
+  <div class="bew-overall reveal">
+    <span class="score">4.9</span>
+    <div>
+      <div class="stars">★★★★☆</div>
+      <span class="count">78 Bewertungen auf Google</span>
+    </div>
+  </div>
+  <div class="bew-grid">
+    
+    <div class="bew-card reveal reveal-delay-1">
+      <div class="bew-card-top">
+        <div class="bew-avatar" style="background:var(--c-primary);">L</div>
+        <div><div class="bew-name">Lisa M.</div><div class="bew-date">vor 1 Woche</div></div>
+      </div>
+      <div class="bew-stars">★★★★★</div>
+      <p class="bew-text">Bester Kaffee in der ganzen Gegend! Die Atmosphäre ist wunderschön gemütlich — komme jede Woche.</p>
+      <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
+    </div>
+    <div class="bew-card reveal reveal-delay-2">
+      <div class="bew-card-top">
+        <div class="bew-avatar" style="background:#6B8E6B;">P</div>
+        <div><div class="bew-name">Peter H.</div><div class="bew-date">vor 2 Wochen</div></div>
+      </div>
+      <div class="bew-stars">★★★★★</div>
+      <p class="bew-text">Hausgemachte Kuchen, freundliches Personal — hier fühlt man sich sofort wie zuhause.</p>
+      <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
+    </div>
+    <div class="bew-card reveal reveal-delay-3">
+      <div class="bew-card-top">
+        <div class="bew-avatar" style="background:#8B7355;">S</div>
+        <div><div class="bew-name">Sandra B.</div><div class="bew-date">vor 1 Monat</div></div>
+      </div>
+      <div class="bew-stars">★★★★☆</div>
+      <p class="bew-text">Toller Brunch am Wochenende, frische Zutaten, faire Preise. Sehr empfehlenswert!</p>
+      <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="standort" style="padding:96px 32px;">
+<div class="section-inner">
+  <span class="section-label reveal">Standort</span>
+  <h2 class="section-title reveal">Besuchen Sie uns</h2>
+  <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
+  <div class="map-wrap reveal">
+    <iframe src="https://maps.google.com/maps?q=Soul%2C%20Limmatquai%2094%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <div class="map-info reveal">
+    <div class="map-address">
+      <strong>Soul</strong>
+      Limmatquai 94, Zürich<br>Tel: 044 599 13 66
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Soul%2C%20Limmatquai%2094%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Route planen
+    </a>
+  </div>
+</div>
+</section>
+
+<section class="cta-banner" id="kontakt">
+  <h2 class="reveal">Bereit für Ihren neuen Auftritt?</h2>
+  <p class="reveal">Dieser Entwurf zeigt, wie Ihre neue Website aussehen könnte. Lassen Sie uns gemeinsam Ihre digitale Präsenz aufbauen.</p>
+  <a href="mailto:kontakt@droplaunch.de?subject=Website-Anfrage Soul" class="btn-white reveal">Kostenlos besprechen →</a>
+</section>
+
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Soul</h3>
+      <p>Soul: Zurich's modern all-day kitchen bar. Enjoy brunch, business lunches, refined dinners, cocktails, and wines in a warm, vibrant city atmosphere.</p>
+    </div>
+    <div>
+      <h4>Öffnungszeiten</h4>
+      <ul>
+        <li><span>Di-Mi</span><span>08:00–19:00 ·  Th–Fr 08:00–22:00 ·  Sa 09:00–22:00 ·  Su 09:00–19:00</span></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul class="footer-contact">
+        <li>044 599 13 66</li>
+        <li>Limmatquai 94, Zürich</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-credit">© 2026 Soul</span>
+    <a href="https://droplaunch.de" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:6px;background:#4F46E5;color:#fff;
+              text-decoration:none;font-size:11px;font-weight:700;letter-spacing:1px;
+              text-transform:uppercase;padding:6px 14px;border-radius:4px;">
+      Made by DropLaunch
+    </a>
+  </div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='p'))e.preventDefault();
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))e.preventDefault();
+  if(e.key==='F12')e.preventDefault();
+});
+document.addEventListener('dragstart',e=>e.preventDefault());
+console.log('%c⚠️ Dies ist ein geschützter Entwurf von DropLaunch.','color:red;font-size:18px;font-weight:bold');
+
+// Hamburger Menü
+const burger=document.getElementById('navBurger');
+const mMenu=document.getElementById('mobileMenu');
+const mClose=document.getElementById('mobileClose');
+if(burger&&mMenu){
+  burger.addEventListener('click',()=>mMenu.classList.add('open'));
+  mClose&&mClose.addEventListener('click',()=>mMenu.classList.remove('open'));
+  mMenu.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>mMenu.classList.remove('open')));
+}
+
+const nav=document.getElementById('nav');
+const heroBg=document.querySelector('.hero-bg');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>80);
+  if(heroBg&&window.scrollY<window.innerHeight){
+    heroBg.style.transform=`translateY(${window.scrollY*0.35}px)`;
+  }
+},{passive:true});
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    t&&t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
