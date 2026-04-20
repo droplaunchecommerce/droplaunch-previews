@@ -45,7 +45,7 @@ img{-webkit-user-drag:none;pointer-events:none}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1774978238856-a0031414809e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=1080') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
 .hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
 .hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
@@ -251,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Restaurant · Niederweningen</div>
+    <div class="hero-tag">Restaurant · </div>
     <h1>Wo gute Küche zu Hause ist.</h1>
-    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von Niederweningen — jeden Tag frisch für Sie zubereitet.</p>
+    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von  — jeden Tag frisch für Sie zubereitet.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -306,11 +306,11 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Löwen</h2>
-      <p class="ueber-body reveal">Willkommen bei Löwen in Niederweningen. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
-      <a href="http://www.loewen-niederweningen.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+      <p class="ueber-body reveal">Willkommen bei Löwen in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
+      
     </div>
     <div class="ueber-photo reveal">
-      <img src="https://images.unsplash.com/photo-1774978238856-a0031414809e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=1080" alt="Löwen" loading="lazy">
+      <div class="ueber-photo-fallback"></div>
     </div>
   </div>
 </div>
@@ -323,10 +323,10 @@ section{padding:96px 32px}
   <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
   <div class="galerie-grid">
     
-    <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1774978238856-a0031414809e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=1080" alt="Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1763124320262-60c7aa066999?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=400" alt="Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1765021093883-b9ee22cc9840?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=400" alt="Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1773578211636-714172670337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDM5NjF8&ixlib=rb-4.1.0&q=80&w=400" alt="Löwen" loading="lazy"></div>
+    <div class="g-item reveal"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=L%C3%B6wen%2C%20Alte%20Stationsstrasse%202%2C%20Niederweningen&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=L%C3%B6wen%2C%20&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Löwen</strong>
-      Alte Stationsstrasse 2, Niederweningen<br>Tel: 044 856 01 29
+      
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=L%C3%B6wen%2C%20Alte%20Stationsstrasse%202%2C%20Niederweningen" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=L%C3%B6wen%2C%20" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,19 +412,19 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Löwen</h3>
-      <p>Willkommen bei Löwen in Niederweningen. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
+      <p>Willkommen bei Löwen in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Mo-Fr</span><span>7:00–24:00</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>044 856 01 29</li>
-        <li>Alte Stationsstrasse 2, Niederweningen</li>
+        
+        
       </ul>
     </div>
   </div>
@@ -482,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=L%C3%B6wen&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
