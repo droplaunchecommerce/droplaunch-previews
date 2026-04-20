@@ -45,7 +45,7 @@ img{-webkit-user-drag:none;pointer-events:none}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://www.roessli-seen.ch/attachments/Image/517878506_10238529531525976_5876180161322579210_n.jpg') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
 .hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
 .hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
@@ -152,7 +152,20 @@ section{padding:96px 32px}
 .footer-credit{color:rgba(255,255,255,0.3)}
 .footer-credit a{color:var(--c-accent);text-decoration:none}
 
+/* STATS */
+.stats-bar{background:var(--c-dark);padding:40px 32px}
+.stats-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.stat-item{flex:1;min-width:160px;text-align:center;padding:16px 24px;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,0.1)}
+.stat-num{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;line-height:1.1;margin-bottom:6px}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,0.5);font-weight:500;letter-spacing:.5px}
+
 /* ANIMATIONS */
+@keyframes heroSlideUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:heroSlideUp .8s cubic-bezier(0.16,1,0.3,1) both}
+.hero h1{animation:heroSlideUp .9s .12s cubic-bezier(0.16,1,0.3,1) both}
+.hero-sub{animation:heroSlideUp 1s .22s cubic-bezier(0.16,1,0.3,1) both}
+.hero-btns{animation:heroSlideUp 1s .36s cubic-bezier(0.16,1,0.3,1) both}
 .reveal{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(0.16,1,0.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}
@@ -238,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Restaurant · Winterthur-Seen pascal</div>
+    <div class="hero-tag">Restaurant · </div>
     <h1>Wo gute Küche zu Hause ist.</h1>
-    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von Winterthur-Seen pascal — jeden Tag frisch für Sie zubereitet.</p>
+    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von  — jeden Tag frisch für Sie zubereitet.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -248,6 +261,12 @@ section{padding:96px 32px}
   </div>
   <div class="hero-scroll">Entdecken<span></span></div>
 </section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">15+</div><div class="stat-lbl">Jahre Gastfreundschaft</div></div><div class="stat-item reveal"><div class="stat-num">4.8★</div><div class="stat-lbl">Google-Bewertung</div></div><div class="stat-item reveal"><div class="stat-num">100%</div><div class="stat-lbl">Frische Zutaten</div></div>
+  </div>
+</div>
 
 <section class="leistungen" id="leistungen">
 <div class="section-inner">
@@ -287,11 +306,11 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Rössli</h2>
-      <p class="ueber-body reveal">Willkommen bei Rössli in Winterthur-Seen pascal. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
-      <a href="https://www.roessli-seen.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+      <p class="ueber-body reveal">Willkommen bei Rössli in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
+      
     </div>
     <div class="ueber-photo reveal">
-      <img src="https://www.roessli-seen.ch/attachments/Image/517878506_10238529531525976_5876180161322579210_n.jpg" alt="Rössli" loading="lazy">
+      <div class="ueber-photo-fallback"></div>
     </div>
   </div>
 </div>
@@ -304,10 +323,10 @@ section{padding:96px 32px}
   <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
   <div class="galerie-grid">
     
-    <div class="g-item reveal"><img src="https://www.roessli-seen.ch/attachments/Image/517878506_10238529531525976_5876180161322579210_n.jpg" alt="Rössli" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://www.roessli-seen.ch/attachments/Image/20250321_135228.jpg" alt="Rössli" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://www.roessli-seen.ch/attachments/Image/2021-09-13-2_2.JPG" alt="Rössli" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://www.roessli-seen.ch/attachments/Image/2023-Kutteln-Napoli.jpg" alt="Rössli" loading="lazy"></div>
+    <div class="g-item reveal"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -367,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=R%C3%B6ssli%2C%20R%C3%B6ssligasse%207%2C%20Winterthur&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=R%C3%B6ssli%2C%20&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Rössli</strong>
-      Rössligasse 7, Winterthur<br>Tel: 052 246 01 67
+      
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=R%C3%B6ssli%2C%20R%C3%B6ssligasse%207%2C%20Winterthur" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=R%C3%B6ssli%2C%20" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -393,21 +412,19 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Rössli</h3>
-      <p>Willkommen bei Rössli in Winterthur-Seen pascal. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
+      <p>Willkommen bei Rössli in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Di-Fr</span><span>08:30–23:00</span></li>
-              <li><span>Sa</span><span>11:00–23:00</span></li>
-              <li><span>So</span><span>11:00–17:00</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>052 246 01 67</li>
-        <li>Rössligasse 7, Winterthur</li>
+        
+        
       </ul>
     </div>
   </div>
@@ -444,7 +461,13 @@ if(burger&&mMenu){
 }
 
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>80),{passive:true});
+const heroBg=document.querySelector('.hero-bg');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>80);
+  if(heroBg&&window.scrollY<window.innerHeight){
+    heroBg.style.transform=`translateY(${window.scrollY*0.35}px)`;
+  }
+},{passive:true});
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
@@ -459,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=R%C3%B6ssli&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
