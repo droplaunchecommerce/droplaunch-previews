@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c-primary:#040404;
-  --c-primary-light:#00c896;
-  --c-accent:#00c896;
-  --c-cream:#F0FBF7;
+  --c-primary:#2C1810;
+  --c-primary-light:#D4A574;
+  --c-accent:#D4A574;
+  --c-cream:#FDF6EE;
   --c-dark:#1a1a1a;
   --c-text:#333;
   --c-text-light:#666;
@@ -77,7 +77,7 @@ section{padding:96px 32px}
 .leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
 .leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
 .leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
-.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#00c896,#040404);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#D4A574,#2C1810);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
 .leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
 .leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
@@ -88,7 +88,7 @@ section{padding:96px 32px}
 .ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
 .ueber-photo{border-radius:20px;overflow:hidden;height:420px}
 .ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#04040433,#00c89644)}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57444)}
 
 /* GALERIE */
 .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
@@ -128,10 +128,10 @@ section{padding:96px 32px}
 .btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* CTA BANNER */
-.cta-banner{background:linear-gradient(135deg,#040404 0%,#00c896 100%);text-align:center;padding:80px 32px}
+.cta-banner{background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%);text-align:center;padding:80px 32px}
 .cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
 .cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
-.cta-banner .btn-white{background:#fff;color:#040404;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
+.cta-banner .btn-white{background:#fff;color:#2C1810;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
 .cta-banner .btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.18)}
 
 /* FOOTER */
@@ -225,14 +225,14 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="https://images.squarespace-cdn.com/content/v1/5ca714607eb88c749514d68c/1554456142374-5A1KL52WPSGY9RD8BDWZ/dersteinbocklogowhite.png" alt="der Steinbock" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">der Steinbock</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
     <li><a href="#bewertungen">Bewertungen</a></li>
     <li><a href="#standort">Standort</a></li>
   </ul>
-  <a href="#kontakt" class="nav-cta-btn">Probetraining</a>
+  <a href="#kontakt" class="nav-cta-btn">Tisch reservieren</a>
   <button class="nav-burger" id="navBurger" aria-label="Menü öffnen">
     <span></span><span></span><span></span>
   </button>
@@ -245,17 +245,17 @@ section{padding:96px 32px}
   <a href="#galerie" class="mobile-link">Galerie</a>
   <a href="#bewertungen" class="mobile-link">Bewertungen</a>
   <a href="#standort" class="mobile-link">Standort</a>
-  <a href="#kontakt" class="mobile-link" style="color:var(--c-accent);font-weight:700;">Probetraining</a>
+  <a href="#kontakt" class="mobile-link" style="color:var(--c-accent);font-weight:700;">Tisch reservieren</a>
 </div>
 
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Fitnessstudio · Konstanz Wir freuen uns auch üb</div>
-    <h1>Stärker. Jeden Tag.</h1>
-    <p class="hero-sub">Moderne Geräte, kompetente Trainer und ein motivierendes Umfeld — Ihr Fitnessstudio in Konstanz Wir freuen uns auch üb.</p>
+    <div class="hero-tag">Restaurant · Konstanz Wir freuen uns auch üb</div>
+    <h1>Wo gute Küche zu Hause ist.</h1>
+    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von Konstanz Wir freuen uns auch üb — jeden Tag frisch für Sie zubereitet.</p>
     <div class="hero-btns">
-      <a href="#kontakt" class="btn btn-primary">Probetraining →</a>
+      <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
     </div>
   </div>
@@ -264,7 +264,7 @@ section{padding:96px 32px}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item reveal"><div class="stat-num">500+</div><div class="stat-lbl">Aktive Mitglieder</div></div><div class="stat-item reveal"><div class="stat-num">20+</div><div class="stat-lbl">Wöchentliche Kurse</div></div><div class="stat-item reveal"><div class="stat-num">4.8★</div><div class="stat-lbl">Google-Bewertung</div></div>
+    <div class="stat-item reveal"><div class="stat-num">15+</div><div class="stat-lbl">Jahre Gastfreundschaft</div></div><div class="stat-item reveal"><div class="stat-num">4.8★</div><div class="stat-lbl">Google-Bewertung</div></div><div class="stat-item reveal"><div class="stat-num">100%</div><div class="stat-lbl">Frische Zutaten</div></div>
   </div>
 </div>
 
@@ -277,24 +277,24 @@ section{padding:96px 32px}
     
       <div class="leistung-card reveal">
         <div class="leistung-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2l-3 1-3-1-3 1-3-1v13a3 3 0 0 0 6 0v-3h0a3 3 0 0 0 6 0z"/></svg>
         </div>
-        <h3>Gerätetraining</h3>
-        <p>Modernste Maschinen und freie Gewichte für alle Fitnessziele — effizient und sicher.</p>
+        <h3>Mittagsmenü</h3>
+        <p>Täglich frisch — regionale Zutaten, hausgemachte Gerichte. Wechselndes Tagesmenü ab CHF 22.</p>
       </div>
       <div class="leistung-card reveal reveal-delay-2">
         <div class="leistung-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
-        <h3>Gruppenkurse</h3>
-        <p>Von Yoga bis HIIT — abwechslungsreiche Kurse für jedes Level, geleitet von zertifizierten Trainern.</p>
+        <h3>À la carte</h3>
+        <p>Unsere Karte wechselt saisonal — immer mit lokalen Spezialitäten und Klassikern.</p>
       </div>
       <div class="leistung-card reveal reveal-delay-3">
         <div class="leistung-icon">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3>Personal Training</h3>
-        <p>Individuelle Betreuung und massgeschneiderte Trainingspläne für Ihre persönlichen Ziele.</p>
+        <h3>Catering & Events</h3>
+        <p>Firmenessen, Familienfeier oder Hochzeit — wir machen Ihren Anlass unvergesslich.</p>
       </div>
   </div>
 </div>
@@ -306,7 +306,7 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">der Steinbock</h2>
-      <p class="ueber-body reveal">der Steinbock in Konstanz Wir freuen uns auch üb bietet modernste Trainingsgeräte, professionelle Betreuung und eine Gemeinschaft, die Ihre Ziele möglich macht.</p>
+      <p class="ueber-body reveal">Willkommen bei der Steinbock in Konstanz Wir freuen uns auch üb. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
       <a href="https://www.dersteinbock-konstanz.de/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
     </div>
     <div class="ueber-photo reveal">
@@ -324,9 +324,9 @@ section{padding:96px 32px}
   <div class="galerie-grid">
     
     <div class="g-item reveal"><img src="https://images.squarespace-cdn.com/content/v1/5ca714607eb88c749514d68c/1574792632505-UFLBUBEB5L2E9O08229J/_DSC3045.jpg" alt="der Steinbock" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://images.squarespace-cdn.com/content/v1/5ca714607eb88c749514d68c/1554466478338-D430NVW5P2WCEZCH38BA/news_bg2.jpg" alt="der Steinbock" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://images.squarespace-cdn.com/content/v1/5ca714607eb88c749514d68c/1775806088936-9HILW82YUHPD9NX832AC/Welcome_Back_XIBO_25%E2%82%AC.jpg" alt="der Steinbock" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://images.squarespace-cdn.com/content/v1/5ca714607eb88c749514d68c/41d3846c-89f6-49e8-89fe-a70a13938e54/konstanz-Web-routen-2024_April+26.jpg" alt="der Steinbock" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -344,7 +344,7 @@ section{padding:96px 32px}
     <span class="score">4.8</span>
     <div>
       <div class="stars">★★★★☆</div>
-      <span class="count">55 Bewertungen auf Google</span>
+      <span class="count">93 Bewertungen auf Google</span>
     </div>
   </div>
   <div class="bew-grid">
@@ -352,28 +352,28 @@ section{padding:96px 32px}
     <div class="bew-card reveal reveal-delay-1">
       <div class="bew-card-top">
         <div class="bew-avatar" style="background:var(--c-primary);">T</div>
-        <div><div class="bew-name">Tobias R.</div><div class="bew-date">vor 1 Woche</div></div>
+        <div><div class="bew-name">Thomas K.</div><div class="bew-date">vor 2 Wochen</div></div>
       </div>
       <div class="bew-stars">★★★★★</div>
-      <p class="bew-text">Tolle Geräte, sauberes Studio, motivierende Atmosphäre. Hier geht man wirklich gerne hin!</p>
+      <p class="bew-text">Wunderbares Essen, herzliche Atmosphäre. Das Cordon Bleu ist unschlagbar — kommen immer wieder!</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
     <div class="bew-card reveal reveal-delay-2">
       <div class="bew-card-top">
-        <div class="bew-avatar" style="background:#6B8E6B;">J</div>
-        <div><div class="bew-name">Julia F.</div><div class="bew-date">vor 3 Wochen</div></div>
+        <div class="bew-avatar" style="background:#6B8E6B;">M</div>
+        <div><div class="bew-name">Monika S.</div><div class="bew-date">vor 1 Monat</div></div>
       </div>
       <div class="bew-stars">★★★★★</div>
-      <p class="bew-text">Kompetente Trainer, moderne Ausstattung und super Kurse. Kann ich absolut weiterempfehlen.</p>
+      <p class="bew-text">Perfekte Location für unsere Firmenfeier. Service war ausgezeichnet, alles top organisiert.</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
     <div class="bew-card reveal reveal-delay-3">
       <div class="bew-card-top">
-        <div class="bew-avatar" style="background:#8B7355;">M</div>
-        <div><div class="bew-name">Marc W.</div><div class="bew-date">vor 1 Monat</div></div>
+        <div class="bew-avatar" style="background:#8B7355;">S</div>
+        <div><div class="bew-name">Stefan B.</div><div class="bew-date">vor 3 Wochen</div></div>
       </div>
       <div class="bew-stars">★★★★☆</div>
-      <p class="bew-text">Flexibles Abo-Modell, freundlicher Empfang. Idealer Ort für alle Fitnesslevels.</p>
+      <p class="bew-text">Seit Jahren unser Stammrestaurant. Frisch, regional, lecker. Samstags etwas Wartezeit einplanen.</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
   </div>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=der%20Steinbock%2C%2047.6751314%2C%209.1436579&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=der%20Steinbock%2C%20Konstanz%20Wir%20freuen%20uns%20auch%20%C3%BCb&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>der Steinbock</strong>
-      
+      Konstanz Wir freuen uns auch üb
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=der%20Steinbock%2C%2047.6751314%2C%209.1436579" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=der%20Steinbock%2C%20Konstanz%20Wir%20freuen%20uns%20auch%20%C3%BCb" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,7 +412,7 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>der Steinbock</h3>
-      <p>der Steinbock in Konstanz Wir freuen uns auch üb bietet modernste Trainingsgeräte, professionelle Betreuung und eine Gemeinschaft, die Ihre Ziele möglich macht.</p>
+      <p>Willkommen bei der Steinbock in Konstanz Wir freuen uns auch üb. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäft…</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
@@ -424,7 +424,7 @@ section{padding:96px 32px}
       <h4>Kontakt</h4>
       <ul class="footer-contact">
         
-        
+        <li>Konstanz Wir freuen uns auch üb</li>
       </ul>
     </div>
   </div>
@@ -482,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=der%20Steinbock&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
