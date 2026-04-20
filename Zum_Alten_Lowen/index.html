@@ -45,7 +45,7 @@ img{-webkit-user-drag:none;pointer-events:none}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://altenloewen.ch/wp-content/uploads/2019/11/bilder-alter-loewen-11-von-35.jpg') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
 .hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
 .hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="https://altenloewen.ch/wp-content/uploads/2019/11/Logo-negativ_.svg" alt="Zum Alten Löwen" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">Zum Alten Löwen</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -251,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Restaurant · MEHR INFOS ALLE</div>
+    <div class="hero-tag">Restaurant · </div>
     <h1>Wo gute Küche zu Hause ist.</h1>
-    <p class="hero-sub">WILLKOMMEN IN UNSERER QUARTIERBEIZ FÜR GENIESSER</p>
+    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von  — jeden Tag frisch für Sie zubereitet.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -306,11 +306,11 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Zum Alten Löwen</h2>
-      <p class="ueber-body reveal">Trendiges Lokal im Kreis 6 mit bodenständiger, interessanter, regionaler Küche. Marktfrisch und ideenreich. Im Alte Leue ist immer etwas los.</p>
-      <a href="https://www.altenloewen.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+      <p class="ueber-body reveal">Willkommen bei Zum Alten Löwen in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
+      
     </div>
     <div class="ueber-photo reveal">
-      <img src="https://altenloewen.ch/wp-content/uploads/2019/11/bilder-alter-loewen-11-von-35.jpg" alt="Zum Alten Löwen" loading="lazy">
+      <div class="ueber-photo-fallback"></div>
     </div>
   </div>
 </div>
@@ -323,10 +323,10 @@ section{padding:96px 32px}
   <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
   <div class="galerie-grid">
     
-    <div class="g-item reveal"><img src="https://altenloewen.ch/wp-content/uploads/2019/11/bilder-alter-loewen-11-von-35.jpg" alt="Zum Alten Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1759893497863-c90a6dfa7a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDA2MzN8&ixlib=rb-4.1.0&q=80&w=400" alt="Zum Alten Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1761515397046-44035db91504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDA2MzN8&ixlib=rb-4.1.0&q=80&w=400" alt="Zum Alten Löwen" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1773291933696-06949474d59b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NDA2MzN8&ixlib=rb-4.1.0&q=80&w=400" alt="Zum Alten Löwen" loading="lazy"></div>
+    <div class="g-item reveal"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=Zum%20Alten%20L%C3%B6wen%2C%20Universit%C3%A4tstrasse%20111%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Zum%20Alten%20L%C3%B6wen%2C%20&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Zum Alten Löwen</strong>
-      Universitätstrasse 111, Zürich<br>Tel: 043 343 11 69
+      
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Zum%20Alten%20L%C3%B6wen%2C%20Universit%C3%A4tstrasse%20111%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Zum%20Alten%20L%C3%B6wen%2C%20" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,20 +412,19 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Zum Alten Löwen</h3>
-      <p>Trendiges Lokal im Kreis 6 mit bodenständiger, interessanter, regionaler Küche. Marktfrisch und ideenreich. Im Alte Leue ist immer etwas los.</p>
+      <p>Willkommen bei Zum Alten Löwen in . Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Di-Fr</span><span>11:30–14:00 ·  18:00–23:30</span></li>
-              <li><span>Sa</span><span>18:00–23:30 ·  Su ·  Mo off</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>043 343 11 69</li>
-        <li>Universitätstrasse 111, Zürich</li>
+        
+        
       </ul>
     </div>
   </div>
@@ -483,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=Zum%20Alten%20L%C3%B6wen&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
