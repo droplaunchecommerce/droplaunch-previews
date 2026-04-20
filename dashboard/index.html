@@ -1105,11 +1105,15 @@ body{
         <div class="auth-sub">AI Command Center</div>
       </div>
       <div class="auth-field">
+        <label for="userInput">Benutzername</label>
+        <input class="auth-input" id="userInput" type="text" placeholder="z.B. marlon" autocomplete="username">
+      </div>
+      <div class="auth-field">
         <label for="pwInput">Passwort</label>
         <input class="auth-input" id="pwInput" type="password" placeholder="••••••••••••" autocomplete="current-password">
       </div>
       <button class="auth-btn" onclick="tryLogin()">Einloggen</button>
-      <div class="auth-error" id="authError">Falsches Passwort — versuch's nochmal</div>
+      <div class="auth-error" id="authError">Falscher Benutzername oder Passwort</div>
     </div>
   </div>
 </div>
@@ -1173,6 +1177,10 @@ body{
     <div class="nav-item" onclick="showTab('prep')">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Vorbereitung
+    </div>
+    <div class="nav-item" id="nav-closer" onclick="showTab('closer')" style="display:none">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Closer HQ
     </div>
   </nav>
 
@@ -1958,6 +1966,179 @@ body{
     </div>
   </div><!-- /tab-prep -->
 
+  <!-- ═══════════════════════════════════════════════════════════ CLOSER HQ -->
+  <div id="tab-closer" class="content" style="display:none">
+
+    <div style="margin-bottom:28px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:8px">CLOSER HQ</div>
+      <h1 style="font-size:26px;font-weight:800;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px">Was du verkaufst — und was du verdienst</h1>
+      <p style="font-size:13px;color:var(--text2)">Alle Pakete, Preise, Provisionen und Einwand-Handler auf einen Blick.</p>
+    </div>
+
+    <!-- PROVISION ÜBERSICHT -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px">
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--green)">20%</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Provision pro Deal</div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--cyan)">CHF 500</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Ø pro Abschluss</div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--violet)">CHF 70</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Pro Retainer/Monat</div>
+      </div>
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--amber)">unbegrenzt</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Abschlüsse möglich</div>
+      </div>
+    </div>
+
+    <!-- PAKETE SHOPIFY -->
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:16px">SHOPIFY SHOPS</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border)">
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Paket</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Preis</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Lieferzeit</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Deine Provision</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Inhalte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Shopify Quickwin</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 2.500</td>
+              <td style="padding:14px 12px;color:var(--text2)">5 Tage</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 500</td>
+              <td style="padding:14px 12px;color:var(--text2)">PageSpeed, SEO, Trust-Elemente</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Shopify Complete</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 4.500</td>
+              <td style="padding:14px 12px;color:var(--text2)">10 Tage</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 900</td>
+              <td style="padding:14px 12px;color:var(--text2)">Alles aus Quickwin + CRO, Checkout, Bewertungen, monatl. Report</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Shopify Retainer</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 350/Mt</td>
+              <td style="padding:14px 12px;color:var(--text2)">laufend</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 70/Mt</td>
+              <td style="padding:14px 12px;color:var(--text2)">Monitoring, Updates, monatlicher Score-Report</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAKETE LOKALE FIRMEN -->
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:16px">LOKALE FIRMEN (Restaurant / Handwerker / Coiffeur)</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border)">
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Paket</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Preis</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Lieferzeit</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Deine Provision</th>
+              <th style="text-align:left;padding:8px 12px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600">Inhalte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Website Komplett</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 1.800</td>
+              <td style="padding:14px 12px;color:var(--text2)">3 Tage</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 360</td>
+              <td style="padding:14px 12px;color:var(--text2)">Fertige Website, personalisierter Entwurf, Mobile-ready</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Website + SEO</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 2.500</td>
+              <td style="padding:14px 12px;color:var(--text2)">5 Tage</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 500</td>
+              <td style="padding:14px 12px;color:var(--text2)">Website + Google-Optimierung, Google My Business Setup</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 12px;font-weight:700;color:var(--text)">Retainer Lokal</td>
+              <td style="padding:14px 12px;font-weight:800;color:var(--green)">CHF 250/Mt</td>
+              <td style="padding:14px 12px;color:var(--text2)">laufend</td>
+              <td style="padding:14px 12px;font-weight:700;color:var(--cyan)">CHF 50/Mt</td>
+              <td style="padding:14px 12px;color:var(--text2)">Hosting, Updates, Pflege</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EINWAND HANDLER -->
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:20px">EINWAND-HANDLER — die 5 häufigsten</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <div style="background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:10px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">"Zu teuer."</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">→ "Verstehe ich. Was kostet Sie ein Monat ohne neue Kunden? Unsere Shops bringen im Schnitt 15–30% mehr Conversion in 14 Tagen — das zahlt sich in der Regel im ersten Monat zurück. Wenn nicht, arbeiten wir weiter bis es passt."</div>
+        </div>
+
+        <div style="background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:10px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">"Das mach ich selbst mit KI / Shopify."</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">→ "Shopify läuft den Shop — wir sorgen dafür dass er verkauft. KI schreibt Texte, aber setzt keine Conversion-Rate, keine Core Web Vitals, kein Trust-Signal automatisch richtig. Wir haben das bei über 80 Shops gemacht — der Unterschied ist messbar."</div>
+        </div>
+
+        <div style="background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:10px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">"Ich bin zufrieden mit meiner Seite."</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">→ "Gut — dann schau kurz auf den Audit den ich Ihnen geschickt habe. Wir haben konkrete Zahlen: PageSpeed, Bewertungen, SEO-Score. Wenn alles grün ist, brauchen Sie uns wirklich nicht. Aber meistens sehen die Leute dann doch was."</div>
+        </div>
+
+        <div style="background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:10px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">"Keine Zeit gerade."</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">→ "Perfekt — genau dafür sind wir da. Sie müssen nichts tun. Wir brauchen einmal 20 Minuten am Anfang für ein Briefing, danach liefern wir in 7–14 Tagen fertig ab."</div>
+        </div>
+
+        <div style="background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);border-radius:10px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">"Haben schon eine Agentur."</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">→ "Super — läuft der Shop gut? Wir machen eine kostenlose Zweitmeinung: Score, Vergleich mit Wettbewerb, konkrete Hebel. Wenn Ihre Agentur top ist, bestätigen wir das. Wenn nicht, sehen Sie genau wo Geld liegen bleibt."</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CALL LEITFADEN -->
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:20px">CALL-LEITFADEN — 10 Minuten zum Abschluss</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--indigo)">1</div>
+          <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Öffner (30 Sek)</div><div style="font-size:12px;color:var(--text2);line-height:1.6">"Hallo, ich bin Rodrigues von droplaunch.de — Sie haben auf unsere Mail geantwortet, ich wollte kurz persönlich nachfassen. Passt das gerade 5 Minuten?"</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--indigo)">2</div>
+          <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Situation verstehen (2 Min)</div><div style="font-size:12px;color:var(--text2);line-height:1.6">"Wie läuft der Shop / die Firma aktuell? Wo kommen die meisten Kunden her?" → Zuhören, nicht pitchen.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--indigo)">3</div>
+          <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Audit präsentieren (2 Min)</div><div style="font-size:12px;color:var(--text2);line-height:1.6">"Im Audit hab ich [X] gesehen — das kostet Sie konkret Kunden weil [Grund]. Das ist lösbar."</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--indigo)">4</div>
+          <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Paket nennen (1 Min)</div><div style="font-size:12px;color:var(--text2);line-height:1.6">"Dafür haben wir das [Paket] — CHF [Preis], fertig in [X] Tagen. Sie müssen nichts tun ausser einmal 20 Minuten Briefing."</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(34,197,94,.2);border:1px solid rgba(34,197,94,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green)">5</div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:3px">Abschluss (30 Sek)</div><div style="font-size:12px;color:var(--text2);line-height:1.6">"Wollen wir das angehen? Ich schick Ihnen heute noch das Angebot, Sie können dann in Ruhe entscheiden." → Nie fragen ob sie wollen, sondern wann sie anfangen wollen.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-closer -->
+
 </main>
 
 <!-- MOBILE BOTTOM NAV -->
@@ -2190,16 +2371,30 @@ let _sessionPw = null;
 let contentMode = false;
 
 // ── AUTH ──
+const USERS = {
+  'marlon':    { hash: '52b7b17e0808cd28f600af30bca14d2e92bb370ac27eb138fc2834ab6f5c8157', role: 'admin',  greet: 'Hallo Marlon 👋' },
+  'rodrigues': { hash: '__RODRIGUES_HASH__', role: 'closer', greet: 'Hey Rodrigues 🔥' },
+};
+let _currentUser = null;
+
+async function _hashPw(pw) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
 async function tryLogin() {
+  const username = (document.getElementById('userInput').value.trim() || 'marlon').toLowerCase();
   const pw = document.getElementById('pwInput').value.trim();
   if (!pw) return;
   const btn = document.querySelector('.auth-btn');
   btn.textContent = '…'; btn.disabled = true;
-  const ok = await _verifyPw(pw);
-  if (ok) {
+  const hash = await _hashPw(pw);
+  const user = USERS[username];
+  if (user && hash === user.hash) {
+    _currentUser = username;
     _sessionPw = pw;
-    sessionStorage.setItem(SESSION_KEY, btoa(pw));
-    _showDash(pw);
+    sessionStorage.setItem(SESSION_KEY, btoa(JSON.stringify({u: username, p: pw})));
+    _showDash(pw, username);
   } else {
     const card = document.getElementById('authCard');
     card.classList.add('shake');
@@ -2213,22 +2408,41 @@ async function tryLogin() {
 
 async function _verifyPw(pw) {
   const HASH = '52b7b17e0808cd28f600af30bca14d2e92bb370ac27eb138fc2834ab6f5c8157';
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
-  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  const hash = await _hashPw(pw);
   return hash === HASH;
 }
 
-function _showDash(pw) {
+function _showDash(pw, username) {
+  username = username || _currentUser || 'marlon';
+  const user = USERS[username] || USERS['marlon'];
   document.getElementById('authGate').style.display = 'none';
   document.getElementById('dashWrap').style.display = 'block';
-  // Animate greeting
-  setTimeout(() => document.getElementById('greetingHello').classList.add('visible'), 200);
-  // Start data
-  loadSupabaseData();
-  setTimeout(animateKPIs, 400);
-  setTimeout(animateFunnel, 500);
-  setTimeout(animateCats, 600);
-  if (ENCRYPTED_REPLIES) decryptReplies(pw);
+  // Greeting anpassen
+  const greetEl = document.getElementById('greetingHello');
+  if (greetEl) greetEl.textContent = user.greet;
+  setTimeout(() => greetEl && greetEl.classList.add('visible'), 200);
+
+  if (user.role === 'closer') {
+    // Rodrigues: nur Closer HQ Tab + minimale Sidebar
+    document.querySelectorAll('.nav-item').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.nav-section').forEach(el => el.style.display = 'none');
+    const closerNav = document.getElementById('nav-closer');
+    if (closerNav) { closerNav.style.display = 'flex'; closerNav.classList.add('active'); }
+    // Content-Mode toggle verstecken
+    const cmToggle = document.querySelector('.content-mode-toggle');
+    if (cmToggle) cmToggle.style.display = 'none';
+    // Direkt Closer Tab zeigen
+    showTab('closer');
+  } else {
+    // Marlon: voller Zugriff
+    const closerNav = document.getElementById('nav-closer');
+    if (closerNav) closerNav.style.display = 'flex';
+    loadSupabaseData();
+    setTimeout(animateKPIs, 400);
+    setTimeout(animateFunnel, 500);
+    setTimeout(animateCats, 600);
+    if (ENCRYPTED_REPLIES) decryptReplies(pw);
+  }
 }
 
 function logout() {
@@ -2244,11 +2458,19 @@ window.addEventListener('DOMContentLoaded', () => {
   const stored = sessionStorage.getItem(SESSION_KEY);
   if (stored) {
     try {
-      const pw = atob(stored);
-      _verifyPw(pw).then(ok => { if (ok) { _sessionPw = pw; _showDash(pw); } });
+      let username = 'marlon', pw;
+      try { const d = JSON.parse(atob(stored)); username = d.u || 'marlon'; pw = d.p; }
+      catch(e) { pw = atob(stored); }
+      _hashPw(pw).then(hash => {
+        const user = USERS[username];
+        if (user && hash === user.hash) {
+          _currentUser = username; _sessionPw = pw; _showDash(pw, username);
+        } else { sessionStorage.removeItem(SESSION_KEY); }
+      });
     } catch(e) { sessionStorage.removeItem(SESSION_KEY); }
   }
   document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+  document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('pwInput').focus(); });
 });
 
 // ── CONTENT MODE ──
