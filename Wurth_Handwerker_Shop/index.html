@@ -45,7 +45,7 @@ img{-webkit-user-drag:none;pointer-events:none}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/HWS-Landingpage_1_Shopfinder_DE_res_wl2_frontpage_1200.jpg') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1b3a5c 0%,#e07b32 100%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
 .hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
 .hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="https://www.wuerth-ag.ch/de/media/system/layout_wl2bootstrap/bootstrap_system_images/wuerth_logo_big.png" alt="Würth Handwerker-Shop" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">Würth Handwerker-Shop</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -251,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Handwerk · Arlesheim Schweiz</div>
+    <div class="hero-tag">Handwerk · </div>
     <h1>Gemacht. Nicht versprochen.</h1>
-    <p class="hero-sub">Unsere Würth Shops – Ganz in Ihrer Nähe!</p>
+    <p class="hero-sub">Zuverlässiges Handwerk in  — schnell, sauber, termingerecht. Ihr Ansprechpartner für alles.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Anfrage senden →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -306,11 +306,11 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Würth Handwerker-Shop</h2>
-      <p class="ueber-body reveal">Unsere Würth Shops: Über 50 Mal in der Schweiz. ▷ Zur Deckung Ihres Sofortbedarfs. Kompetente Beratung. ➨ Shop finden!</p>
-      <a href="https://www.wuerth-ag.ch/de/ch/handwerkershops/shop_uebersicht/nl_detail_347.php" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+      <p class="ueber-body reveal">Würth Handwerker-Shop ist Ihr verlässlicher Partner für Handwerksleistungen in  und Umgebung. Qualität, Termintreue und faire Preise sind unser Versprechen.</p>
+      
     </div>
     <div class="ueber-photo reveal">
-      <img src="https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/HWS-Landingpage_1_Shopfinder_DE_res_wl2_frontpage_1200.jpg" alt="Würth Handwerker-Shop" loading="lazy">
+      <div class="ueber-photo-fallback"></div>
     </div>
   </div>
 </div>
@@ -323,10 +323,10 @@ section{padding:96px 32px}
   <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
   <div class="galerie-grid">
     
-    <div class="g-item reveal"><img src="https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/HWS-Landingpage_1_Shopfinder_DE_res_wl2_frontpage_1200.jpg" alt="Würth Handwerker-Shop" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/HWS-Landingpage_2_Neueroeffnungen_res_wl2_frontpage_1200.jpg" alt="Würth Handwerker-Shop" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/HWS-Landingpage_5_ClickCollect_res_wl2_frontpage_1200.jpg" alt="Würth Handwerker-Shop" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://www.wuerth-ag.ch/de/media/pictures/neue_struktur/03_hws/wuerth_stempelheft/Teaser-Wuerth-Stempelkarte_res_wl2_frontpage_1200.jpg" alt="Würth Handwerker-Shop" loading="lazy"></div>
+    <div class="g-item reveal"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=W%C3%BCrth%20Handwerker-Shop%2C%20In%20der%20Au%206%2C%20Winterthur&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=W%C3%BCrth%20Handwerker-Shop%2C%20&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Würth Handwerker-Shop</strong>
-      In der Au 6, Winterthur<br>Tel: 061 705 91 11
+      
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=W%C3%BCrth%20Handwerker-Shop%2C%20In%20der%20Au%206%2C%20Winterthur" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=W%C3%BCrth%20Handwerker-Shop%2C%20" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,20 +412,19 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Würth Handwerker-Shop</h3>
-      <p>Unsere Würth Shops: Über 50 Mal in der Schweiz. ▷ Zur Deckung Ihres Sofortbedarfs. Kompetente Beratung. ➨ Shop finden!</p>
+      <p>Würth Handwerker-Shop ist Ihr verlässlicher Partner für Handwerksleistungen in  und Umgebung. Qualität, Termintreue und faire Preise sind unser Versprechen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Mo-Do</span><span>07:00–12:00 ·  13:00–17:00</span></li>
-              <li><span>Fr</span><span>07:00–12:00 ·  13:00–16:00</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>061 705 91 11</li>
-        <li>In der Au 6, Winterthur</li>
+        
+        
       </ul>
     </div>
   </div>
@@ -483,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=W%C3%BCrth%20Handwerker-Shop&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
