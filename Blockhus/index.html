@@ -9,9 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c-primary:#415c63;
-  --c-primary-light:#ee8f2f;
-  --c-accent:#ee8f2f;
+  --c-primary:#2C1810;
+  --c-primary-light:#D4A574;
+  --c-accent:#D4A574;
   --c-cream:#FDF6EE;
   --c-dark:#1a1a1a;
   --c-text:#333;
@@ -77,7 +77,7 @@ section{padding:96px 32px}
 .leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
 .leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
 .leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
-.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#ee8f2f,#415c63);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#D4A574,#2C1810);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
 .leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
 .leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
@@ -88,7 +88,7 @@ section{padding:96px 32px}
 .ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
 .ueber-photo{border-radius:20px;overflow:hidden;height:420px}
 .ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#415c6333,#ee8f2f44)}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57444)}
 
 /* GALERIE */
 .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
@@ -128,10 +128,10 @@ section{padding:96px 32px}
 .btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* CTA BANNER */
-.cta-banner{background:linear-gradient(135deg,#415c63 0%,#ee8f2f 100%);text-align:center;padding:80px 32px}
+.cta-banner{background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%);text-align:center;padding:80px 32px}
 .cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
 .cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
-.cta-banner .btn-white{background:#fff;color:#415c63;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
+.cta-banner .btn-white{background:#fff;color:#2C1810;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
 .cta-banner .btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.18)}
 
 /* FOOTER */
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="https://restaurant-blockhus.ch/wp-content/uploads/2023/11/logo-full-blockhus.png" alt="Blockhus" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">Blockhus</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -324,9 +324,9 @@ section{padding:96px 32px}
   <div class="galerie-grid">
     
     <div class="g-item reveal"><img src="https://restaurant-blockhus.ch/wp-content/uploads/2023/11/beffa-cento-white.png" alt="Blockhus" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1722222333212-dce948c09207?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NjU3NzJ8&ixlib=rb-4.1.0&q=80&w=400" alt="Blockhus" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1770910045351-bfc82a229b50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NjU3NzJ8&ixlib=rb-4.1.0&q=80&w=400" alt="Blockhus" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://images.unsplash.com/photo-1775687261081-5e3b680b70a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTY2NDB8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzY0NjU3NzJ8&ixlib=rb-4.1.0&q=80&w=400" alt="Blockhus" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=Blockhus%2C%20Kruggasse%202%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Blockhus%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Blockhus</strong>
-      Kruggasse 2, Zürich<br>Tel: 044 252 14 53
+      Zürich
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Blockhus%2C%20Kruggasse%202%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Blockhus%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -417,15 +417,14 @@ section{padding:96px 32px}
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Mo-Di</span><span>11:30–14:00 · 17:30–23:00</span></li>
-              <li><span>Mi-Sa</span><span>11:30–24:00</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>044 252 14 53</li>
-        <li>Kruggasse 2, Zürich</li>
+        
+        <li>Zürich</li>
       </ul>
     </div>
   </div>
@@ -483,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=Blockhus&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
