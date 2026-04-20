@@ -1276,7 +1276,24 @@ body{
         <div class="kpi-card-inner">
           <span class="kpi-icon">📊</span>
           <div class="kpi-num" id="kpi-rate" data-target="6" data-suffix="%">0</div>
-          <div class="kpi-label">Öffnungsrate</div>
+          <div class="kpi-label">Mail-Öffnungsrate</div>
+          <div class="kpi-delta" style="color:rgba(255,255,255,.4);font-size:10px;">inkl. Auto-Proxy</div>
+        </div>
+      </div>
+      <div class="kpi-card kpi-glass-border kpi-amber">
+        <div class="kpi-card-inner">
+          <span class="kpi-icon">🖥</span>
+          <div class="kpi-num" id="kpi-preview" data-target="0" data-suffix="">0</div>
+          <div class="kpi-label">Entwurf besucht</div>
+          <div class="kpi-delta kpi-delta-up">100% echte Menschen</div>
+        </div>
+      </div>
+      <div class="kpi-card kpi-glass-border kpi-indigo">
+        <div class="kpi-card-inner">
+          <span class="kpi-icon">🎯</span>
+          <div class="kpi-num" id="kpi-preview-rate" data-target="0" data-suffix="%">0</div>
+          <div class="kpi-label">Click-Rate (Entwurf)</div>
+          <div class="kpi-delta" style="color:rgba(255,255,255,.4);font-size:10px;">genaueste Zahl</div>
         </div>
       </div>
       <div class="kpi-card kpi-glass-border kpi-green">
@@ -2346,12 +2363,23 @@ async function loadSupabaseData() {
 }
 
 function _processData(rows) {
-  const names = new Set(rows.map(r => r.business_name||r.recipient));
-  const total = rows.length, unique = names.size;
-  const cnt = {}; rows.forEach(r => { const k=r.business_name||r.recipient||'?'; if(k!=='test') cnt[k]=(cnt[k]||0)+1; });
-  const hot = Object.values(cnt).filter(c=>c>=3).length;
   const TOTAL_SENT = 466;
+  // Trennen: E-Mail-Opens vs. Preview-Visits
+  const emailRows   = rows.filter(r => r.source !== 'preview' && r.business_name !== 'test');
+  const previewRows = rows.filter(r => r.source === 'preview');
+  const emailUnique = new Set(emailRows.map(r => r.business_name)).size;
+  const previewUnique = new Set(previewRows.map(r => r.business_name)).size;
+  const total = emailRows.length;
+  const unique = emailUnique;
+  const cnt = {}; emailRows.forEach(r => { const k=r.business_name||'?'; cnt[k]=(cnt[k]||0)+1; });
+  const hot = Object.values(cnt).filter(c=>c>=3).length;
   const rate = Math.round((unique/TOTAL_SENT)*100);
+
+  // Preview-Visit KPI anzeigen
+  const pvEl = document.getElementById('kpi-preview');
+  if (pvEl) { pvEl.dataset.target = previewUnique; animateCount(pvEl, previewUnique, '', 800); }
+  const pvRate = document.getElementById('kpi-preview-rate');
+  if (pvRate) { const r2 = Math.round(previewUnique/TOTAL_SENT*100); pvRate.dataset.target = r2; animateCount(pvRate, r2, '%', 800); }
 
   // Update KPIs
   const upd = (id, val, suffix='') => {
