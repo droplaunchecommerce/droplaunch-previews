@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c-primary:#3b2a1a;
-  --c-primary-light:#c0874c;
-  --c-accent:#c0874c;
-  --c-cream:#FAF6F1;
+  --c-primary:#2C1810;
+  --c-primary-light:#D4A574;
+  --c-accent:#D4A574;
+  --c-cream:#FDF6EE;
   --c-dark:#1a1a1a;
   --c-text:#333;
   --c-text-light:#666;
@@ -77,7 +77,7 @@ section{padding:96px 32px}
 .leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
 .leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
 .leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
-.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#c0874c,#3b2a1a);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#D4A574,#2C1810);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
 .leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
 .leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
@@ -88,7 +88,7 @@ section{padding:96px 32px}
 .ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
 .ueber-photo{border-radius:20px;overflow:hidden;height:420px}
 .ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#3b2a1a33,#c0874c44)}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57444)}
 
 /* GALERIE */
 .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
@@ -128,10 +128,10 @@ section{padding:96px 32px}
 .btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* CTA BANNER */
-.cta-banner{background:linear-gradient(135deg,#3b2a1a 0%,#c0874c 100%);text-align:center;padding:80px 32px}
+.cta-banner{background:linear-gradient(135deg,#2C1810 0%,#D4A574 100%);text-align:center;padding:80px 32px}
 .cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
 .cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
-.cta-banner .btn-white{background:#fff;color:#3b2a1a;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
+.cta-banner .btn-white{background:#fff;color:#2C1810;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
 .cta-banner .btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.18)}
 
 /* FOOTER */
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="http://www.baeckerei-schefer.ch/upload/layout/logo-schefer-einsiedeln.svg" alt="Schefer" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">Schefer</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -251,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Café · Bäckerei Schefer</div>
-    <h1>Wo der Tag gut beginnt.</h1>
-    <p class="hero-sub">Handgemachter Kaffee, hausgemachte Kuchen und eine Atmosphäre, die zum Bleiben einlädt — Ihr Café in Bäckerei Schefer.</p>
+    <div class="hero-tag">Restaurant · Bäckerei Schefer</div>
+    <h1>Wo gute Küche zu Hause ist.</h1>
+    <p class="hero-sub">Regionale Küche und herzliche Gastfreundschaft im Herzen von Bäckerei Schefer — jeden Tag frisch für Sie zubereitet.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Tisch reservieren →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -264,7 +264,7 @@ section{padding:96px 32px}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item reveal"><div class="stat-num">4.9★</div><div class="stat-lbl">Google-Bewertung</div></div><div class="stat-item reveal"><div class="stat-num">Täglich</div><div class="stat-lbl">Frisch gebacken</div></div><div class="stat-item reveal"><div class="stat-num">10+</div><div class="stat-lbl">Jahre Kaffeekultur</div></div>
+    <div class="stat-item reveal"><div class="stat-num">15+</div><div class="stat-lbl">Jahre Gastfreundschaft</div></div><div class="stat-item reveal"><div class="stat-num">4.8★</div><div class="stat-lbl">Google-Bewertung</div></div><div class="stat-item reveal"><div class="stat-num">100%</div><div class="stat-lbl">Frische Zutaten</div></div>
   </div>
 </div>
 
@@ -277,24 +277,24 @@ section{padding:96px 32px}
     
       <div class="leistung-card reveal">
         <div class="leistung-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2l-3 1-3-1-3 1-3-1v13a3 3 0 0 0 6 0v-3h0a3 3 0 0 0 6 0z"/></svg>
         </div>
-        <h3>Kaffee-Spezialitäten</h3>
-        <p>Espresso, Cappuccino, Flat White — handgemacht aus besten Single-Origin-Bohnen.</p>
+        <h3>Mittagsmenü</h3>
+        <p>Täglich frisch — regionale Zutaten, hausgemachte Gerichte. Wechselndes Tagesmenü ab CHF 22.</p>
       </div>
       <div class="leistung-card reveal reveal-delay-2">
         <div class="leistung-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20"/><path d="M20 4v16"/></svg>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
-        <h3>Frühstück & Brunch</h3>
-        <p>Jeden Morgen frisch — hausgemachte Spezialitäten, saisonale Zutaten, volle Energie für den Tag.</p>
+        <h3>À la carte</h3>
+        <p>Unsere Karte wechselt saisonal — immer mit lokalen Spezialitäten und Klassikern.</p>
       </div>
       <div class="leistung-card reveal reveal-delay-3">
         <div class="leistung-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3>Kuchen & Backwaren</h3>
-        <p>Täglich frisch gebacken — von der Hauscrèmeschnitte bis zum saftigen Rüeblikuchen.</p>
+        <h3>Catering & Events</h3>
+        <p>Firmenessen, Familienfeier oder Hochzeit — wir machen Ihren Anlass unvergesslich.</p>
       </div>
   </div>
 </div>
@@ -306,7 +306,7 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Schefer</h2>
-      <p class="ueber-body reveal">Schefer in Bäckerei Schefer steht für echten Kaffeegenuss und hausgemachte Köstlichkeiten. Ein Ort zum Wohlfühlen, Treffen und Entschleunigen.</p>
+      <p class="ueber-body reveal">Willkommen bei Schefer in Bäckerei Schefer. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
       <a href="http://www.baeckerei-schefer.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
     </div>
     <div class="ueber-photo reveal">
@@ -324,9 +324,9 @@ section{padding:96px 32px}
   <div class="galerie-grid">
     
     <div class="g-item reveal"><img src="https://www.baeckerei-schefer.ch/cms/upload/bilder/home/_60A0193_700x828.jpg" alt="Schefer" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://www.baeckerei-schefer.ch/cms/upload/bilder/home/_60A0428-2_720x720.jpg" alt="Schefer" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://www.baeckerei-schefer.ch/cms/upload/bilder/home/_60A0096_940x330.jpg" alt="Schefer" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#3b2a1a33,#c0874c33);"></div></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2C181033,#D4A57433);"></div></div>
   </div>
 </div>
 </section>
@@ -341,39 +341,39 @@ section{padding:96px 32px}
     </div>
   </div>
   <div class="bew-overall reveal">
-    <span class="score">4.9</span>
+    <span class="score">4.8</span>
     <div>
       <div class="stars">★★★★☆</div>
-      <span class="count">78 Bewertungen auf Google</span>
+      <span class="count">93 Bewertungen auf Google</span>
     </div>
   </div>
   <div class="bew-grid">
     
     <div class="bew-card reveal reveal-delay-1">
       <div class="bew-card-top">
-        <div class="bew-avatar" style="background:var(--c-primary);">L</div>
-        <div><div class="bew-name">Lisa M.</div><div class="bew-date">vor 1 Woche</div></div>
+        <div class="bew-avatar" style="background:var(--c-primary);">T</div>
+        <div><div class="bew-name">Thomas K.</div><div class="bew-date">vor 2 Wochen</div></div>
       </div>
       <div class="bew-stars">★★★★★</div>
-      <p class="bew-text">Bester Kaffee in der ganzen Gegend! Die Atmosphäre ist wunderschön gemütlich — komme jede Woche.</p>
+      <p class="bew-text">Wunderbares Essen, herzliche Atmosphäre. Das Cordon Bleu ist unschlagbar — kommen immer wieder!</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
     <div class="bew-card reveal reveal-delay-2">
       <div class="bew-card-top">
-        <div class="bew-avatar" style="background:#6B8E6B;">P</div>
-        <div><div class="bew-name">Peter H.</div><div class="bew-date">vor 2 Wochen</div></div>
+        <div class="bew-avatar" style="background:#6B8E6B;">M</div>
+        <div><div class="bew-name">Monika S.</div><div class="bew-date">vor 1 Monat</div></div>
       </div>
       <div class="bew-stars">★★★★★</div>
-      <p class="bew-text">Hausgemachte Kuchen, freundliches Personal — hier fühlt man sich sofort wie zuhause.</p>
+      <p class="bew-text">Perfekte Location für unsere Firmenfeier. Service war ausgezeichnet, alles top organisiert.</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
     <div class="bew-card reveal reveal-delay-3">
       <div class="bew-card-top">
         <div class="bew-avatar" style="background:#8B7355;">S</div>
-        <div><div class="bew-name">Sandra B.</div><div class="bew-date">vor 1 Monat</div></div>
+        <div><div class="bew-name">Stefan B.</div><div class="bew-date">vor 3 Wochen</div></div>
       </div>
       <div class="bew-stars">★★★★☆</div>
-      <p class="bew-text">Toller Brunch am Wochenende, frische Zutaten, faire Preise. Sehr empfehlenswert!</p>
+      <p class="bew-text">Seit Jahren unser Stammrestaurant. Frisch, regional, lecker. Samstags etwas Wartezeit einplanen.</p>
       <div class="bew-google-badge"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Google</div>
     </div>
   </div>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=Schefer%2C%2047.2351608%2C%208.63758&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Schefer%2C%20B%C3%A4ckerei%20Schefer&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Schefer</strong>
-      <br>Tel: 055 418 84 18
+      Bäckerei Schefer
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Schefer%2C%2047.2351608%2C%208.63758" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Schefer%2C%20B%C3%A4ckerei%20Schefer" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,19 +412,19 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Schefer</h3>
-      <p>Schefer in Bäckerei Schefer steht für echten Kaffeegenuss und hausgemachte Köstlichkeiten. Ein Ort zum Wohlfühlen, Treffen und Entschleunigen.</p>
+      <p>Willkommen bei Schefer in Bäckerei Schefer. Wir stehen für Gastfreundschaft, regionale Küche und unvergessliche Momente — ob Familienessen, Feier oder Geschäftsessen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Mo-Sa</span><span>08:00–19:00</span></li>
+        <li><span>Öffnungszeiten</span><span>Bitte direkt erfragen</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>055 418 84 18</li>
         
+        <li>Bäckerei Schefer</li>
       </ul>
     </div>
   </div>
@@ -482,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=Schefer&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
