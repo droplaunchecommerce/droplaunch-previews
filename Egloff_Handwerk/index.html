@@ -10,8 +10,8 @@
 <style>
 :root{
   --c-primary:#1b3a5c;
-  --c-primary-light:#f0d79f;
-  --c-accent:#f0d79f;
+  --c-primary-light:#e07b32;
+  --c-accent:#e07b32;
   --c-cream:#F4F7FA;
   --c-dark:#1a1a1a;
   --c-text:#333;
@@ -77,7 +77,7 @@ section{padding:96px 32px}
 .leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
 .leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
 .leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
-.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#f0d79f,#1b3a5c);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#e07b32,#1b3a5c);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
 .leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
 .leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
@@ -88,7 +88,7 @@ section{padding:96px 32px}
 .ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
 .ueber-photo{border-radius:20px;overflow:hidden;height:420px}
 .ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#f0d79f44)}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3244)}
 
 /* GALERIE */
 .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
@@ -128,7 +128,7 @@ section{padding:96px 32px}
 .btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* CTA BANNER */
-.cta-banner{background:linear-gradient(135deg,#1b3a5c 0%,#f0d79f 100%);text-align:center;padding:80px 32px}
+.cta-banner{background:linear-gradient(135deg,#1b3a5c 0%,#e07b32 100%);text-align:center;padding:80px 32px}
 .cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
 .cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
 .cta-banner .btn-white{background:#fff;color:#1b3a5c;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="https://www.egloff-handwerk.ch/wp-content/uploads/2025/08/12-01-28_logo_gross-1024x346.jpg" alt="Egloff Handwerk" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo">Egloff Handwerk</a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -253,7 +253,7 @@ section{padding:96px 32px}
   <div class="hero-content">
     <div class="hero-tag">Handwerk · Romanshorn</div>
     <h1>Gemacht. Nicht versprochen.</h1>
-    <p class="hero-sub">Schreinerei Romanshorn</p>
+    <p class="hero-sub">Zuverlässiges Handwerk in Romanshorn — schnell, sauber, termingerecht. Ihr Ansprechpartner für alles.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Anfrage senden →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -306,7 +306,7 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Egloff Handwerk</h2>
-      <p class="ueber-body reveal">Schreinerei Romanshorn | Egloff Handwerk – Ihr Schreiner für Möbel nach Mass, Renovation, Umbauten im Oberthurgau</p>
+      <p class="ueber-body reveal">Egloff Handwerk ist Ihr verlässlicher Partner für Handwerksleistungen in Romanshorn und Umgebung. Qualität, Termintreue und faire Preise sind unser Versprechen.</p>
       <a href="http://www.egloff-handwerk.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
     </div>
     <div class="ueber-photo reveal">
@@ -324,9 +324,9 @@ section{padding:96px 32px}
   <div class="galerie-grid">
     
     <div class="g-item reveal"><img src="https://www.egloff-handwerk.ch/wp-content/uploads/2025/10/moebel-frontseite-2-1024x836.jpg" alt="Egloff Handwerk" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="https://www.egloff-handwerk.ch/wp-content/uploads/2025/10/renovation-boden-eiche-1.jpg" alt="Egloff Handwerk" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="https://www.egloff-handwerk.ch/wp-content/uploads/2025/10/Umbau-Innenausbau-Altholzwand-1-1024x836.jpg" alt="Egloff Handwerk" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="https://www.egloff-handwerk.ch/wp-content/uploads/2025/10/ChIJVVUFMXD9mkcR0QUpYZ6z4MM_img_1af3ca6e6c339b870ef9a5ca2e192f2e.jpg" alt="Egloff Handwerk" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-1"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
+    <div class="g-item reveal reveal-delay-2"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
+    <div class="g-item reveal reveal-delay-3"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1b3a5c33,#e07b3233);"></div></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=Egloff%20Handwerk%2C%20Alleestrasse%204%2C%20Romanshorn&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Egloff%20Handwerk%2C%20Romanshorn&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Egloff Handwerk</strong>
-      Alleestrasse 4, Romanshorn<br>Tel: 071 558 41 42
+      Romanshorn
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Egloff%20Handwerk%2C%20Alleestrasse%204%2C%20Romanshorn" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Egloff%20Handwerk%2C%20Romanshorn" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,7 +412,7 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Egloff Handwerk</h3>
-      <p>Schreinerei Romanshorn | Egloff Handwerk – Ihr Schreiner für Möbel nach Mass, Renovation, Umbauten im Oberthurgau</p>
+      <p>Egloff Handwerk ist Ihr verlässlicher Partner für Handwerksleistungen in Romanshorn und Umgebung. Qualität, Termintreue und faire Preise sind unser Versprechen.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
@@ -423,8 +423,8 @@ section{padding:96px 32px}
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>071 558 41 42</li>
-        <li>Alleestrasse 4, Romanshorn</li>
+        
+        <li>Romanshorn</li>
       </ul>
     </div>
   </div>
@@ -482,5 +482,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+<img src="https://tracker-droplaunch.vercel.app/api/pixel?biz=Egloff%20Handwerk&to=preview&src=preview" width="1" height="1" style="display:none;" alt="">
 </body>
 </html>
