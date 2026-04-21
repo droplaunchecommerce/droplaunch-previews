@@ -2075,6 +2075,17 @@ body{
       <p style="font-size:13px;color:var(--text2)">Alle Pakete, Preise, Provisionen und Einwand-Handler auf einen Blick.</p>
     </div>
 
+    <!-- AKTIVE LEADS + CLAIMING -->
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px" id="closer-leads-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber)">AKTIVE LEADS — WÄHLE DEINEN</div>
+        <button onclick="loadClaims()" style="background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text2);cursor:pointer">↻ Refresh</button>
+      </div>
+      <div id="closer-leads-list" style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:12px;color:var(--text3);padding:12px 0">Lädt Leads…</div>
+      </div>
+    </div>
+
     <!-- PROVISION ÜBERSICHT -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px">
       <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center">
@@ -2505,6 +2516,138 @@ function setPipeline(mode) {
   if (showShopify) loadShopifyData();
 }
 
+// ── CLOSER LEADS ──
+async function loadCloserLeads() {
+  const container = document.getElementById('closer-leads-list');
+  if (!container) return;
+  try {
+    // Claims aus localStorage laden
+    try { const s = localStorage.getItem('dl_claims'); if (s) _claims = JSON.parse(s); } catch(e){}
+    // Leads aus Supabase: interessiert + telefon-interesse aus opens (min 2 opens)
+    const r = await fetch(
+      `${SUPABASE_URL}/rest/v1/opens?select=business_name,recipient,opened_at&limit=2000`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const rows = await r.json();
+    if (!Array.isArray(rows)) return;
+    // Gruppieren nach Firma
+    const counts = {};
+    rows.forEach(row => {
+      const k = row.business_name || '?';
+      if (!counts[k]) counts[k] = { name: k, email: row.recipient, opens: 0 };
+      counts[k].opens++;
+    });
+    // Hot Leads: 2+ opens
+    const hotLeads = Object.values(counts)
+      .filter(l => l.opens >= 2)
+      .sort((a,b) => b.opens - a.opens)
+      .slice(0, 30);
+    if (hotLeads.length === 0) {
+      container.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px 0">Noch keine Hot Leads — Pipeline läuft.</div>';
+      return;
+    }
+    container.innerHTML = hotLeads.map(lead => {
+      const key = lead.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
+      const claim = _claims[key];
+      const user = USERS[_currentUser];
+      const isMine = claim && claim.closer === (user && user.name);
+      const isOther = claim && !isMine;
+      const borderColor = isOther ? 'rgba(248,113,113,.3)' : isMine ? 'rgba(16,185,129,.3)' : 'var(--border)';
+      return `
+        <div data-lead-key="${key}" data-lead-name="${lead.name}"
+             style="display:flex;align-items:center;justify-content:space-between;gap:12px;
+                    background:var(--glass);border:1px solid ${borderColor};
+                    border-radius:10px;padding:12px 16px;transition:.2s">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${lead.name}</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:2px">${lead.opens}× geöffnet · ${lead.email || '—'}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+            <span class="claim-badge" style="display:none;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px"></span>
+            <button class="claim-btn"
+              onclick="claimLead('${key}','${lead.name.replace(/'/g,'')}')"
+              style="padding:6px 14px;border-radius:6px;border:1px solid var(--border);
+                     background:var(--glass);color:var(--text);font-size:11px;font-weight:700;cursor:pointer">
+              Ich übernehme das
+            </button>
+          </div>
+        </div>`;
+    }).join('');
+    renderClaims();
+  } catch(e) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--red)">Fehler beim Laden der Leads.</div>';
+  }
+}
+
+// ── LEAD CLAIMS ──
+const CLAIMS_URL = 'https://droplaunchecommerce.github.io/droplaunch-previews/lead_claims.json';
+let _claims = {}; // { leadKey: { closer, claimedAt } }
+
+async function loadClaims() {
+  try {
+    const r = await fetch(CLAIMS_URL + '?t=' + Date.now());
+    if (r.ok) _claims = await r.json();
+  } catch(e) { _claims = {}; }
+  renderClaims();
+}
+
+function claimLead(leadKey, leadName) {
+  const user = USERS[_currentUser];
+  if (!user) return;
+  const existing = _claims[leadKey];
+  if (existing && existing.closer !== user.name) {
+    const ago = Math.round((Date.now() - existing.claimedAt) / 60000);
+    if (ago < 120) { // 2 Stunden Lock
+      alert(`${leadName} wird bereits von ${existing.closer} bearbeitet (vor ${ago} Min).`);
+      return;
+    }
+  }
+  _claims[leadKey] = { closer: user.name, claimedAt: Date.now(), leadName };
+  saveClaims();
+  renderClaims();
+}
+
+function releaseLead(leadKey) {
+  delete _claims[leadKey];
+  saveClaims();
+  renderClaims();
+}
+
+async function saveClaims() {
+  // Cleanup expired (>8h)
+  const now = Date.now();
+  Object.keys(_claims).forEach(k => {
+    if (now - _claims[k].claimedAt > 8 * 3600 * 1000) delete _claims[k];
+  });
+  // GitHub push via Vercel tracker endpoint nicht möglich — localStorage als Fallback
+  localStorage.setItem('dl_claims', JSON.stringify(_claims));
+}
+
+function renderClaims() {
+  // Alle Claim-Badges im Closer HQ updaten
+  document.querySelectorAll('[data-lead-key]').forEach(el => {
+    const key = el.dataset.leadKey;
+    const claim = _claims[key];
+    const badge = el.querySelector('.claim-badge');
+    const btn   = el.querySelector('.claim-btn');
+    if (!badge || !btn) return;
+    const user = USERS[_currentUser];
+    if (claim) {
+      const ago = Math.round((Date.now() - claim.claimedAt) / 60000);
+      badge.style.display = 'inline-flex';
+      badge.textContent = claim.closer === (user && user.name) ? `Du arbeitest daran` : `🔒 ${claim.closer} ist dran (${ago}m)`;
+      badge.style.background = claim.closer === (user && user.name) ? 'rgba(16,185,129,.15)' : 'rgba(248,113,113,.15)';
+      badge.style.color = claim.closer === (user && user.name) ? '#10b981' : 'var(--red)';
+      btn.textContent = claim.closer === (user && user.name) ? 'Freigeben' : 'Trotzdem übernehmen';
+      btn.onclick = () => claim.closer === (user && user.name) ? releaseLead(key) : claimLead(key, el.dataset.leadName);
+    } else {
+      badge.style.display = 'none';
+      btn.textContent = 'Ich übernehme das';
+      btn.onclick = () => claimLead(key, el.dataset.leadName);
+    }
+  });
+}
+
 // ── SHOPIFY DATA ──
 async function loadShopifyData() {
   try {
@@ -2533,8 +2676,9 @@ async function loadShopifyData() {
 
 // ── AUTH ──
 const USERS = {
-  'marlon':              { hash: '52b7b17e0808cd28f600af30bca14d2e92bb370ac27eb138fc2834ab6f5c8157', role: 'admin',  greet: 'Hallo Marlon 👋' },
-  'first.dor@outlook.com': { hash: '158215693c2ff8b51ddc0924fc42cf3c5f7aa698e74eb90648db32b1c30b29db', role: 'closer', greet: 'Hey Rodrigues 🔥' },
+  'marlon':                { hash: '52b7b17e0808cd28f600af30bca14d2e92bb370ac27eb138fc2834ab6f5c8157', role: 'admin',  greet: 'Hallo Marlon 👋',   name: 'Marlon' },
+  'first.dor@outlook.com': { hash: '158215693c2ff8b51ddc0924fc42cf3c5f7aa698e74eb90648db32b1c30b29db', role: 'closer', greet: 'Hey Rodrigues 🔥', name: 'Rodrigues' },
+  'anilhank4@gmail.com':   { hash: '16f1e6822119bee0b01b8d765b0f87aa4f332e81a4def729569ede0623fcee0f', role: 'closer', greet: 'Hey Anilhan 💪',   name: 'Anilhan' },
 };
 let _currentUser = null;
 
@@ -2584,16 +2728,19 @@ function _showDash(pw, username) {
   setTimeout(() => greetEl && greetEl.classList.add('visible'), 200);
 
   if (user.role === 'closer') {
-    // Rodrigues: nur Closer HQ Tab + minimale Sidebar
     document.querySelectorAll('.nav-item').forEach(el => el.style.display = 'none');
     document.querySelectorAll('.nav-section').forEach(el => el.style.display = 'none');
     const closerNav = document.getElementById('nav-closer');
     if (closerNav) { closerNav.style.display = 'flex'; closerNav.classList.add('active'); }
-    // Content-Mode toggle verstecken
     const cmToggle = document.querySelector('.content-mode-toggle');
     if (cmToggle) cmToggle.style.display = 'none';
-    // Direkt Closer Tab zeigen
+    const psSwitcher = document.getElementById('pipelineSwitcher');
+    if (psSwitcher) psSwitcher.style.display = 'none';
     showTab('closer');
+    // Claims aus localStorage laden
+    try { const s = localStorage.getItem('dl_claims'); if (s) _claims = JSON.parse(s); } catch(e){}
+    loadCloserLeads();
+    setInterval(loadCloserLeads, 30000); // alle 30s refresh
   } else {
     // Marlon: voller Zugriff
     const closerNav = document.getElementById('nav-closer');
