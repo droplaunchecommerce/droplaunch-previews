@@ -1210,6 +1210,12 @@ body{
       <div class="page-sub" id="pageSub">Kanton Thurgau · Live via Supabase</div>
     </div>
     <div class="topbar-right">
+      <!-- Pipeline Switcher -->
+      <div id="pipelineSwitcher" style="display:flex;align-items:center;gap:2px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:3px">
+        <button onclick="setPipeline('local')" id="ps-local" style="padding:5px 12px;border-radius:6px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;background:var(--indigo);color:#fff;letter-spacing:.3px">LOCAL</button>
+        <button onclick="setPipeline('shopify')" id="ps-shopify" style="padding:5px 12px;border-radius:6px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;background:transparent;color:var(--text2);letter-spacing:.3px">SHOPIFY</button>
+        <button onclick="setPipeline('both')" id="ps-both" style="padding:5px 12px;border-radius:6px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;background:transparent;color:var(--text2);letter-spacing:.3px">BEIDE</button>
+      </div>
       <span class="tb-badge tb-badge-live">
         <div class="pulse-dot" style="width:5px;height:5px"></div>
         Live
@@ -1229,17 +1235,17 @@ body{
   <!-- ── OVERVIEW ── -->
   <div id="tab-overview" class="content">
 
-    <!-- AI Pipeline Card -->
-    <div class="pipeline-card">
+    <!-- LOCAL Pipeline Card -->
+    <div class="pipeline-card" id="local-pipeline-card">
       <div class="pipeline-info">
-        <div class="pi-label">Vollautomatische KI-Pipeline</div>
+        <div class="pi-label">Local Business Pipeline</div>
         <div class="pi-title">OSM → Scrape → AI → Deploy → Mail → Tracking</div>
       </div>
       <div style="display:flex;align-items:center;gap:20px">
         <div class="pipeline-stats">
-          <div class="ps-item"><div class="ps-num" id="pip-sent">174</div><div class="ps-lbl">Gesendet</div></div>
-          <div class="ps-item"><div class="ps-num" id="pip-open" style="color:var(--amber)">418</div><div class="ps-lbl">Öffnungen</div></div>
-          <div class="ps-item"><div class="ps-num" id="pip-hot" style="color:var(--green)">59</div><div class="ps-lbl">Hot Leads</div></div>
+          <div class="ps-item"><div class="ps-num" id="pip-sent">466</div><div class="ps-lbl">Gesendet</div></div>
+          <div class="ps-item"><div class="ps-num" id="pip-open" style="color:var(--amber)">196</div><div class="ps-lbl">Öffnungen</div></div>
+          <div class="ps-item"><div class="ps-num" id="pip-hot" style="color:var(--green)">13</div><div class="ps-lbl">Hot Leads</div></div>
         </div>
         <div class="ai-badge">
           <div class="pulse-dot" style="width:5px;height:5px"></div>
@@ -1248,8 +1254,27 @@ body{
       </div>
     </div>
 
+    <!-- SHOPIFY Pipeline Card -->
+    <div class="pipeline-card" id="shopify-pipeline-card" style="display:none;background:linear-gradient(135deg,rgba(16,185,129,.08) 0%,rgba(5,150,105,.04) 100%);border-color:rgba(16,185,129,.2)">
+      <div class="pipeline-info">
+        <div class="pi-label" style="color:#10b981">Shopify Store Pipeline</div>
+        <div class="pi-title">DDG → Audit → GitHub → Mail → Tracking</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <div class="pipeline-stats">
+          <div class="ps-item"><div class="ps-num" id="sh-pip-sent" style="color:#10b981">55</div><div class="ps-lbl">Kontaktiert</div></div>
+          <div class="ps-item"><div class="ps-num" id="sh-pip-open" style="color:var(--amber)">0</div><div class="ps-lbl">Audit-Visits</div></div>
+          <div class="ps-item"><div class="ps-num" id="sh-pip-reply" style="color:var(--green)">0</div><div class="ps-lbl">Replies</div></div>
+        </div>
+        <div class="ai-badge" style="background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:#10b981">
+          <div class="pulse-dot" style="width:5px;height:5px;background:#10b981"></div>
+          AI AUTOPILOT
+        </div>
+      </div>
+    </div>
+
     <!-- KPI Cards -->
-    <div class="hero-grid">
+    <div class="hero-grid" id="local-kpi-grid">
       <div class="kpi-card kpi-grad-border kpi-indigo">
         <div class="kpi-card-inner">
           <span class="kpi-icon">📨</span>
@@ -1313,8 +1338,83 @@ body{
       </div>
     </div>
 
+    <!-- SHOPIFY KPI Block -->
+    <div id="shopify-kpi-section" style="display:none;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#10b981;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#10b981"></div>
+        SHOPIFY PIPELINE
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px">
+        <div class="kpi-card" style="border-color:rgba(16,185,129,.2)">
+          <div class="kpi-card-inner">
+            <span class="kpi-icon">🏪</span>
+            <div class="kpi-num" style="color:#10b981" id="sh-kpi-sent">55</div>
+            <div class="kpi-label">Shops kontaktiert</div>
+          </div>
+        </div>
+        <div class="kpi-card" style="border-color:rgba(16,185,129,.2)">
+          <div class="kpi-card-inner">
+            <span class="kpi-icon">📊</span>
+            <div class="kpi-num" style="color:var(--amber)" id="sh-kpi-audits">55</div>
+            <div class="kpi-label">Audits live</div>
+          </div>
+        </div>
+        <div class="kpi-card" style="border-color:rgba(16,185,129,.2)">
+          <div class="kpi-card-inner">
+            <span class="kpi-icon">👁</span>
+            <div class="kpi-num" style="color:var(--cyan)" id="sh-kpi-views">0</div>
+            <div class="kpi-label">Audit-Besuche</div>
+          </div>
+        </div>
+        <div class="kpi-card" style="border-color:rgba(16,185,129,.2)">
+          <div class="kpi-card-inner">
+            <span class="kpi-icon">💬</span>
+            <div class="kpi-num" style="color:var(--green)" id="sh-kpi-replies">0</div>
+            <div class="kpi-label">Replies</div>
+          </div>
+        </div>
+        <div class="kpi-card" style="border-color:rgba(16,185,129,.2)">
+          <div class="kpi-card-inner">
+            <span class="kpi-icon">💰</span>
+            <div class="kpi-num" style="color:var(--violet)" id="sh-kpi-revenue">CHF 0</div>
+            <div class="kpi-label">Pipeline-Wert</div>
+          </div>
+        </div>
+      </div>
+      <!-- Shopify Funnel -->
+      <div class="card" style="border-color:rgba(16,185,129,.15)">
+        <div class="card-header">
+          <div><div class="card-title" style="color:#10b981">Shopify Sales Funnel</div><div class="card-sub">DDG Discovery → Abschluss</div></div>
+        </div>
+        <div style="padding:0 20px 20px">
+          <div id="sh-funnel-wrap" style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:11px;color:var(--text2);width:120px;text-align:right">Shops gefunden</div>
+              <div style="flex:1;background:var(--glass);border-radius:4px;height:28px;overflow:hidden"><div style="width:100%;height:100%;background:rgba(16,185,129,.3);border-radius:4px;display:flex;align-items:center;padding:0 10px"><span style="font-size:12px;font-weight:700;color:#10b981" id="sh-f1">55</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:11px;color:var(--text2);width:120px;text-align:right">Mail gesendet</div>
+              <div style="flex:1;background:var(--glass);border-radius:4px;height:28px;overflow:hidden"><div style="width:100%;height:100%;background:rgba(16,185,129,.25);border-radius:4px;display:flex;align-items:center;padding:0 10px"><span style="font-size:12px;font-weight:700;color:#10b981" id="sh-f2">55</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:11px;color:var(--text2);width:120px;text-align:right">Audit geöffnet</div>
+              <div style="flex:1;background:var(--glass);border-radius:4px;height:28px;overflow:hidden"><div id="sh-f3-bar" style="width:0%;height:100%;background:rgba(16,185,129,.4);border-radius:4px;display:flex;align-items:center;padding:0 10px;transition:width 1s"><span style="font-size:12px;font-weight:700;color:#10b981" id="sh-f3">0</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:11px;color:var(--text2);width:120px;text-align:right">Reply erhalten</div>
+              <div style="flex:1;background:var(--glass);border-radius:4px;height:28px;overflow:hidden"><div id="sh-f4-bar" style="width:0%;height:100%;background:rgba(16,185,129,.5);border-radius:4px;display:flex;align-items:center;padding:0 10px;transition:width 1s 0.2s"><span style="font-size:12px;font-weight:700;color:#10b981" id="sh-f4">0</span></div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:11px;color:var(--text2);width:120px;text-align:right">Abschluss</div>
+              <div style="flex:1;background:var(--glass);border-radius:4px;height:28px;overflow:hidden"><div id="sh-f5-bar" style="width:0%;height:100%;background:#10b981;border-radius:4px;display:flex;align-items:center;padding:0 10px;transition:width 1s 0.4s"><span style="font-size:12px;font-weight:700;color:#fff" id="sh-f5">0</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Chart + Activity -->
-    <div class="grid-6-4">
+    <div class="grid-6-4" id="local-chart-section">
       <div class="card">
         <div class="card-header">
           <div>
@@ -1333,7 +1433,7 @@ body{
     </div>
 
     <!-- Hot Leads -->
-    <div class="card" style="margin-bottom:24px;">
+    <div class="card" id="hot-leads-section" style="margin-bottom:24px;">
       <div class="card-header">
         <div><div class="card-title">🔥 Hot Leads</div><div class="card-sub">Firmen mit 3+ Opens — haben echtes Interesse</div></div>
       </div>
@@ -2369,6 +2469,67 @@ const SESSION_KEY = 'dl_auth_v2';
 let opensChart = null;
 let _sessionPw = null;
 let contentMode = false;
+let _activePipeline = 'local';
+
+// ── PIPELINE SWITCHER ──
+function setPipeline(mode) {
+  _activePipeline = mode;
+  // Button-Styles
+  ['local','shopify','both'].forEach(m => {
+    const btn = document.getElementById('ps-' + m);
+    if (!btn) return;
+    if (m === mode) {
+      btn.style.background = m === 'shopify' ? '#10b981' : m === 'both' ? 'var(--violet)' : 'var(--indigo)';
+      btn.style.color = '#fff';
+    } else {
+      btn.style.background = 'transparent';
+      btn.style.color = 'var(--text2)';
+    }
+  });
+  // Sektionen ein/ausblenden
+  const showLocal    = mode === 'local'   || mode === 'both';
+  const showShopify  = mode === 'shopify' || mode === 'both';
+  const localCard    = document.getElementById('local-pipeline-card');
+  const shopifyCard  = document.getElementById('shopify-pipeline-card');
+  const localKPIs    = document.getElementById('local-kpi-grid');
+  const shopifyKPIs  = document.getElementById('shopify-kpi-section');
+  const localChart   = document.getElementById('local-chart-section');
+  const hotLeads     = document.getElementById('hot-leads-section');
+  if (localCard)   localCard.style.display   = showLocal   ? '' : 'none';
+  if (shopifyCard) shopifyCard.style.display = showShopify ? '' : 'none';
+  if (localKPIs)   localKPIs.style.display   = showLocal   ? '' : 'none';
+  if (shopifyKPIs) shopifyKPIs.style.display = showShopify ? '' : 'none';
+  if (localChart)  localChart.style.display  = showLocal   ? '' : 'none';
+  if (hotLeads)    hotLeads.style.display     = showLocal   ? '' : 'none';
+  // Shopify Supabase Daten laden
+  if (showShopify) loadShopifyData();
+}
+
+// ── SHOPIFY DATA ──
+async function loadShopifyData() {
+  try {
+    const r = await fetch(
+      `${SUPABASE_URL}/rest/v1/opens?src=eq.shopify&select=business_name,opened_at&limit=2000`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const rows = await r.json();
+    if (!Array.isArray(rows)) return;
+    const views = rows.length;
+    const unique = new Set(rows.map(r => r.business_name)).size;
+    document.getElementById('sh-kpi-views').textContent = views;
+    document.getElementById('sh-pip-open').textContent = views;
+    // Funnel bars
+    const sent = parseInt(document.getElementById('sh-kpi-sent').textContent) || 55;
+    const pct = v => Math.max(4, Math.round((v / sent) * 100));
+    const f3bar = document.getElementById('sh-f3-bar');
+    const f3    = document.getElementById('sh-f3');
+    if (f3bar && views > 0) { f3bar.style.width = pct(unique) + '%'; f3.textContent = unique; }
+    // Pipeline-Wert
+    const replies = parseInt(document.getElementById('sh-kpi-replies').textContent) || 0;
+    const pipelineValue = replies * 3000;
+    document.getElementById('sh-kpi-revenue').textContent = pipelineValue > 0 ? `CHF ${pipelineValue.toLocaleString('de-CH')}` : 'CHF 0';
+  } catch(e) { console.warn('Shopify data error', e); }
+}
 
 // ── AUTH ──
 const USERS = {
