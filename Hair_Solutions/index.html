@@ -10,8 +10,8 @@
 <style>
 :root{
   --c-primary:#1a1a2e;
-  --c-primary-light:#c9a84c;
-  --c-accent:#c9a84c;
+  --c-primary-light:#888888;
+  --c-accent:#888888;
   --c-cream:#F9F7F2;
   --c-dark:#1a1a1a;
   --c-text:#333;
@@ -45,7 +45,7 @@ img{-webkit-user-drag:none;pointer-events:none}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://www.hairspring.ch/data/files/hairspring_fb.jpg') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:url('https://hair-solutions.ch/wp-content/plugins/revslider/sr6/assets/assets/dummy.png') center/cover no-repeat}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 100%)}
 .hero-content{position:relative;z-index:2;max-width:var(--max-w);margin:0 auto;padding:0 32px;width:100%}
 .hero-tag{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:100px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:24px}
@@ -77,7 +77,7 @@ section{padding:96px 32px}
 .leistungen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
 .leistung-card{background:var(--c-white);padding:36px 30px;border-radius:16px;border:1px solid var(--c-border);transition:all .4s ease}
 .leistung-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px var(--c-shadow)}
-.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#c9a84c,#1a1a2e);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.leistung-icon{width:52px;height:52px;background:linear-gradient(135deg,#888888,#1a1a2e);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .leistung-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none}
 .leistung-card h3{font-family:var(--font-display);font-size:20px;color:var(--c-dark);margin-bottom:10px}
 .leistung-card p{font-size:14px;color:var(--c-text-light);line-height:1.7}
@@ -88,7 +88,7 @@ section{padding:96px 32px}
 .ueber-body{font-size:15px;color:var(--c-text-light);line-height:1.85;margin-bottom:24px}
 .ueber-photo{border-radius:20px;overflow:hidden;height:420px}
 .ueber-photo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e33,#c9a84c44)}
+.ueber-photo-fallback{width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e33,#88888844)}
 
 /* GALERIE */
 .galerie-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px;gap:16px}
@@ -128,7 +128,7 @@ section{padding:96px 32px}
 .btn-route svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* CTA BANNER */
-.cta-banner{background:linear-gradient(135deg,#1a1a2e 0%,#c9a84c 100%);text-align:center;padding:80px 32px}
+.cta-banner{background:linear-gradient(135deg,#1a1a2e 0%,#888888 100%);text-align:center;padding:80px 32px}
 .cta-banner h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px}
 .cta-banner p{color:rgba(255,255,255,0.82);font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
 .cta-banner .btn-white{background:#fff;color:#1a1a2e;padding:16px 40px;font-size:15px;font-weight:700;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;transition:all .3s}
@@ -225,7 +225,7 @@ section{padding:96px 32px}
 
 <nav class="nav" id="nav">
 <div class="nav-inner">
-  <a href="#" class="nav-logo"><img src="http://www.hairspring.ch/data/files/hair_spring_coiffeur_zurich_oerlikon.png" alt="Hair Solutions" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
+  <a href="#" class="nav-logo"><img src="https://hair-solutions.ch/wp-content/uploads/2017/08/logo.svg" alt="Hair Solutions" style="height:36px;width:auto;object-fit:contain;pointer-events:none;"></a>
   <ul class="nav-links">
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -251,9 +251,9 @@ section{padding:96px 32px}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">Barbershop · Zürich-Oerlikon</div>
+    <div class="hero-tag">Barbershop · Zürich</div>
     <h1>Handwerk, das man sieht.</h1>
-    <p class="hero-sub">«Hair Spring, Ihr Spezialist für typgerechte Schnitte, brillante Farben und atemberaubende Extensions in Zürich-Oerlikon»</p>
+    <p class="hero-sub">Präzise Haarschnitte, heisse Rasur und persönliche Beratung — Ihr Barbershop in Zürich.</p>
     <div class="hero-btns">
       <a href="#kontakt" class="btn btn-primary">Termin buchen →</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
@@ -306,11 +306,11 @@ section{padding:96px 32px}
     <div class="ueber-text">
       <span class="section-label reveal">Über uns</span>
       <h2 class="section-title reveal">Hair Solutions</h2>
-      <p class="ueber-body reveal">Ihr Spezialist für modische Schnitte, brillante Farben und professionelle Extensions in Zürich-Oerlikon</p>
-      <a href="http://www.hairspring.ch" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
+      <p class="ueber-body reveal">Hair Solutions steht für handwerkliche Präzision und persönliche Beratung. Bei uns erhalten Sie mehr als nur einen Haarschnitt — wir nehmen uns Zeit für Sie.</p>
+      <a href="https://hair-solutions.ch/" class="btn-outline-dark" target="_blank" rel="noopener" style="margin-top:24px;display:inline-block;">Aktuelle Website ansehen →</a>
     </div>
     <div class="ueber-photo reveal">
-      <img src="https://www.hairspring.ch/data/files/hairspring_fb.jpg" alt="Hair Solutions" loading="lazy">
+      <img src="https://hair-solutions.ch/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="Hair Solutions" loading="lazy">
     </div>
   </div>
 </div>
@@ -323,10 +323,10 @@ section{padding:96px 32px}
   <p class="section-subtitle reveal">Qualität, die man sieht — von unserem Team für Sie gemacht.</p>
   <div class="galerie-grid">
     
-    <div class="g-item reveal"><img src="https://www.hairspring.ch/data/files/hairspring_fb.jpg" alt="Hair Solutions" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-1"><img src="http://www.hairspring.ch/data/files/hair_spring_coiffeur_zurich_oerlikon.png" alt="Hair Solutions" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-2"><img src="http://www.hairspring.ch/img/close.png" alt="Hair Solutions" loading="lazy"></div>
-    <div class="g-item reveal reveal-delay-3"><img src="http://www.hairspring.ch/data/files/map_hair_spring_2022_2.jpg" alt="Hair Solutions" loading="lazy"></div>
+    <div class="g-item reveal"><img src="https://hair-solutions.ch/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="Hair Solutions" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-1"><img src="https://hair-solutions.ch/wp-content/uploads/2017/09/urs-ruchti-galerie-30.jpg" alt="Hair Solutions" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-2"><img src="https://hair-solutions.ch/wp-content/uploads/2017/09/urs-ruchti-galerie-29.jpg" alt="Hair Solutions" loading="lazy"></div>
+    <div class="g-item reveal reveal-delay-3"><img src="https://hair-solutions.ch/wp-content/uploads/2017/09/urs-ruchti-galerie-28.jpg" alt="Hair Solutions" loading="lazy"></div>
   </div>
 </div>
 </section>
@@ -386,14 +386,14 @@ section{padding:96px 32px}
   <h2 class="section-title reveal">Besuchen Sie uns</h2>
   <p class="section-subtitle reveal">Wir freuen uns auf Ihren Besuch — Sie finden uns hier.</p>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=Hair%20Solutions%2C%20Max-Bill-Platz%207%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Hair%20Solutions%2C%20Weinbergstrasse%2091%2C%20Z%C3%BCrich&output=embed&hl=de" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <div class="map-info reveal">
     <div class="map-address">
       <strong>Hair Solutions</strong>
-      Max-Bill-Platz 7, Zürich<br>Tel: 044 850 24 44
+      Weinbergstrasse 91, Zürich<br>Tel: 044 363 16 44
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Hair%20Solutions%2C%20Max-Bill-Platz%207%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Hair%20Solutions%2C%20Weinbergstrasse%2091%2C%20Z%C3%BCrich" target="_blank" class="btn-route">
       <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Route planen
     </a>
@@ -412,20 +412,20 @@ section{padding:96px 32px}
   <div class="footer-top">
     <div class="footer-brand">
       <h3>Hair Solutions</h3>
-      <p>Ihr Spezialist für modische Schnitte, brillante Farben und professionelle Extensions in Zürich-Oerlikon</p>
+      <p>Hair Solutions steht für handwerkliche Präzision und persönliche Beratung. Bei uns erhalten Sie mehr als nur einen Haarschnitt — wir nehmen uns Zeit für Sie.</p>
     </div>
     <div>
       <h4>Öffnungszeiten</h4>
       <ul>
-        <li><span>Mo-Fr</span><span>08:30–19:00</span></li>
+        <li><span>Mo-Fr</span><span>08:30–18:30</span></li>
               <li><span>Sa</span><span>08:00–16:00</span></li>
       </ul>
     </div>
     <div>
       <h4>Kontakt</h4>
       <ul class="footer-contact">
-        <li>044 850 24 44</li>
-        <li>Max-Bill-Platz 7, Zürich</li>
+        <li>044 363 16 44</li>
+        <li>Weinbergstrasse 91, Zürich</li>
       </ul>
     </div>
   </div>
