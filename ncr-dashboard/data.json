@@ -1,0 +1,32 @@
+{
+  "pipeline": {
+    "status": "running",
+    "current_step": "Browser starten...",
+    "started_at": "2026-05-05T14:34:09.312Z",
+    "last_updated": "2026-05-05T14:34:09.314Z"
+  },
+  "stats": {
+    "total_leads": 0,
+    "leads_with_email": 0,
+    "emails_sent": 0,
+    "emails_opened": 0,
+    "emails_clicked": 0,
+    "follow_ups_sent": 0,
+    "replies": 0
+  },
+  "progress": {
+    "current_city": null,
+    "current_term": null,
+    "total_queries": 35,
+    "queries_done": 0
+  },
+  "activity": [
+    {
+      "time": "2026-05-05T14:34:09.314Z",
+      "type": "pipeline_start",
+      "message": "Scraper gestartet — 35 Suchen geplant",
+      "data": {}
+    }
+  ],
+  "leads_preview": []
+}
